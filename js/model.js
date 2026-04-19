@@ -96,10 +96,12 @@ const PredictionModel = {
         // Ensemble: combine methods
         const predicted = 0.45 * wma + 0.35 * lrPred + 0.20 * adjusted;
 
-        // Confidence interval (widened for real-world volatility)
+        // Asymmetrical confidence interval (Scores drop easier than they rise)
+        // We ensure a minimum buffer using max(1.0, std) to guarantee at least -0.75 / +0.5
         const std = this.historicalVariance(scores);
-        const low = predicted - 1.6 * std;
-        const high = predicted + 1.6 * std;
+        const effectiveStd = Math.max(1.0, std);
+        const low = predicted - 0.75 * effectiveStd;
+        const high = predicted + 0.50 * effectiveStd;
 
         // Trend (positive = increasing, negative = decreasing)
         const trend = lr ? lr.slope : 0;
