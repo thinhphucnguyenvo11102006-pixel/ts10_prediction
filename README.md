@@ -1,64 +1,61 @@
-# 🎓 Mô Hình Dự Đoán Điểm Chuẩn Tuyển Sinh Lớp 10 TPHCM 2026
+# 🎓 AI Prediction Model for TPHCM Grade 10 Admission 2026
 
-Dự án này là một ứng dụng Web tĩnh (Static Web App) giúp học sinh và phụ huynh tại Thành phố Hồ Chí Minh phân tích, định hướng và đưa ra các quyết định chọn trường cấp 3 an toàn, chính xác và bớt cảm tính hơn dựa trên dữ liệu thật của 4 năm gần nhất (2022-2025).
+*Read this in other languages: [Vietnamese / Tiếng Việt](README_VN.md)*.
 
----
-
-## 🚀 Cách Thức Hoạt Động (App Flow)
-
-Ứng dụng là một trang Single Page Application (SPA), nghĩa là chỉ cần tải đúng 1 lần và mọi thao tác chuyển trang/hiển thị biểu đồ đều mượt mà không cần load lại web. Người dùng sẽ tương tác thông qua 5 Tab chức năng tuần tự:
-
-1. **Tab 1 - Khám Phá Data (Dự Đoán Điểm Chuẩn):** Bảng tổng sắp 114 trường cấp 3 với lịch sử điểm chuẩn, điểm dự đoán 2026, phân hạng (Tier), và độ tin cậy. (Có chức năng nhấp vào trường để xem biểu đồ đường đi của điểm).
-2. **Tab 2 - Đánh Giá Khả Thi:** Nhập trực tiếp 3 nguyện vọng (NV) học sinh tính chọn, cùng điểm giả định. App tính toán cụ thể % đậu từng nguyện vọng và tư vấn chiến lược đang đi đúng hay sai.
-3. **Tab 3 - Gợi Ý Hệ Sinh Thái Theo Quận:** Điền tổng điểm, chọn khu vực sống. App quét qua database để "bốc" ra các trường xung quanh khu vực đó sao cho phân bậc vừa vặn thành 3 giỏ: Vươn Cao - Vừa Sức - An Toàn.
-4. **Tab 4 - Bức Tranh Phổ Điểm:** Dành cho phụ huynh thích nghiên cứu. Tab này vẽ ra các đường cong hình chuông, so sánh xu hướng khó/dễ của kì thi các năm để nhìn nhận "mặt bằng chung".
-5. **Tab 5 - Tối Ưu Chiến Lược (Tối Ưu NV):** Dành cho học sinh chưa thi chuyển cấp. 
-    * *Flow:* Nhập ngay điểm trên trường (HK2, TBCN) -> App sẽ chuyển đổi qua "điểm thi thực tế" -> Engine tư vấn sẽ nhặt luôn cho bạn 3 trường tối ưu nhất (NV1, NV2, NV3) kèm 10 lựa chọn sơ cua y chang mức điểm đó.
+This project is a **Static Web Application** designed to help 9th-grade students and their parents in Ho Chi Minh City (TPHCM) digitally analyze, strategize, and make data-driven decisions regarding high school admissions. Replacing raw Excel spreadsheets and intuitive guesses, this tool relies on a historical dataset (2022-2025) and statistical models to predict future admission cutoffs for 114 public high schools in 2026.
 
 ---
 
-## 🧠 Các Thuật Toán Chi Tiết (Underneath the Hood)
+## 🚀 Application Flow & Features
 
-Dự án này không phải một bảng tra cứu excel đơn thuần. Nó vận hành trên các quy luật thống kê. Dưới đây là kiến trúc thuật toán chi tiết. 
+The application is built on a Single Page Application (SPA) architecture, ensuring seamless transitions across 5 core analytical tabs:
 
-### 1. Mô Hình Dự Đoán Ensemble (Ensemble Prediction Model)
-Nằm trong `model.js`, khi tính toán điểm chuẩn 2026 cho 1 trường, App luôn chạy 3 mô hình song song và gộp lại (Ensemble):
-
-* **45% Weighted Moving Average (WMA):** Trung bình động có trọng số. Cấp trọng số giảm dần theo thời gian (2025 x 4, 2024 x 3, 2023 x 2, 2022 x 1). Lí do: Chuyện năm trước luôn phản ánh đúng nhất tình thế của năm sau, thay vì cào bằng với năm quá khứ xa.
-* **35% Linear Regression (Hồi Quy Tuyến Tính):** Sử dụng `Least Squares Method` (Phương pháp bình phương tối thiểu) để tìm ra đường thẳng trend-line của trường qua 4 năm. Nó trả lời cho câu hỏi: "Trường này đang trên đà từ từ tụt dốc hay là năm sau sẽ tiếp tục lội ngược dòng lên điểm cao?".
-* **20% Cạnh Tranh Cục Bộ (Competition Effect):** Phân tích biến động "sốc". Nếu một trường vừa giảm sâu điểm năm ngoái, năm nay tâm lý chung đám đông sẽ ùa vào nộp, gây tăng điểm ảo.
-
-*Khoảng tin cậy (Confidence Interval):* Mô hình tính độ lệch chuẩn ($\sigma$) của điểm 4 năm qua. Các khoảng sai số đệm dao động trong ngưỡng `± 1.6 \sigma` để quét mọi rủi ro dao động từ 1.5 đến 2.5 điểm.
-
-### 2. Mô Hình Rủi Ro Quy Chế (Penalized Probabilistic Model)
-Áp dụng chặt chẽ quy chế tuyển sinh TP.HCM: Rớt NV1 xuống xét NV2 bị chịu thiệt `+ 0.5 điểm`, rớt tiếp NV3 thì điểm xét vớt thường cao hơn `+ 1.0` hoặc `+ 1.5`.
-
-* Khi chạy Evaluate (Khả Thi), app tự thiết lập "Điểm Chuẩn Chống Lại Thí Sinh" trên từng nguyện vọng: `Effective Threshold = Predicted + (NV_Index * 0.75)`.
-* Trả về xác suất %: `Diff >= 2.5 (95% - Rất An toàn), Diff >= 1.5 (85% - An Toàn), Diff >= -1.0 (30% - Rủi Ro)`
-
-### 3. Thuật Toán Hệ Sinh Thái Trường (Ecosystem Tiering)
-Thay vì thuật toán "Nearest Match" (Tìm số gần nhất), tôi tự động nhúng hệ sinh thái trường vào hệ phân cấp 8 nấc vĩnh viễn (Tier S, A+, A, A-, B+, B, B-, C).
-* Khi học sinh đề nghị xin Gợi ý, trường được pick từ các Tier cụ thể để đảm bảo: **1 trường phải rớt xuống dưới năng lực 2.5+ điểm** thì mới được coi là Nguyện Vọng 3.
-
-### 4. Normal Distribution Function (Hàm Mật Độ Phân Phối Chuẩn)
-Dùng tại Tab 4 (Phổ Điểm). Để vẽ được đường cong phân bố, tôi đã xây dựng hàm `gaussian(x, mean, stdDev)`.
-```javascript
-const exponent = Math.exp(-Math.pow(x - mean, 2) / (2 * Math.pow(stdDev, 2)));
-return (1 / (stdDev * Math.sqrt(2 * Math.PI))) * exponent;
-```
-Biểu diễn hình ảnh phân hóa học sinh rất sát với các mẫu dữ liệu khổng lồ ngoài đời thực.
-
-### 5. Thuật Toán Chuyển Đổi Năng Lực (Ability Converter)
-Ở Tab 5, làm sao biết 8.0 Toán lớp 9 thì thi rụng xuống còn mấy điểm?
-Công thức: `Estimate = [(Điểm HK2 × 60%) + (Điểm TBCN × 40%)] × 0.85`
-* Đặt 60% vào HK2 vì format đó giống thi tuyển 10 nhất.
-* Cấp hệ số "Trừ hao Độ khó phòng thi" là **0.85**, vì thi tuyển 10 khắc nghiệt hơn kiểm tra ở trường rất nhiều. (Nếu điền đều 10 phẩy, điểm tối đa vớt ra được chỉ là 25.5 chứ không thể là 30).
+1. **Tab 1 - Data Discovery (Predicted Cutoffs):** A comprehensive table listing 114 high schools, their 4-year historical cutoffs, dynamically predicted 2026 cutoffs, and performance Tiers. You can click on any school to view its historical trend chart.
+2. **Tab 2 - Feasibility Evaluation:** Users input their hypothetical exam scores and select their 3 desired schools (Aspirations 1, 2, and 3). The engine calculates the exact probability of admission for each choice and provides personalized strategic advice.
+3. **Tab 3 - District Ecosystem Suggestion:** Enter a target score and a preferred district. The app filters all nearby schools and categorizes them into three safety buckets: *Stretch (Reach), Match, and Safe*.
+4. **Tab 4 - Statistical Score Distribution:** Aimed at researchers and parents, this tab generates Gaussian (Bell curve) distributions comparing the exam difficulty and score density of past years against the 2026 projection.
+5. **Tab 5 - Strategy Optimization:** For students who haven't taken the exam yet. Enter current 9th-grade school scores (Semester 2 & Year-End). The app mathematically converts these to realistic exam estimates, then autonomously recommends the 3 most optimal aspirations (NV1, NV2, NV3) alongside 10 viable alternative schools.
 
 ---
 
-## 🛠 Cách Chạy / Triển Khai (Deployment)
-Code thuần Client-side (HTML/CSS/JS). Không Node.js, Không Database.
-*   **Chạy Local:** Double-click file `index.html` hoặc dùng `Live Server` trong VSCode.
-*   **Hoặc truy cập Live Link trên GitHub Pages:** `https://tên_của_bạn.github.io/ts10_prediction/`
+## 🧠 Underlying Algorithms & Mathematical Models
 
-*Đây là một dự án mở, cung cấp những góc nhìn công cụ số mạnh mẽ cho những mùa thi chuyển cấp.*
+This application leverages rigorous statistical logic rather than simple averaging. Here is the architecture underneath:
+
+### 1. Ensemble Prediction Model
+Found in `model.js`, the core cutoff prediction for 2026 runs three calculations in parallel to form an ensemble:
+*   **45% Weighted Moving Average (WMA):** Grants higher mathematical weight to recent years (2025 × 4, 2024 × 3, etc.). Recent admission tendencies reflect the current educational climate far better than ancient data.
+*   **35% Linear Regression:** Uses the *Least Squares Method* across 4 data points to extract a directional trend-line slope. This answers whether a school's popularity is organically growing or declining over time.
+*   **20% Local Competition Effect:** Captures "shock" adjustments. If a school dropped severely the previous year, crowd psychology usually causes a surge in the subsequent year.
+
+*Confidence Interval:* To guarantee realism, standard deviation ($\sigma$) is utilized. However, noticing that exam scores drop much more easily than they rise (due to exam difficulty asymmetrical capping), the application uses an asymmetrical confidence interval: **-0.75 to +0.50 multipliers**.
+
+### 2. Penalized Probabilistic Risk Model
+Closely follows the admission rules established by the TPHCM Department of Education. Failing Aspiration 1 (NV1) drops the student into Aspiration 2 (NV2), which acts as a heavy penalty.
+*   The model calculates an `Effective Threshold = Predicted Cutoff + (Index * 0.75)`.
+*   Winning probabilities are calculated based on the margin over the threshold: `Margin >= +2.5 (95% Safety), Margin >= +1.5 (85%), Margin >= -1.0 (30% Risk)`.
+
+### 3. Ability Converter (Difficulty Coefficient)
+For Tab 5's strategy generator, how do we know what an "8.0 Math" in school translates to on the actual rigorous entrance exam?
+*   `Estimate = [(Sem2 × 60%) + (YearEnd × 40%)] × 0.85`
+*   The **0.85 coefficient** acts as a strict "reality penalty" since high school entrance exams are significantly harder than local middle school tests.
+
+### 4. Normal Distribution (Gaussian Function)
+Applied in Tab 4 to visualize score densities:
+`P(x) = (1 / (σ * √(2π))) * e^(-(x-μ)² / 2σ²)`
+
+### 5. Ecosystem Tiering Algorithm
+All 114 schools are automatically clustered into 8 permanent Tiers (S, A+, A, A-, B+, B, B-, C) based on their 4-year cutoff stability, preventing the recommendation engine from blindly picking "closest match" without considering institutional reputation margins.
+
+---
+
+## 🎨 UI/UX: Earthtone Glassmorphism
+The platform applies a highly modern, dark **Coffee/Mocha** aesthetic (`#1a100c` background) using CSS Glassmorphism logic (`rgba(255,255,255,0.03)` overlays). This prevents eye-strain during intense data-reading sessions while maintaining a premium, enterprise-grade feel.
+
+## 🛠 Deployment & Tech Stack
+*   **Architecture:** 100% Vanilla JavaScript, HTML5, CSS3.
+*   **Dependencies:** None (Only Chart.js loaded via CDN).
+*   **Operation:** Since it operates entirely Client-Side, there's zero backend maintenance cost. It runs instantly on any modern browser offline or natively through GitHub Pages.
+
+---
+*Developed with ❤️ as a digital solution for exam season.*
