@@ -4,38 +4,39 @@
    CSS CUSTOM PROPERTIES
 ============================== */
 :root {
-    --bg-primary: #0a0e1a;
-    --bg-secondary: #0f1629;
-    --bg-card: rgba(15, 22, 41, 0.7);
+    /* Earth/Coffee Palette */
+    --bg-primary: #1a100c;
+    --bg-secondary: #2d1c15;
+    --bg-card: rgba(45, 28, 21, 0.8);
     --bg-glass: rgba(255, 255, 255, 0.03);
-    --bg-glass-hover: rgba(255, 255, 255, 0.06);
+    --bg-glass-hover: rgba(255, 255, 255, 0.07);
     --border: rgba(255, 255, 255, 0.06);
-    --border-active: rgba(99, 102, 241, 0.4);
+    --border-active: rgba(195, 161, 123, 0.4);
 
     --text-primary: rgba(255, 255, 255, 0.92);
-    --text-secondary: rgba(255, 255, 255, 0.6);
-    --text-muted: rgba(255, 255, 255, 0.35);
+    --text-secondary: rgba(255, 255, 255, 0.65);
+    --text-muted: rgba(255, 255, 255, 0.4);
 
-    --primary: #6366f1;
-    --primary-light: rgba(99, 102, 241, 0.15);
-    --secondary: #06b6d4;
-    --accent: #f59e0b;
-    --success: #10b981;
-    --danger: #ef4444;
-    --warning: #f59e0b;
+    --primary: #b48c6b;
+    --primary-light: rgba(180, 140, 107, 0.15);
+    --secondary: #9b6f50;
+    --accent: #c3a17b;
+    --success: #65a30d; /* Olive green */
+    --danger: #dc2626; /* Deep red */
+    --warning: #d97706; /* Amber */
 
-    --gradient-primary: linear-gradient(135deg, #6366f1, #8b5cf6);
-    --gradient-accent: linear-gradient(135deg, #f59e0b, #f97316);
-    --gradient-bg: linear-gradient(180deg, #0a0e1a 0%, #0f1629 50%, #131b33 100%);
+    --gradient-primary: linear-gradient(135deg, #c3a17b, #9b6f50);
+    --gradient-accent: linear-gradient(135deg, #e5c3a3, #b48c6b);
+    --gradient-bg: linear-gradient(180deg, #1a100c 0%, #2a1a14 50%, #3a261d 100%);
 
     --radius-sm: 8px;
     --radius: 12px;
     --radius-lg: 16px;
     --radius-xl: 20px;
 
-    --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-    --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.4);
-    --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.15);
+    --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.5);
+    --shadow-glow: 0 0 30px rgba(195, 161, 123, 0.15);
 
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-fast: all 0.15s ease;
