@@ -96,10 +96,10 @@ const PredictionModel = {
         // Ensemble: combine methods
         const predicted = 0.45 * wma + 0.35 * lrPred + 0.20 * adjusted;
 
-        // Confidence interval
+        // Confidence interval (widened for real-world volatility)
         const std = this.historicalVariance(scores);
-        const low = predicted - 1.2 * std;
-        const high = predicted + 1.2 * std;
+        const low = predicted - 1.6 * std;
+        const high = predicted + 1.6 * std;
 
         // Trend (positive = increasing, negative = decreasing)
         const trend = lr ? lr.slope : 0;
@@ -145,33 +145,33 @@ const PredictionModel = {
             if (!school) continue;
 
             const pred = this.predictSchool(school);
-            const nvPenalty = i * 0.5; // NV2 +0.5, NV3 +1.0 effective threshold
+            const nvPenalty = i * 0.75; // NV2 +0.75, NV3 +1.5 effective threshold
             const effectiveThreshold = pred.predicted + nvPenalty;
 
             const margin = totalScore - effectiveThreshold;
             let probability, status, statusLabel;
 
-            if (margin >= 2.0) {
+            if (margin >= 2.5) {
                 probability = 95;
                 status = "safe";
                 statusLabel = "Rất an toàn";
-            } else if (margin >= 1.0) {
+            } else if (margin >= 1.5) {
                 probability = 85;
                 status = "safe";
                 statusLabel = "An toàn";
-            } else if (margin >= 0.25) {
-                probability = 70;
+            } else if (margin >= 0.5) {
+                probability = 65;
                 status = "possible";
                 statusLabel = "Khả thi";
-            } else if (margin >= -0.5) {
-                probability = 50;
+            } else if (margin >= -0.25) {
+                probability = 45;
                 status = "risky";
                 statusLabel = "May rủi";
-            } else if (margin >= -1.5) {
+            } else if (margin >= -1.0) {
                 probability = 30;
                 status = "risky";
                 statusLabel = "Rủi ro";
-            } else if (margin >= -3.0) {
+            } else if (margin >= -2.5) {
                 probability = 15;
                 status = "danger";
                 statusLabel = "Rất khó";
@@ -246,19 +246,19 @@ const PredictionModel = {
             const margin = totalScore - s.prediction.predicted;
             let matchLevel, matchLabel;
 
-            if (margin >= 2.0) {
+            if (margin >= 2.5) {
                 matchLevel = 5;
                 matchLabel = "Rất an toàn";
-            } else if (margin >= 1.0) {
+            } else if (margin >= 1.5) {
                 matchLevel = 4;
                 matchLabel = "An toàn";
-            } else if (margin >= 0.25) {
+            } else if (margin >= 0.5) {
                 matchLevel = 3;
                 matchLabel = "Khả thi";
-            } else if (margin >= -0.5) {
+            } else if (margin >= -0.25) {
                 matchLevel = 2;
                 matchLabel = "May rủi";
-            } else if (margin >= -1.5) {
+            } else if (margin >= -1.0) {
                 matchLevel = 1;
                 matchLabel = "Rủi ro";
             } else {

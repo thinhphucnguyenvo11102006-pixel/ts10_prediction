@@ -708,39 +708,39 @@ const App = {
         const estEng = this.estimateEntranceScore(hk2Eng, tbEng);
         const estTotal = estMath + estLit + estEng;
 
-        // Confidence range: ±1.5 points
-        const estHigh = Math.min(estTotal + 1.5, 30);
-        const estLow = Math.max(estTotal - 1.5, 0);
+        // Confidence range: ±2.0 points (widened for real exam volatility)
+        const estHigh = Math.min(estTotal + 2.0, 30);
+        const estLow = Math.max(estTotal - 2.0, 0);
 
         // Sort predictions by predicted score
         const sorted = [...this.predictions].sort((a, b) => b.prediction.predicted - a.prediction.predicted);
 
-        // Find optimal NVs
-        // NV1: Reach — highest school where estHigh >= predicted (stretch goal)
-        // NV2: Match — school closest to estTotal (realistic)
-        // NV3: Safe — school where estLow >= predicted + 0.5 bonus (safe pick with NV3 penalty)
+        // Find optimal NVs with realistic gaps
+        // NV1: Reach — highest school within estTotal+1.0 (stretch but not impossible)
+        // NV2: Match — school ~1.5 below estTotal (comfortable with NV2 +0.75 penalty)
+        // NV3: Safe — school ~2.5 below estTotal (guarantee with NV3 +1.5 penalty)
 
         const nv1Candidates = sorted.filter(s => s.prediction.predicted <= estHigh && s.prediction.predicted > estTotal - 0.5);
-        const nv2Candidates = sorted.filter(s => Math.abs(s.prediction.predicted - estTotal) <= 1.5);
-        const nv3Candidates = sorted.filter(s => s.prediction.predicted <= estLow - 1.0); // NV3 penalty
+        const nv2Candidates = sorted.filter(s => s.prediction.predicted <= estTotal - 0.75 && s.prediction.predicted > estTotal - 2.5);
+        const nv3Candidates = sorted.filter(s => s.prediction.predicted <= estTotal - 2.5); // Must survive NV3 penalty
 
         const nv1 = nv1Candidates[0] || sorted.find(s => s.prediction.predicted <= estTotal) || sorted[sorted.length - 1];
 
-        // NV2: pick the best match not equal to NV1
-        let nv2 = nv2Candidates.find(s => s.id !== nv1.id && s.prediction.predicted <= estTotal);
-        if (!nv2) nv2 = sorted.find(s => s.id !== nv1.id && s.prediction.predicted <= estTotal) || sorted[sorted.length - 2];
+        // NV2: pick the best match not equal to NV1, with 1.5 point gap
+        let nv2 = nv2Candidates.find(s => s.id !== nv1.id);
+        if (!nv2) nv2 = sorted.find(s => s.id !== nv1.id && s.prediction.predicted <= estTotal - 0.75) || sorted[sorted.length - 2];
 
-        // NV3: safe pick, not equal to NV1 or NV2, with margin
+        // NV3: safe pick, ensure 2.5+ gap to absorb NV3 penalty
         let nv3 = nv3Candidates.find(s => s.id !== nv1.id && s.id !== nv2.id);
-        if (!nv3) nv3 = sorted.find(s => s.id !== nv1.id && s.id !== nv2.id && s.prediction.predicted <= estTotal - 1.0) || sorted[sorted.length - 3];
+        if (!nv3) nv3 = sorted.find(s => s.id !== nv1.id && s.id !== nv2.id && s.prediction.predicted <= estTotal - 2.0) || sorted[sorted.length - 3];
 
         const container = document.getElementById('optimizeResults');
         if (!container) return;
 
         const renderNVCard = (nv, label, desc, emoji, score, penalty = 0) => {
             const margin = estTotal - score - penalty;
-            const prob = margin > 2 ? 95 : margin > 1 ? 85 : margin > 0.5 ? 70 : margin > 0 ? 55 : margin > -0.5 ? 40 : 25;
-            const probColor = prob >= 80 ? 'var(--success)' : prob >= 55 ? 'var(--accent)' : 'var(--danger)';
+            const prob = margin > 2.5 ? 95 : margin > 1.5 ? 85 : margin > 0.5 ? 65 : margin > -0.25 ? 45 : margin > -1.0 ? 30 : 15;
+            const probColor = prob >= 80 ? 'var(--success)' : prob >= 45 ? 'var(--accent)' : 'var(--danger)';
             const tierInfo = TIER_INFO[nv.tier] || {};
 
             return `
@@ -803,13 +803,13 @@ const App = {
             <div class="card" style="margin-bottom:12px">
                 <div class="card-title"><span class="icon">\ud83e\udde0</span> 3 Nguy\u1ec7n V\u1ecdng T\u1ed1i \u01afu</div>
                 <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:16px">
-                    NV1 = v\u01b0\u01a1n cao (stretch), NV2 = v\u1eeba s\u1ee9c (match), NV3 = an to\u00e0n (safe). \u0110i\u1ec3m NV2 c\u1ed9ng 0.5, NV3 c\u1ed9ng 1.0 theo quy ch\u1ebf.
+                    NV1 = v\u01b0\u01a1n cao (stretch), NV2 = v\u1eeba s\u1ee9c (match), NV3 = an to\u00e0n (safe). \u0110i\u1ec3m NV2 c\u1ed9ng 0.75, NV3 c\u1ed9ng 1.5 theo quy ch\u1ebf.
                 </p>
             </div>
 
             ${renderNVCard(nv1, 'NGUY\u1ec6N V\u1eccNG 1 \u2014 V\u01af\u01a0N CAO', 'C\u01a1 h\u1ed9i v\u01b0\u01a1n t\u1edbi tr\u01b0\u1eddng t\u1ed1t h\u01a1n n\u1ebfu l\u00e0m b\u00e0i xu\u1ea5t s\u1eafc', '\ud83d\ude80', nv1.prediction.predicted, 0)}
-            ${renderNVCard(nv2, 'NGUY\u1ec6N V\u1eccNG 2 \u2014 V\u1eeeA S\u1ee8C', 'Ph\u00f9 h\u1ee3p v\u1edbi n\u0103ng l\u1ef1c hi\u1ec7n t\u1ea1i', '\ud83c\udfaf', nv2.prediction.predicted, 0.5)}
-            ${renderNVCard(nv3, 'NGUY\u1ec6N V\u1eccNG 3 \u2014 AN TO\u00c0N', '\u0110\u1ea3m b\u1ea3o c\u00f3 su\u1ea5t c\u00f4ng l\u1eadp', '\ud83d\udee1\ufe0f', nv3.prediction.predicted, 1.0)}
+            ${renderNVCard(nv2, 'NGUY\u1ec6N V\u1eccNG 2 \u2014 V\u1eeeA S\u1ee8C', 'Ph\u00f9 h\u1ee3p v\u1edbi n\u0103ng l\u1ef1c hi\u1ec7n t\u1ea1i', '\ud83c\udfaf', nv2.prediction.predicted, 0.75)}
+            ${renderNVCard(nv3, 'NGUY\u1ec6N V\u1eccNG 3 \u2014 AN TO\u00c0N', '\u0110\u1ea3m b\u1ea3o c\u00f3 su\u1ea5t c\u00f4ng l\u1eadp', '\ud83d\udee1\ufe0f', nv3.prediction.predicted, 1.5)}
 
             <div class="card" style="margin-top:12px">
                 <div class="card-title"><span class="icon">\ud83d\udcca</span> Tr\u01b0\u1eddng Thay Th\u1ebf Kh\u00e1c</div>
@@ -827,12 +827,12 @@ const App = {
                             </tr>
                         </thead>
                         <tbody>
-                            ${sorted.filter(s => s.prediction.predicted <= estHigh + 0.5 && s.prediction.predicted >= estLow - 2 && s.id !== nv1.id && s.id !== nv2.id && s.id !== nv3.id)
+                            ${sorted.filter(s => s.prediction.predicted <= estHigh + 0.5 && s.prediction.predicted >= estLow - 2.5 && s.id !== nv1.id && s.id !== nv2.id && s.id !== nv3.id)
                 .slice(0, 10)
                 .map(s => {
                     const diff = estTotal - s.prediction.predicted;
-                    const level = diff > 2 ? 'R\u1ea5t an to\u00e0n' : diff > 1 ? 'An to\u00e0n' : diff > 0 ? 'V\u1eeba s\u1ee9c' : diff > -0.5 ? 'Th\u1eed s\u1ee9c' : 'Kh\u00f3';
-                    const levelColor = diff > 2 ? 'var(--success)' : diff > 1 ? '#10b981' : diff > 0 ? 'var(--accent)' : diff > -0.5 ? '#f59e0b' : 'var(--danger)';
+                    const level = diff > 2.5 ? 'R\u1ea5t an to\u00e0n' : diff > 1.5 ? 'An to\u00e0n' : diff > 0.5 ? 'Kh\u1ea3 thi' : diff > -0.25 ? 'Th\u1eed s\u1ee9c' : 'Kh\u00f3';
+                    const levelColor = diff > 2.5 ? 'var(--success)' : diff > 1.5 ? '#10b981' : diff > 0.5 ? 'var(--accent)' : diff > -0.25 ? '#f59e0b' : 'var(--danger)';
                     return `
                                     <tr>
                                         <td><span class="tier-badge tier-${s.tier}">${s.tier}</span></td>
