@@ -6,7 +6,7 @@ This project is a **Static Web Application** designed to help 9th-grade students
 
 ---
 
-## 🚀 Application Flow & Features
+##  Application Flow & Features
 
 The application is built on a Single Page Application (SPA) architecture, ensuring seamless transitions across 5 core analytical tabs:
 
@@ -18,7 +18,7 @@ The application is built on a Single Page Application (SPA) architecture, ensuri
 
 ---
 
-## 🧠 Underlying Algorithms & Mathematical Models
+##  Underlying Algorithms & Mathematical Models
 
 This application leverages rigorous statistical logic rather than simple averaging. Here is the architecture underneath:
 
@@ -49,10 +49,10 @@ All 114 schools are automatically clustered into 8 permanent Tiers (S, A+, A, A-
 
 ---
 
-## 🎨 UI/UX: Earthtone Glassmorphism
+##  UI/UX: Earthtone Glassmorphism
 The platform applies a highly modern, dark **Coffee/Mocha** aesthetic (`#1a100c` background) using CSS Glassmorphism logic (`rgba(255,255,255,0.03)` overlays). This prevents eye-strain during intense data-reading sessions while maintaining a premium, enterprise-grade feel.
 
-## 🛠 Deployment & Tech Stack
+##  Deployment & Tech Stack
 *   **Architecture:** 100% Vanilla JavaScript, HTML5, CSS3.
 *   **Dependencies:** None (Only Chart.js loaded via CDN).
 *   **Operation:** Since it operates entirely Client-Side, there's zero backend maintenance cost. It runs instantly on any modern browser offline or natively through GitHub Pages.
