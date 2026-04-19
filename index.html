@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mô hình dự đoán điểm chuẩn tuyển sinh lớp 10 TPHCM 2026 - Phân tích xu hướng, đánh giá khả thi nguyện vọng, gợi ý trường phù hợp">
+    <title>Dự Đoán Điểm Chuẩn Lớp 10 TPHCM 2026</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<div class="app-container">
+
+    <!-- =================== HEADER =================== -->
+    <header class="app-header">
+        <div class="header-badge">
+            <span class="dot"></span>
+            Mô hình AI Dự đoán
+        </div>
+        <h1 class="app-title">Điểm Chuẩn Lớp 10 TPHCM 2026</h1>
+        <p class="app-subtitle">Phân tích dữ liệu 4 năm (2022–2025) · Dự đoán cho kỳ thi 01–02/06/2026</p>
+    </header>
+
+    <!-- =================== STATS =================== -->
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-label">Thí sinh dự thi</div>
+            <div class="stat-value" id="statCandidates">—</div>
+            <div class="stat-detail">Tốt nghiệp THCS 2026</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Chỉ tiêu công lập</div>
+            <div class="stat-value accent" id="statQuota">—</div>
+            <div class="stat-detail">Lớp 10 THPT</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Điểm TB dự kiến</div>
+            <div class="stat-value" id="statAvgPred">—</div>
+            <div class="stat-detail">Trung bình các trường</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Biên độ điểm chuẩn</div>
+            <div class="stat-value accent" id="statRange">—</div>
+            <div class="stat-detail">Thấp nhất – Cao nhất</div>
+        </div>
+    </div>
+
+    <!-- =================== TAB NAV =================== -->
+    <nav class="tab-nav">
+        <button class="tab-btn active" data-tab="predict">
+            <span class="tab-icon">📊</span>
+            <span class="tab-text">Dự Đoán Điểm Chuẩn</span>
+        </button>
+        <button class="tab-btn" data-tab="feasibility">
+            <span class="tab-icon">🎯</span>
+            <span class="tab-text">Đánh Giá Khả Thi</span>
+        </button>
+        <button class="tab-btn" data-tab="recommend">
+            <span class="tab-icon">💡</span>
+            <span class="tab-text">Gợi Ý Nguyện Vọng</span>
+        </button>
+        <button class="tab-btn" data-tab="distribution">
+            <span class="tab-icon">📈</span>
+            <span class="tab-text">Phổ Điểm</span>
+        </button>
+        <button class="tab-btn" data-tab="optimize">
+            <span class="tab-icon">🧠</span>
+            <span class="tab-text">Tối Ưu NV</span>
+        </button>
+    </nav>
+
+    <!-- =======================================================================
+         TAB 1: DỰ ĐOÁN ĐIỂM CHUẨN
+    ======================================================================= -->
+    <div class="tab-content active" id="tab-predict">
+
+        <!-- Search & Filter -->
+        <div class="search-bar">
+            <input type="text" id="searchInput" class="search-input" placeholder="Tìm trường hoặc quận...">
+            <select id="districtFilter" class="filter-select">
+                <option value="all">📍 Tất cả quận/huyện</option>
+                <option value="Quận 1">Quận 1</option>
+                <option value="Quận 3">Quận 3</option>
+                <option value="Quận 4">Quận 4</option>
+                <option value="Quận 5">Quận 5</option>
+                <option value="Quận 6">Quận 6</option>
+                <option value="Quận 7">Quận 7</option>
+                <option value="Quận 8">Quận 8</option>
+                <option value="Quận 10">Quận 10</option>
+                <option value="Quận 11">Quận 11</option>
+                <option value="Quận 12">Quận 12</option>
+                <option value="Bình Thạnh">Bình Thạnh</option>
+                <option value="Gò Vấp">Gò Vấp</option>
+                <option value="Phú Nhuận">Phú Nhuận</option>
+                <option value="Tân Bình">Tân Bình</option>
+                <option value="Tân Phú">Tân Phú</option>
+                <option value="Bình Tân">Bình Tân</option>
+                <option value="TP Thủ Đức">TP Thủ Đức</option>
+                <option value="Bình Chánh">Bình Chánh</option>
+                <option value="Hóc Môn">Hóc Môn</option>
+                <option value="Củ Chi">Củ Chi</option>
+                <option value="Nhà Bè">Nhà Bè</option>
+                <option value="Cần Giờ">Cần Giờ</option>
+            </select>
+        </div>
+
+        <div class="card">
+            <div class="card-title">
+                <span class="icon">📋</span>
+                Bảng Dự Đoán Điểm Chuẩn NV1 — <span id="schoolCount" style="color:var(--accent)">0</span> trường
+            </div>
+            <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:14px">
+                💡 Click vào trường bất kỳ để xem biểu đồ xu hướng chi tiết. Bấm tiêu đề cột để sắp xếp.
+            </div>
+
+            <div class="table-wrapper" style="max-height:600px;overflow-y:auto">
+                <table class="data-table" id="predictionTable">
+                    <thead>
+                        <tr>
+                            <th data-sort="index">#</th>
+                            <th data-sort="tier">Tier</th>
+                            <th data-sort="name">Trường</th>
+                            <th data-sort="district">Quận</th>
+                            <th data-sort="2022">2022</th>
+                            <th data-sort="2023">2023</th>
+                            <th data-sort="2024">2024</th>
+                            <th data-sort="2025">2025</th>
+                            <th data-sort="predicted" class="sorted-desc">🔮 2026</th>
+                            <th>Khoảng DK</th>
+                            <th data-sort="trend">Xu hướng</th>
+                            <th data-sort="confidence">Tin cậy</th>
+                        </tr>
+                    </thead>
+                    <tbody id="predictionTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- School Detail -->
+        <div class="school-detail" id="schoolDetail">
+            <div class="card">
+                <div class="detail-header">
+                    <div>
+                        <h3 id="detailSchoolName">—</h3>
+                        <div style="display:flex;gap:12px;margin-top:6px;color:var(--text-secondary);font-size:0.85rem">
+                            <span>📍 <span id="detailDistrict">—</span></span>
+                            <span>🏷 <span id="detailTier">—</span></span>
+                        </div>
+                    </div>
+                    <button class="detail-close" onclick="App.closeSchoolDetail()">✕</button>
+                </div>
+
+                <div class="grid-2">
+                    <div>
+                        <div class="chart-container">
+                            <canvas id="detailChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="stats-row" style="grid-template-columns:1fr 1fr;margin:0">
+                            <div class="stat-card">
+                                <div class="stat-label">Dự đoán 2026</div>
+                                <div class="stat-value" id="detailPredicted">—</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-label">Khoảng dự kiến</div>
+                                <div class="stat-value accent" id="detailRange" style="font-size:1.2rem">—</div>
+                            </div>
+                            <div class="stat-card" style="grid-column:span 2">
+                                <div class="stat-label">Độ tin cậy</div>
+                                <div class="stat-value" id="detailConfidence">—</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- =======================================================================
+         TAB 2: ĐÁNH GIÁ KHẢ THI
+    ======================================================================= -->
+    <div class="tab-content" id="tab-feasibility">
+        <div class="card">
+            <div class="card-title"><span class="icon">🎯</span> Đánh Giá Khả Thi Nguyện Vọng</div>
+            <p style="color:var(--text-secondary);font-size:0.88rem;margin-bottom:20px">
+                Nhập điểm thi 3 môn (hoặc điểm dự kiến) và chọn 3 nguyện vọng. Hệ thống sẽ phân tích xác suất trúng tuyển dựa trên mô hình dự đoán.
+            </p>
+
+            <!-- Score inputs -->
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label"><strong>Điểm Toán</strong></label>
+                    <input type="number" id="scoreMath" class="form-input" placeholder="0 - 10" min="0" max="10" step="0.25">
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><strong>Điểm Ngữ Văn</strong></label>
+                    <input type="number" id="scoreLit" class="form-input" placeholder="0 - 10" min="0" max="10" step="0.25">
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><strong>Điểm Ngoại Ngữ</strong></label>
+                    <input type="number" id="scoreEng" class="form-input" placeholder="0 - 10" min="0" max="10" step="0.25">
+                </div>
+            </div>
+
+            <div style="text-align:center;margin:12px 0 20px">
+                <span style="font-size:0.85rem;color:var(--text-muted)">Tổng điểm: </span>
+                <span id="totalScore" style="font-size:1.4rem;font-weight:800;color:var(--accent)">0.00</span>
+            </div>
+
+            <!-- NV selections -->
+            <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))">
+                <div class="form-group">
+                    <label class="form-label"><strong>Nguyện Vọng 1</strong> (Vươn Cao)</label>
+                    <select id="nv1Select" class="school-select"></select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><strong>Nguyện Vọng 2</strong> (Vừa Sức)</label>
+                    <select id="nv2Select" class="school-select"></select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><strong>Nguyện Vọng 3</strong> (An Toàn)</label>
+                    <select id="nv3Select" class="school-select"></select>
+                </div>
+            </div>
+
+            <div style="text-align:center;margin-top:20px">
+                <button class="btn btn-primary" id="evaluateBtn">
+                    🔍 Phân tích khả thi
+                </button>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="feasibilityResults"></div>
+    </div>
+
+    <!-- =======================================================================
+         TAB 3: GỢI Ý NGUYỆN VỌNG
+    ======================================================================= -->
+    <div class="tab-content" id="tab-recommend">
+        <div class="card">
+            <div class="card-title"><span class="icon">💡</span> Gợi Ý Nguyện Vọng Theo Quận/Huyện</div>
+            <p style="color:var(--text-secondary);font-size:0.88rem;margin-bottom:20px">
+                Nhập điểm thi (hoặc dự kiến) và chọn quận bạn muốn. Hệ thống sẽ gợi ý các trường khả thi nhất dựa trên điểm chuẩn dự đoán, sắp xếp theo mức phù hợp.
+            </p>
+
+            <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr))">
+                <div class="form-group">
+                    <label class="form-label">📐 Điểm Toán</label>
+                    <input type="number" id="recScoreMath" class="form-input" placeholder="0 - 10" min="0" max="10" step="0.25">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">📝 Điểm Ngữ Văn</label>
+                    <input type="number" id="recScoreLit" class="form-input" placeholder="0 - 10" min="0" max="10" step="0.25">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">🌐 Điểm Ngoại Ngữ</label>
+                    <input type="number" id="recScoreEng" class="form-input" placeholder="0 - 10" min="0" max="10" step="0.25">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">📍 Quận/Huyện</label>
+                    <select id="recDistrictSelect" class="school-select"></select>
+                </div>
+            </div>
+
+            <div style="text-align:center;margin:12px 0 0">
+                <span style="font-size:0.85rem;color:var(--text-muted)">Tổng điểm: </span>
+                <span id="recTotalScore" style="font-size:1.4rem;font-weight:800;color:var(--accent)">0.00</span>
+            </div>
+
+            <div style="text-align:center;margin-top:16px">
+                <button class="btn btn-primary" id="recommendBtn">
+                    💡 Gợi ý trường phù hợp
+                </button>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="recommendResults"></div>
+    </div>
+
+    <!-- =======================================================================
+         TAB 4: PHỔ ĐIỂM
+    ======================================================================= -->
+    <div class="tab-content" id="tab-distribution">
+        <div class="card">
+            <div class="card-title"><span class="icon">📈</span> Phân Tích Phổ Điểm Qua Các Năm</div>
+            <p style="color:var(--text-secondary);font-size:0.88rem;margin-bottom:4px">
+                So sánh điểm trung bình từng môn thi qua 4 năm (2022–2025) và dự đoán 2026. Phổ điểm được mô phỏng theo phân bố chuẩn.
+            </p>
+        </div>
+
+        <!-- Insight Cards -->
+        <div class="stats-row" id="distInsightCards"></div>
+
+        <!-- Main: Grouped Bar Chart -->
+        <div class="card">
+            <div class="card-title"><span class="icon">📊</span> Điểm Trung Bình Các Môn Qua Các Năm</div>
+            <div class="chart-container large">
+                <canvas id="distMeanChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Subject comparison: 2025 vs 2026 only -->
+        <div class="card" style="margin-top:16px">
+            <div class="card-title"><span class="icon">🔮</span> So Sánh Phổ Điểm: 2025 vs 2026 (Dự đoán)</div>
+            <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:16px">
+                Chỉ so sánh 2 năm gần nhất để dễ nhận biết sự thay đổi. Đường nét đứt = dự đoán 2026.
+            </p>
+        </div>
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title"><span class="icon">📐</span> Toán</div>
+                <div class="chart-container">
+                    <canvas id="distChartMath"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title"><span class="icon">📝</span> Ngữ Văn</div>
+                <div class="chart-container">
+                    <canvas id="distChartLit"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title"><span class="icon">🌐</span> Ngoại Ngữ</div>
+                <div class="chart-container">
+                    <canvas id="distChartEng"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title"><span class="icon">📊</span> Tổng 3 Môn</div>
+                <div class="chart-container">
+                    <canvas id="distChartTotal"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Table -->
+        <div class="card" style="margin-top:16px">
+            <div class="card-title"><span class="icon">📋</span> Thống Kê Tham Số Phân Bố</div>
+            <div class="table-wrapper">
+                <table class="data-table" id="distParamsTable">
+                    <thead>
+                        <tr>
+                            <th>Năm</th>
+                            <th>Toán (TB)</th>
+                            <th>Toán (σ)</th>
+                            <th>Văn (TB)</th>
+                            <th>Văn (σ)</th>
+                            <th>Anh (TB)</th>
+                            <th>Anh (σ)</th>
+                            <th>Tổng (TB)</th>
+                            <th>Tổng (σ)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="distParamsBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- =======================================================================
+         TAB 5: TỐI ƯU NGUYỆN VỌNG
+    ======================================================================= -->
+    <div class="tab-content" id="tab-optimize">
+        <div class="card">
+            <div class="card-title"><span class="icon">🧠</span> Tối Ưu Nguyện Vọng Theo Năng Lực Thực Tế</div>
+            <p style="color:var(--text-secondary);font-size:0.88rem;margin-bottom:8px">
+                Nhập điểm thi cuối kì 2 và điểm trung bình cuối năm (TBCN) lớp 9 để hệ thống ước lượng điểm thi vào 10 và gợi ý <strong>3 nguyện vọng tối ưu</strong>: NV1 (vươn cao), NV2 (vừa sức), NV3 (an toàn).
+            </p>
+        </div>
+
+        <div class="card">
+            <div class="card-title"><span class="icon">📝</span> Điểm Thi Cuối Kì 2 (HK2)</div>
+            <div class="form-grid" style="margin-bottom:16px">
+                <div class="form-group">
+                    <label class="form-label"><strong>Điểm Toán</strong> (HK2)</label>
+                    <input type="number" id="opt-hk2-math" class="form-input" min="0" max="10" step="0.25" placeholder="0 - 10">
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><strong>Điểm Ngữ Văn</strong> (HK2)</label>
+                    <input type="number" id="opt-hk2-lit" class="form-input" min="0" max="10" step="0.25" placeholder="0 - 10">
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><strong>Điểm Ngoại Ngữ</strong> (HK2)</label>
+                    <input type="number" id="opt-hk2-eng" class="form-input" min="0" max="10" step="0.25" placeholder="0 - 10">
+                </div>
+            </div>
+
+            <div class="card-title"><span class="icon">📊</span> Điểm Trung Bình Cuối Năm (TBCN)</div>
+            <div class="form-grid" style="margin-bottom:16px">
+                <div class="form-group">
+                    <label class="form-label"><strong>Điểm Toán</strong> (TBCN)</label>
+                    <input type="number" id="opt-tb-math" class="form-input" min="0" max="10" step="0.1" placeholder="0 - 10">
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><strong>Điểm Ngữ Văn</strong> (TBCN)</label>
+                    <input type="number" id="opt-tb-lit" class="form-input" min="0" max="10" step="0.1" placeholder="0 - 10">
+                </div>
+                <div class="form-group">
+                    <label class="form-label"><strong>Điểm Ngoại Ngữ</strong> (TBCN)</label>
+                    <input type="number" id="opt-tb-eng" class="form-input" min="0" max="10" step="0.1" placeholder="0 - 10">
+                </div>
+            </div>
+
+            <div style="text-align:center;margin:12px 0 20px">
+                <span style="font-size:0.85rem;color:var(--text-muted)">Tổng điểm ước tính: </span>
+                <span id="optEstScore" style="font-size:1.4rem;font-weight:800;color:var(--accent)">0.00</span>
+                <div id="optEstScoreDetail" style="font-size:0.85rem;color:var(--text-muted);margin-top:4px;display:none;"></div>
+            </div>
+
+            <div style="text-align:center;margin-top:20px">
+                <button class="btn btn-primary" id="btnOptimize">
+                    🧠 Gợi ý nguyện vọng tối ưu
+                </button>
+            </div>
+        </div>
+
+        <div id="optimizeResults"></div>
+    </div>
+
+    <!-- =================== DISCLAIMER =================== -->
+    <div class="disclaimer">
+        <strong>⚠️ Lưu ý quan trọng:</strong> Kết quả dự đoán chỉ mang tính chất <strong>tham khảo</strong>, được tính toán dựa trên phân tích xu hướng dữ liệu lịch sử 4 năm (2022–2025) bằng mô hình WMA + Linear Regression.
+        Điểm chuẩn thực tế phụ thuộc vào nhiều yếu tố: độ khó đề thi, số lượng thí sinh đăng ký, chỉ tiêu từng trường.
+        <br><strong>Nguồn dữ liệu:</strong> Sở GD&ĐT TPHCM, VnExpress, Tuổi Trẻ, Thanh Niên.
+    </div>
+
+    <!-- =================== FOOTER =================== -->
+    <footer class="app-footer">
+        <p>© 2026 — Mô hình dự đoán điểm chuẩn tuyển sinh lớp 10 TPHCM</p>
+        <p style="margin-top:4px">Dữ liệu cập nhật đến kỳ thi 2025. Kỳ thi 2026 dự kiến 01–02/06/2026.</p>
+        <p style="margin-top:8px">Made by <strong style="color:var(--accent)">Võ Nguyễn Phúc Thịnh</strong> a.k.a <strong style="color:var(--primary)">thầy Thịnh</strong></p>
+    </footer>
+
+</div>
+
+<!-- Scripts -->
+<script src="js/data.js"></script>
+<script src="js/model.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
