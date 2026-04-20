@@ -93,8 +93,18 @@ const PredictionModel = {
         const sensitivity = 0.15; // How much competition affects score
         const adjusted = wma * (1 + compFactor * sensitivity);
 
-        // Ensemble: combine methods
-        const predicted = 0.45 * wma + 0.35 * lrPred + 0.20 * adjusted;
+        // Method 3: Trend Bonus
+        let trendBonus = 0;
+        if (lr && lr.slope > 0.2) { 
+            // Nếu xu hướng tăng rõ rệt (> 0.2 điểm/năm)
+            trendBonus = 0.5; // Cộng nhẹ nửa điểm
+        } else if (lr && lr.slope < -0.2) {
+            // Nếu xu hướng giảm
+            trendBonus = -0.5;
+        }
+
+        // Dự đoán cuối cùng hoàn toàn dựa vào WMA + Cạnh tranh + Trend Bonus
+        const predicted = 0.70 * wma + 0.30 * adjusted + trendBonus;
 
         // Asymmetrical confidence interval (Scores drop easier than they rise)
         // We ensure a minimum buffer using max(1.0, std) to guarantee at least -0.75 / +0.5
