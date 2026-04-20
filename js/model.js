@@ -153,32 +153,31 @@ const PredictionModel = {
             const margin = totalScore - effectiveThreshold;
             let probability, status, statusLabel;
 
-            if (margin >= 2.5) {
-                probability = 95;
+            // Sử dụng hàm phân phối Logistic (Sigmoid curve) để ra xác suất trượt (dynamic)
+            // Cong thức: P(x) = 100 / (1 + e^(-k * (x - offset)))
+            // Hệ số k=1.15 giúp P khớp với các mốc quy chuẩn: +1.5đ ~ 85%, -1.0đ ~ 25%
+            const rawProb = 100 / (1 + Math.exp(-1.15 * (margin - 0.15)));
+            probability = Math.max(1, Math.min(99, Math.round(rawProb))); // Cắt nghẽn 1-99%
+
+            if (margin >= 2.0) {
                 status = "safe";
                 statusLabel = "Rất an toàn";
-            } else if (margin >= 1.5) {
-                probability = 85;
+            } else if (margin >= 1.0) {
                 status = "safe";
                 statusLabel = "An toàn";
-            } else if (margin >= 0.5) {
-                probability = 65;
+            } else if (margin >= 0.25) {
                 status = "possible";
                 statusLabel = "Khả thi";
-            } else if (margin >= -0.25) {
-                probability = 45;
+            } else if (margin >= -0.5) {
                 status = "risky";
                 statusLabel = "May rủi";
-            } else if (margin >= -1.0) {
-                probability = 30;
+            } else if (margin >= -1.5) {
                 status = "risky";
                 statusLabel = "Rủi ro";
-            } else if (margin >= -2.5) {
-                probability = 15;
+            } else if (margin >= -3.0) {
                 status = "danger";
                 statusLabel = "Rất khó";
             } else {
-                probability = 5;
                 status = "danger";
                 statusLabel = "Gần như không thể";
             }
