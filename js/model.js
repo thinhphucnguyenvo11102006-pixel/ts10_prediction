@@ -151,13 +151,12 @@ const PredictionModel = {
             const effectiveThreshold = pred.predicted + nvPenalty;
 
             const margin = totalScore - effectiveThreshold;
-            let probability, status, statusLabel;
+            let feasibilityScore, status, statusLabel;
 
-            // Sử dụng hàm phân phối Logistic (Sigmoid curve) để ra xác suất trượt (dynamic)
-            // Cong thức: P(x) = 100 / (1 + e^(-k * (x - offset)))
-            // Hệ số k=1.15 giúp P khớp với các mốc quy chuẩn: +1.5đ ~ 85%, -1.0đ ~ 25%
+            // Tính điểm khả thi bằng hàm Logistic (tham khảo) 
+            // KHÔNG PHẢI LÀ XÁC SUẤT ĐÃ CALIBRATE THEO THỐNG KÊ (Uncalibrated Probability)
             const rawProb = 100 / (1 + Math.exp(-1.15 * (margin - 0.15)));
-            probability = Math.max(1, Math.min(99, Math.round(rawProb))); // Cắt nghẽn 1-99%
+            feasibilityScore = Math.max(1, Math.min(99, Math.round(rawProb))); // Cắt nghẽn 1-99
 
             if (margin >= 2.0) {
                 status = "safe";
@@ -188,7 +187,7 @@ const PredictionModel = {
                 prediction: pred,
                 effectiveThreshold,
                 margin: Math.round(margin * 100) / 100,
-                probability,
+                feasibilityScore,
                 status,
                 statusLabel,
                 nvPenalty
@@ -196,8 +195,8 @@ const PredictionModel = {
         }
 
         // Overall assessment
-        const anyPass = results.some(r => r.probability >= 50);
-        const bestChance = Math.max(...results.map(r => r.probability));
+        const anyPass = results.some(r => r.feasibilityScore >= 50);
+        const bestChance = Math.max(...results.map(r => r.feasibilityScore));
 
         return {
             choices: results,
@@ -213,12 +212,12 @@ const PredictionModel = {
      */
     generateRecommendation(totalScore, results) {
         const msgs = [];
-        const bestNv = results.reduce((best, r) => r.probability > best.probability ? r : best, results[0]);
+        const bestNv = results.reduce((best, r) => r.feasibilityScore > best.feasibilityScore ? r : best, results[0]);
 
-        if (bestNv.probability >= 85) {
+        if (bestNv.feasibilityScore >= 85) {
             msgs.push(`✅ Lựa chọn NV${bestNv.nv} (${bestNv.school.name}) rất an toàn.`);
-        } else if (bestNv.probability >= 50) {
-            msgs.push(`⚠️ Cơ hội tốt nhất là NV${bestNv.nv} (${bestNv.school.name}) - ${bestNv.probability}%.`);
+        } else if (bestNv.feasibilityScore >= 50) {
+            msgs.push(`⚠️ Mức khả thi tốt nhất là NV${bestNv.nv} (${bestNv.school.name}) - ${bestNv.feasibilityScore}/100.`);
         } else {
             msgs.push(`❌ Cả 3 nguyện vọng đều có rủi ro cao. Nên xem xét lại.`);
         }

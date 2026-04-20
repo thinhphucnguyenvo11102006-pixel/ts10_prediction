@@ -7,7 +7,7 @@
     <title>Dự Đoán Điểm Chuẩn Lớp 10 TPHCM 2026</title>
 
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+    <script src="js/vendor/chart.umd.min.js"></script>
 </head>
 <body>
 
@@ -17,7 +17,7 @@
     <header class="app-header">
         <div class="header-badge">
             <span class="dot"></span>
-            Mô hình AI Dự đoán
+            Mô hình Dự đoán Thống kê
         </div>
         <h1 class="app-title">Điểm Chuẩn Lớp 10 TPHCM 2026</h1>
         <p class="app-subtitle">Phân tích dữ liệu 4 năm (2022–2025) · Dự đoán cho kỳ thi 01–02/06/2026</p>
@@ -432,9 +432,9 @@
     ======================================================================= -->
     <div class="tab-content" id="tab-exams">
         <div class="card">
-            <div class="card-title"><span class="icon">📚</span> Ngân Hàng Đề Thi TPHCM</div>
+            <div class="card-title"><span class="icon">📚</span> Ngân Hàng Đề Thi TPHCM <span style="background:var(--accent);color:#fff;font-size:0.7rem;padding:2px 6px;border-radius:4px;margin-left:8px;vertical-align:middle">Beta</span></div>
             <p style="color:var(--text-secondary);font-size:0.88rem;margin-bottom:20px">
-                Hệ thống lưu trữ đề thi, đề thi thử do Trợ lý AI thu thập và phân loại tự động. Chọn môn học bạn muốn ôn luyện.
+                Hệ thống lưu trữ đề thi, tài liệu (Đang trong quá trình hoàn thiện crawler và data format).
             </p>
             
             <div class="subject-filters">
@@ -463,9 +463,9 @@
                     <div class="exam-viewer-ai">
                         <div class="ai-sidebar-inner">
                             <span class="icon" style="font-size:2.5rem;margin-bottom:12px;display:block">🤖</span>
-                            <h4>Trợ Lý Đào Tạo AI</h4>
+                            <h4>Trợ Lý Đào Tạo AI <span style="background:#6366f1;color:#fff;font-size:0.6rem;padding:2px 6px;border-radius:4px;vertical-align:middle;margin-left:4px">Kế hoạch</span></h4>
                             <p style="font-size:0.85rem;color:var(--text-muted);margin-top:10px;">
-                                Tính năng tự động chấm điểm Văn, giải toán từng bước (Step-by-step) đang được tinh chỉnh Prompt và liên kết Model. Sẽ mở vào Giai đoạn 2!
+                                Tính năng tự động chấm Văn, giải Toán (Generative AI) sẽ được ra mắt sau khi đủ bộ dữ liệu luyện thi.
                             </p>
                             <button class="btn btn-primary" style="margin-top:20px; width:100%; opacity:0.5; cursor:not-allowed">
                                 Tham gia Đợi (Waitlist)
@@ -477,11 +477,10 @@
         </div>
     </div>
 
-    <!-- =================== DISCLAIMER =================== -->
     <div class="disclaimer">
-        <strong>⚠️ Lưu ý quan trọng:</strong> Kết quả dự đoán chỉ mang tính chất <strong>tham khảo</strong>, được tính toán dựa trên phân tích xu hướng dữ liệu lịch sử 4 năm (2022–2025) bằng mô hình WMA + Linear Regression.
-        Điểm chuẩn thực tế phụ thuộc vào nhiều yếu tố: độ khó đề thi, số lượng thí sinh đăng ký, chỉ tiêu từng trường.
-        <br><strong>Nguồn dữ liệu:</strong> Sở GD&ĐT TPHCM, VnExpress, Tuổi Trẻ, Thanh Niên.
+        <strong>⚠️ Lưu ý quan trọng:</strong> Kết quả dự đoán chỉ mang tính chất <strong>tham khảo</strong>, được tính toán dựa trên phân tích xu hướng dữ liệu lịch sử 4 năm (2022–2025) bằng công cụ Thống kê (Trung bình động WMA & Hồi quy tuyến tính LR). Toàn bộ nhãn khả thi được ước lượng từ hàm phân phối chuẩn Logistic, <strong>không đại diện cho xác suất đỗ thật.</strong>
+        Điểm chuẩn thực tế phụ thuộc vào nhiều yếu tố khách quan không thể đo lường 100%.
+        <br><strong>Nguồn dữ liệu:</strong> Sở GD&ĐT TPHCM. (Thống kê qua báo chí mạng).
     </div>
 
     <!-- =================== FOOTER =================== -->
@@ -498,7 +497,11 @@
 <script src="js/exams_data.js"></script>
 <script src="js/model.js"></script>
 <script src="js/charts.js"></script>
+<script src="js/backtest.js"></script>
 <script src="js/app.js"></script>
+<script src="js/tabs/distribution.js"></script>
+<script src="js/tabs/optimize.js"></script>
+<script src="js/tabs/exams.js"></script>
 
 </body>
 </html>

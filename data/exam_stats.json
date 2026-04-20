@@ -1,0 +1,82 @@
+{
+  "exam_stats": {
+    "2022": {
+      "candidates": 94000,
+      "quota": 72000
+    },
+    "2023": {
+      "candidates": 96000,
+      "quota": 74000
+    },
+    "2024": {
+      "candidates": 98600,
+      "quota": 77355
+    },
+    "2025": {
+      "candidates": 102000,
+      "quota": 80000
+    },
+    "2026": {
+      "candidates": 169080,
+      "quota": 118400
+    }
+  },
+  "score_distribution_params": {
+    "2022": {
+      "math": {
+        "mean": 5.17,
+        "std": 2.1
+      },
+      "lit": {
+        "mean": 6.58,
+        "std": 1.3
+      },
+      "eng": {
+        "mean": 5.46,
+        "std": 2.4
+      }
+    },
+    "2023": {
+      "math": {
+        "mean": 5.4,
+        "std": 2.0
+      },
+      "lit": {
+        "mean": 6.7,
+        "std": 1.2
+      },
+      "eng": {
+        "mean": 5.8,
+        "std": 2.3
+      }
+    },
+    "2024": {
+      "math": {
+        "mean": 4.8,
+        "std": 2.2
+      },
+      "lit": {
+        "mean": 6.9,
+        "std": 1.1
+      },
+      "eng": {
+        "mean": 6.2,
+        "std": 2.2
+      }
+    },
+    "2025": {
+      "math": {
+        "mean": 5.1,
+        "std": 2.1
+      },
+      "lit": {
+        "mean": 6.75,
+        "std": 1.2
+      },
+      "eng": {
+        "mean": 6.5,
+        "std": 2.1
+      }
+    }
+  }
+}
