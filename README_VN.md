@@ -1,65 +1,75 @@
-# 🎓 Mô Hình Dự Đoán Điểm Chuẩn Tuyển Sinh Lớp 10 TPHCM 2026
+# TS10 Prediction
 
-*Đọc bằng ngôn ngữ khác: [English](README.md)*.
+*Đọc bằng [English](README.md).*
 
-Dự án này là một ứng dụng Web tĩnh (Static Web App) giúp học sinh và phụ huynh tại Thành phố Hồ Chí Minh phân tích, định hướng và đưa ra các quyết định chọn trường cấp 3 an toàn, chính xác và bớt cảm tính hơn dựa trên dữ liệu thật của 4 năm gần nhất (2022-2025).
+`TS10 Prediction` là một ứng dụng web tĩnh hỗ trợ học sinh và phụ huynh tại TP.HCM tra cứu dữ liệu tuyển sinh lớp 10, ước lượng điểm chuẩn năm 2026, và tham khảo chiến lược chọn nguyện vọng.
 
----
+Phiên bản hiện tại phù hợp nhất khi được mô tả là một **SPA tư vấn dựa trên dữ liệu** viết bằng HTML, CSS và JavaScript thuần. Ứng dụng kết hợp dữ liệu lịch sử, các công thức thống kê đơn giản, và biểu đồ trực quan để hỗ trợ so sánh trường, đánh giá mức độ khả thi, và gợi ý phương án nộp hồ sơ.
 
-## Cách Thức Hoạt Động (App Flow)
+## Phạm Vi Hiện Tại
 
-Ứng dụng là một trang Single Page Application (SPA), nghĩa là chỉ cần tải đúng 1 lần và mọi thao tác chuyển trang/hiển thị biểu đồ đều mượt mà không cần load lại web. Người dùng sẽ tương tác thông qua 5 Tab chức năng tuần tự:
+Ứng dụng hiện có 6 tab chính:
 
-1. **Tab 1 - Khám Phá Data (Dự Đoán Điểm Chuẩn):** Bảng tổng sắp 114 trường cấp 3 với lịch sử điểm chuẩn, điểm dự đoán 2026, phân hạng (Tier), và độ tin cậy. (Có chức năng nhấp vào trường để xem biểu đồ đường đi của điểm).
-2. **Tab 2 - Đánh Giá Khả Thi:** Nhập trực tiếp 3 nguyện vọng (NV) học sinh tính chọn, cùng điểm giả định. App tính toán cụ thể % đậu từng nguyện vọng và tư vấn chiến lược đang đi đúng hay sai.
-3. **Tab 3 - Gợi Ý Hệ Sinh Thái Theo Quận:** Điền tổng điểm, chọn khu vực sống. App quét qua database để "bốc" ra các trường xung quanh khu vực đó sao cho phân bậc vừa vặn thành 3 giỏ: Vươn Cao - Vừa Sức - An Toàn.
-4. **Tab 4 - Bức Tranh Phổ Điểm:** Dành cho phụ huynh thích nghiên cứu. Tab này vẽ ra các đường cong hình chuông, so sánh xu hướng khó/dễ của kì thi các năm để nhìn nhận "mặt bằng chung".
-5. **Tab 5 - Tối Ưu Chiến Lược (Tối Ưu NV):** Dành cho học sinh chưa thi chuyển cấp. 
-    * *Flow:* Nhập ngay điểm trên trường (HK2, TBCN) -> App sẽ chuyển đổi qua "điểm thi thực tế" -> Engine tư vấn sẽ nhặt luôn cho bạn 3 trường tối ưu nhất (NV1, NV2, NV3) kèm 10 lựa chọn sơ cua y chang mức điểm đó.
+1. `Dự đoán điểm chuẩn`: xem lịch sử điểm chuẩn, điểm dự đoán 2026, xu hướng, và biểu đồ chi tiết cho từng trường.
+2. `Đánh giá khả thi`: nhập điểm 3 môn và các nguyện vọng để nhận đánh giá rủi ro đậu/rớt.
+3. `Gợi ý theo quận`: lọc danh sách trường theo quận/huyện và so sánh với tổng điểm đã nhập.
+4. `Phổ điểm`: trực quan hóa phổ điểm lịch sử và dự đoán bằng các biểu đồ dạng phân phối chuẩn.
+5. `Tối ưu nguyện vọng`: ước lượng điểm thi từ điểm HK2 và TBCN rồi đề xuất bộ 3 nguyện vọng tham khảo.
+6. `Ngân hàng đề`: giao diện thư viện đề thi ở giai đoạn sớm, dùng dữ liệu được sinh ra từ script hỗ trợ.
 
----
+## Công Nghệ Sử Dụng
 
-##  Các Thuật Toán Chi Tiết (Underneath the Hood)
+- `HTML5`, `CSS3`, `Vanilla JavaScript`
+- `Chart.js` tải qua CDN
+- Python script cục bộ để sinh dữ liệu cho module ngân hàng đề
 
-Dự án này không phải một bảng tra cứu excel đơn thuần. Nó vận hành trên các quy luật thống kê. Dưới đây là kiến trúc thuật toán chi tiết. 
+## Cấu Trúc Dự Án
 
-### 1. Mô Hình Dự Đoán Ensemble (Ensemble Prediction Model)
-Nằm trong `model.js`, khi tính toán điểm chuẩn 2026 cho 1 trường, App luôn chạy 3 mô hình song song và gộp lại (Ensemble):
+- [index.html](index.html) - khung giao diện và bố cục các tab
+- [css/style.css](css/style.css) - hệ thống giao diện và responsive layout
+- [js/data.js](js/data.js) - dữ liệu tĩnh, metadata trường, tham số phổ điểm
+- [js/model.js](js/model.js) - logic dự đoán và gợi ý
+- [js/charts.js](js/charts.js) - lớp bọc cho Chart.js
+- [js/app.js](js/app.js) - state UI, render, và xử lý tương tác
+- [scripts/exams_crawler.py](scripts/exams_crawler.py) - script hỗ trợ sinh `js/exams_data.js`
 
-* **45% Weighted Moving Average (WMA):** Trung bình động có trọng số. Cấp trọng số giảm dần theo thời gian (2025 x 4, 2024 x 3, 2023 x 2, 2022 x 1). Lí do: Chuyện năm trước luôn phản ánh đúng nhất tình thế của năm sau, thay vì cào bằng với năm quá khứ xa.
-* **35% Linear Regression (Hồi Quy Tuyến Tính):** Sử dụng `Least Squares Method` (Phương pháp bình phương tối thiểu) để tìm ra đường thẳng trend-line của trường qua 4 năm. Nó trả lời cho câu hỏi: "Trường này đang trên đà từ từ tụt dốc hay là năm sau sẽ tiếp tục lội ngược dòng lên điểm cao?".
-* **20% Cạnh Tranh Cục Bộ (Competition Effect):** Phân tích biến động "sốc". Nếu một trường vừa giảm sâu điểm năm ngoái, năm nay tâm lý chung đám đông sẽ ùa vào nộp, gây tăng điểm ảo.
+## Cách Mô Hình Hoạt Động Ở Thời Điểm Hiện Tại
 
-*Khoảng tin cậy (Confidence Interval):* Đặc thù thi cử TPHCM là điểm dễ rớt sập sàn hơn là tăng vọt, do đó mô hình dùng biên độ bất đối xứng bảo vệ học sinh: **-0.75 Điểm đến +0.50 Điểm**.
+Lõi dự đoán hiện nay là heuristic thống kê, chưa phải mô hình machine learning đã huấn luyện.
 
-### 2. Mô Hình Rủi Ro Quy Chế (Penalized Probabilistic Model)
-Áp dụng chặt chẽ quy chế tuyển sinh TP.HCM: Rớt NV1 xuống xét NV2 bị chịu thiệt `+ 0.75 điểm` (trong đánh giá của thuật toán), rớt tiếp NV3 thì điểm xét vớt thường cao hơn `+ 1.5`.
+- Trung bình động có trọng số ưu tiên các năm gần nhất.
+- Hồi quy tuyến tính ước lượng xu hướng ngắn hạn từ dữ liệu lịch sử.
+- Hệ số cạnh tranh đang dùng tỷ lệ thí sinh/chỉ tiêu ở cấp toàn thành phố.
+- Phần đánh giá khả thi và gợi ý đang dựa trên các luật score margin, không phải xác suất đã hiệu chỉnh.
 
-* Khi chạy Evaluate (Khả Thi), app tự thiết lập "Điểm Chuẩn Chống Lại Thí Sinh" trên từng nguyện vọng: `Effective Threshold = Predicted + (NV_Index * 0.75)`.
-* Trả về xác suất %: `Chênh lệch >= 2.5 (95% - Rất An toàn), >= 1.5 (85% - An Toàn), >= -1.0 (30% - Rủi Ro)`
+Điều này giúp ứng dụng hữu ích cho mục đích tham khảo và thảo luận chiến lược, nhưng nên được xem là **công cụ hỗ trợ quyết định**, không phải hệ thống dự báo chính thức.
 
-### 3. Thuật Toán Hệ Sinh Thái Trường (Ecosystem Tiering)
-Tự động nhúng hệ sinh thái trường vào hệ phân cấp 8 nấc vĩnh viễn (Tier S, A+, A, A-, B+, B, B-, C).
-* Khi học sinh đề nghị xin Gợi ý, trường được pick từ các Tier cụ thể để đảm bảo: **1 trường phải rớt xuống dưới năng lực 2.5 điểm** thì mới được coi là Nguyện Vọng 3.
+## Trạng Thái Dữ Liệu
 
-### 4. Normal Distribution Function (Hàm Mật Độ Phân Phối Chuẩn)
-Dùng tại Tab 4 (Phổ Điểm). Để vẽ được đường cong phân bố thống kê:
-`P(x) = (1 / (σ * √(2π))) * e^(-(x-μ)² / 2σ²)`
+- Dữ liệu lịch sử hiện đang được lưu trực tiếp trong `js/data.js`.
+- Dataset đang ship trong repo hiện có **107 trường**.
+- Module ngân hàng đề vẫn đang ở giai đoạn sớm/demo, chưa phải pipeline thu thập dữ liệu tự động hoàn chỉnh.
 
-### 5. Thuật Toán Chuyển Đổi Năng Lực (Ability Converter)
-Ở Tab 5: Làm sao biết 8.0 Toán lớp 9 thì thi rụng xuống còn mấy điểm?
-Công thức: `Estimate = [(Điểm HK2 × 60%) + (Điểm TBCN × 40%)] × 0.85`
-* Đặt 60% vào HK2 vì format đó giống thi tuyển 10 nhất.
-* Cấp hệ số "Trừ hao Độ khó phòng thi" là **0.85**, vì thi tuyển 10 khắc nghiệt hơn kiểm tra ở trường rất nhiều. (Nếu điền đều 10 phẩy, điểm TS10 vớt ra tối đa được chỉ là 25.5 chứ không thể là 30).
+## Cách Chạy Cục Bộ
 
----
+Bạn có thể chạy project theo một trong hai cách:
 
-##  Giao Diện (UI/UX)
-Sử dụng phong cách Glassmorphism (Kính mờ) trên nền màu **Nâu Cà Phê (Coffee/Earth tone)** (`#1a100c`), đi kèm với mã thiết kế tối giản, chuyên nghiệp giúp cha mẹ học sinh đọc số liệu dễ chịu trong thời gian dài mà vẫn mang tinh thần "công nghệ, hiện đại".
+1. Mở trực tiếp [index.html](index.html) trong trình duyệt.
+2. Dùng static server cục bộ như VS Code Live Server để phát triển thuận tiện hơn.
 
-## Cách Chạy / Triển Khai (Deployment)
-Code thuần Client-side (HTML/CSS/JS). Không Node.js, Không Database.
-*   **Chạy Local:** Double-click file `index.html` hoặc dùng `Live Server` trong VSCode.
-*   **Hoặc truy cập Live Link trên GitHub Pages:** `https://thinhphucnguyenvo11102006-pixel.github.io/ts10_prediction/`
+## Giới Hạn Hiện Tại
 
-*Đây là một dự án mở, cung cấp những góc nhìn công cụ số mạnh mẽ cho những mùa thi chuyển cấp.*
+- Ứng dụng đang phụ thuộc `Chart.js` qua CDN nên chưa hoàn toàn tự chứa để chạy offline tuyệt đối.
+- Các con số “xác suất” hiện là mức phân loại rủi ro theo ngưỡng điểm, chưa phải xác suất thống kê đã được calibration.
+- Tier của trường hiện được định nghĩa trong dữ liệu, chưa được sinh ra động bằng thuật toán phân cụm.
+- Script crawler đề thi hiện chỉ quét file local và sinh metadata; chưa tự crawl nguồn ngoài.
+
+## Tài Liệu Liên Quan
+
+- [README.md](README.md) - bản tiếng Anh
+- [README/REQUIRED_FIXES_VN.md](README/REQUIRED_FIXES_VN.md) - danh sách ưu tiên các hạng mục cần chỉnh sửa
+- [README/PROJECT_EVALUATION_VN.md](README/PROJECT_EVALUATION_VN.md) - ghi chú đánh giá nội bộ
+
+## Định Hướng Tiếp Theo
+
+Project hiện đã đủ tốt để làm demo hoặc công cụ tham khảo có giao diện chỉn chu. Bước tiếp theo nên tập trung vào quản trị dữ liệu, kiểm định mô hình, đồng bộ lại tài liệu với code, và hoàn thiện pipeline ngân hàng đề để tăng độ tin cậy khi đưa ra public.
