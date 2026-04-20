@@ -69,6 +69,10 @@
             <span class="tab-icon">🧠</span>
             <span class="tab-text">Tối Ưu NV</span>
         </button>
+        <button class="tab-btn" data-tab="exams">
+            <span class="tab-icon">📚</span>
+            <span class="tab-text">Ngân Hàng Đề</span>
+        </button>
     </nav>
 
     <!-- =======================================================================
@@ -423,6 +427,56 @@
         <div id="optimizeResults"></div>
     </div>
 
+    <!-- =======================================================================
+         TAB 6: NGÂN HÀNG ĐỀ THI (NEW)
+    ======================================================================= -->
+    <div class="tab-content" id="tab-exams">
+        <div class="card">
+            <div class="card-title"><span class="icon">📚</span> Ngân Hàng Đề Thi TPHCM</div>
+            <p style="color:var(--text-secondary);font-size:0.88rem;margin-bottom:20px">
+                Hệ thống lưu trữ đề thi, đề thi thử do Trợ lý AI thu thập và phân loại tự động. Chọn môn học bạn muốn ôn luyện.
+            </p>
+            
+            <div class="subject-filters">
+                <button class="btn btn-secondary active" data-subject="math" onclick="App.filterExams('math', this)">📐 Toán</button>
+                <button class="btn btn-secondary" data-subject="lit" onclick="App.filterExams('lit', this)">📝 Ngữ Văn</button>
+                <button class="btn btn-secondary" data-subject="eng" onclick="App.filterExams('eng', this)">🌐 Tiếng Anh</button>
+            </div>
+        </div>
+
+        <div id="examsGridContainer" class="exams-grid"></div>
+
+        <!-- Exam Viewer Modal -->
+        <div class="exam-viewer-modal" id="examViewerModal">
+            <div class="exam-viewer-content">
+                <div class="exam-viewer-header">
+                    <div>
+                        <h3 id="viewerTitle">Đang Tải Đề...</h3>
+                        <p id="viewerSubtitle" style="font-size:0.8rem;color:var(--text-secondary)"></p>
+                    </div>
+                    <button class="btn-close-viewer" onclick="App.closeExamViewer()">✕ Đóng</button>
+                </div>
+                <div class="exam-viewer-body">
+                    <div class="exam-viewer-pdf">
+                        <iframe id="pdfIframe" src="" frameborder="0"></iframe>
+                    </div>
+                    <div class="exam-viewer-ai">
+                        <div class="ai-sidebar-inner">
+                            <span class="icon" style="font-size:2.5rem;margin-bottom:12px;display:block">🤖</span>
+                            <h4>Trợ Lý Đào Tạo AI</h4>
+                            <p style="font-size:0.85rem;color:var(--text-muted);margin-top:10px;">
+                                Tính năng tự động chấm điểm Văn, giải toán từng bước (Step-by-step) đang được tinh chỉnh Prompt và liên kết Model. Sẽ mở vào Giai đoạn 2!
+                            </p>
+                            <button class="btn btn-primary" style="margin-top:20px; width:100%; opacity:0.5; cursor:not-allowed">
+                                Tham gia Đợi (Waitlist)
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- =================== DISCLAIMER =================== -->
     <div class="disclaimer">
         <strong>⚠️ Lưu ý quan trọng:</strong> Kết quả dự đoán chỉ mang tính chất <strong>tham khảo</strong>, được tính toán dựa trên phân tích xu hướng dữ liệu lịch sử 4 năm (2022–2025) bằng mô hình WMA + Linear Regression.
@@ -441,6 +495,7 @@
 
 <!-- Scripts -->
 <script src="js/data.js"></script>
+<script src="js/exams_data.js"></script>
 <script src="js/model.js"></script>
 <script src="js/charts.js"></script>
 <script src="js/app.js"></script>
