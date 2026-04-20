@@ -876,7 +876,7 @@ const App = {
     renderExamGrid(exams) {
         const container = document.getElementById('examsGridContainer');
         if (!container) return;
-        
+
         if (exams.length === 0) {
             container.innerHTML = `<div style="text-align:center;width:100%;padding:40px;color:var(--text-muted)">Không có dữ liệu Đề thi cho môn này.</div>`;
             return;
@@ -890,7 +890,7 @@ const App = {
             const icon = iconObj[ex.subject] || '📄';
             // CSS safe class for type
             const typeClass = ex.type.toLowerCase().replace(/\s+/g, '-');
-            
+
             html += `
                 <div class="exam-card" onclick="App.openExamViewer('${ex.id}')">
                     <div class="exam-card-header">
@@ -908,7 +908,7 @@ const App = {
                 </div>
             `;
         });
-        
+
         container.innerHTML = html;
     },
 
@@ -923,14 +923,14 @@ const App = {
 
         if (modal && iframe) {
             // Prevent iframe from caching history if needed
-            iframe.src = exam.pdfUrl + "#toolbar=0&navpanes=0&scrollbar=0"; 
+            iframe.src = exam.pdfUrl + "#toolbar=0&navpanes=0&scrollbar=0";
             title.textContent = exam.title;
             subtitle.textContent = `${exam.school} - ${exam.year}`;
             modal.classList.add('active');
-            
+
             // Lock body scroll
             document.body.style.overflow = 'hidden';
-            
+
             // Increment dummy downloads
             exam.downloads++;
             this.filterExams(exam.subject); // re-render grid in background to show updated number

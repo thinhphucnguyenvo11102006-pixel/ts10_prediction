@@ -430,7 +430,7 @@ const Charts = {
                         ticks: {
                             ...this.defaultOptions().scales.x.ticks,
                             maxTicksLimit: 12,
-                            callback: function(value, index) {
+                            callback: function (value, index) {
                                 const v = parseFloat(this.getLabelForValue(index));
                                 return v % 1 === 0 ? v.toFixed(0) : '';
                             }
