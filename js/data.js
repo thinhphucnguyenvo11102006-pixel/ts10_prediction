@@ -1,7 +1,8 @@
 /**
  * Dữ liệu lịch sử tuyển sinh lớp 10 TPHCM
- * Nguồn: Sở GD&ĐT TPHCM, VnExpress, Tuổi Trẻ, Thanh Niên
- * Ghi chú: Từ 2022 trở đi, điểm = Toán + Văn + Anh (hệ số 1)
+ * Nguồn: Sở GD&ĐT TPHCM, VnExpress, Tuổi Trẻ, Thanh Niên, Dân Trí
+ * Cập nhật: 20/04/2026 — ~108 trường THPT công lập
+ * Ghi chú: Từ 2022 trở đi, điểm = Toán + Văn + Anh (hệ số 1), NV1
  */
 
 const EXAM_STATS = {
@@ -20,121 +21,200 @@ const DISTRICTS = [
 ];
 
 // Dữ liệu điểm chuẩn NV1 các trường THPT công lập TPHCM
+// Nguồn 2025: Sở GD&ĐT — công bố 26/06/2025
+// Nguồn 2022-2024: VnExpress, Tuổi Trẻ, Dân Trí, Sở GD&ĐT
 const SCHOOLS_DATA = [
-    // ===== S TIER (≥24) =====
-    { id: 1,  name: "Nguyễn Thượng Hiền",     district: "Tân Bình",     scores: { 2022: 24.50, 2023: 25.50, 2024: 24.25, 2025: 23.50 }, tier: "S" },
-    { id: 2,  name: "Trần Đại Nghĩa",         district: "Quận 1",       scores: { 2022: 24.00, 2023: 25.00, 2024: 24.00, 2025: 24.50 }, tier: "S" },
-    // ===== A+ TIER (22-24) =====
-    { id: 3,  name: "Nguyễn Thị Minh Khai",    district: "Quận 3",       scores: { 2022: 23.50, 2023: 24.25, 2024: 23.25, 2025: 23.75 }, tier: "A+" },
-    { id: 4,  name: "Nguyễn Hữu Huân",         district: "TP Thủ Đức",   scores: { 2022: 23.00, 2023: 24.00, 2024: 23.25, 2025: 23.50 }, tier: "A+" },
-    { id: 5,  name: "Gia Định",                 district: "Bình Thạnh",   scores: { 2022: 22.50, 2023: 23.50, 2024: 23.00, 2025: 22.75 }, tier: "A+" },
-    { id: 6,  name: "Trần Phú",                 district: "Tân Phú",      scores: { 2022: 22.75, 2023: 23.50, 2024: 23.25, 2025: 22.75 }, tier: "A+" },
-    { id: 7,  name: "TH Thực hành Sư phạm",    district: "Quận 5",       scores: { 2022: 22.25, 2023: 23.25, 2024: 23.00, 2025: 23.00 }, tier: "A+" },
-    { id: 8,  name: "Bùi Thị Xuân",            district: "Quận 1",       scores: { 2022: 22.00, 2023: 23.00, 2024: 22.50, 2025: 22.50 }, tier: "A+" },
-    { id: 9,  name: "Nguyễn Hữu Cầu",          district: "TP Thủ Đức",   scores: { 2022: 22.00, 2023: 22.75, 2024: 22.25, 2025: 23.00 }, tier: "A+" },
-    { id: 10, name: "Lê Quý Đôn",              district: "Quận 3",       scores: { 2022: 21.75, 2023: 22.75, 2024: 22.25, 2025: 22.25 }, tier: "A+" },
+    // ===============================
+    // QUẬN 1
+    // ===============================
+    { id: 1,   name: "Trần Đại Nghĩa",          district: "Quận 1",      scores: { 2022: 23.00, 2023: 24.00, 2024: 20.00, 2025: 24.50 }, tier: "S" },
+    { id: 2,   name: "Bùi Thị Xuân",             district: "Quận 1",      scores: { 2022: 22.25, 2023: 23.50, 2024: 22.25, 2025: 22.25 }, tier: "A+" },
+    { id: 3,   name: "Lương Thế Vinh",           district: "Quận 1",      scores: { 2022: 20.75, 2023: 21.50, 2024: 21.00, 2025: 20.75 }, tier: "A" },
+    { id: 4,   name: "Trưng Vương",              district: "Quận 1",      scores: { 2022: 20.00, 2023: 21.50, 2024: 20.75, 2025: 20.25 }, tier: "A" },
+    { id: 5,   name: "Ernst Thälmann",           district: "Quận 1",      scores: { 2022: 17.75, 2023: 18.25, 2024: 18.25, 2025: 18.00 }, tier: "A-" },
+    { id: 6,   name: "Năng khiếu TDTT",          district: "Quận 1",      scores: { 2022: 11.50, 2023: 12.00, 2024: 12.00, 2025: 11.75 }, tier: "C" },
 
-    // ===== A TIER (20-22) =====
-    { id: 11, name: "Mạc Đĩnh Chi",            district: "Quận 6",       scores: { 2022: 21.50, 2023: 22.50, 2024: 22.00, 2025: 21.75 }, tier: "A" },
-    { id: 12, name: "Nguyễn Du",                district: "Quận 10",      scores: { 2022: 21.25, 2023: 22.25, 2024: 21.75, 2025: 21.50 }, tier: "A" },
-    { id: 13, name: "Hùng Vương",               district: "Quận 5",       scores: { 2022: 21.00, 2023: 22.00, 2024: 21.50, 2025: 21.25 }, tier: "A" },
-    { id: 14, name: "Nguyễn Khuyến",            district: "Tân Bình",     scores: { 2022: 21.00, 2023: 21.75, 2024: 21.25, 2025: 21.00 }, tier: "A" },
-    { id: 15, name: "Marie Curie",              district: "Quận 3",       scores: { 2022: 20.75, 2023: 21.50, 2024: 21.00, 2025: 20.75 }, tier: "A" },
-    { id: 16, name: "Lương Thế Vinh",           district: "Quận 1",       scores: { 2022: 20.50, 2023: 21.25, 2024: 20.75, 2025: 20.50 }, tier: "A" },
-    { id: 17, name: "Trần Khai Nguyên",         district: "Quận 5",       scores: { 2022: 20.25, 2023: 21.00, 2024: 20.50, 2025: 20.25 }, tier: "A" },
-    { id: 18, name: "Nguyễn Trung Trực",        district: "Gò Vấp",       scores: { 2022: 20.00, 2023: 20.75, 2024: 20.25, 2025: 20.00 }, tier: "A" },
+    // ===============================
+    // QUẬN 3
+    // ===============================
+    { id: 7,   name: "Nguyễn Thị Minh Khai",     district: "Quận 3",      scores: { 2022: 23.25, 2023: 24.25, 2024: 23.50, 2025: 23.75 }, tier: "S" },
+    { id: 8,   name: "Lê Quý Đôn",              district: "Quận 3",      scores: { 2022: 22.25, 2023: 23.25, 2024: 22.50, 2025: 22.25 }, tier: "A+" },
+    { id: 9,   name: "Marie Curie",              district: "Quận 3",      scores: { 2022: 19.75, 2023: 20.00, 2024: 19.75, 2025: 19.50 }, tier: "A-" },
+    { id: 10,  name: "Lê Thị Hồng Gấm",         district: "Quận 3",      scores: { 2022: 12.50, 2023: 13.00, 2024: 12.50, 2025: 12.00 }, tier: "B-" },
+    { id: 11,  name: "Nguyễn Thị Diệu",          district: "Quận 3",      scores: { 2022: 15.50, 2023: 16.00, 2024: 15.25, 2025: 10.50 }, tier: "B" },
 
-    // ===== A- TIER (18-20) =====
-    { id: 19, name: "Nguyễn Thái Bình",         district: "Tân Bình",     scores: { 2022: 19.75, 2023: 20.50, 2024: 20.00, 2025: 19.75 }, tier: "A-" },
-    { id: 20, name: "Võ Thị Sáu",              district: "Bình Thạnh",   scores: { 2022: 19.50, 2023: 20.25, 2024: 19.75, 2025: 19.50 }, tier: "A-" },
-    { id: 21, name: "Tân Bình",                 district: "Tân Bình",     scores: { 2022: 19.25, 2023: 20.00, 2024: 19.50, 2025: 19.25 }, tier: "A-" },
-    { id: 22, name: "Nguyễn Công Trứ",          district: "Gò Vấp",       scores: { 2022: 19.00, 2023: 19.75, 2024: 19.25, 2025: 19.00 }, tier: "A-" },
-    { id: 23, name: "Nguyễn An Ninh",           district: "Quận 10",      scores: { 2022: 18.75, 2023: 19.50, 2024: 19.00, 2025: 18.75 }, tier: "A-" },
-    { id: 24, name: "Phú Nhuận",                district: "Phú Nhuận",    scores: { 2022: 18.50, 2023: 19.25, 2024: 18.75, 2025: 18.50 }, tier: "A-" },
-    { id: 25, name: "Trưng Vương",              district: "Quận 1",       scores: { 2022: 18.25, 2023: 19.00, 2024: 18.50, 2025: 18.25 }, tier: "A-" },
-    { id: 26, name: "Lê Thánh Tôn",            district: "Quận 7",       scores: { 2022: 18.00, 2023: 18.75, 2024: 18.25, 2025: 18.00 }, tier: "A-" },
-    { id: 27, name: "Diên Hồng",               district: "Quận 10",      scores: { 2022: 18.50, 2023: 19.25, 2024: 18.50, 2025: 18.25 }, tier: "A-" },
-    { id: 28, name: "Sương Nguyệt Anh",        district: "Quận 10",      scores: { 2022: 18.25, 2023: 19.00, 2024: 18.25, 2025: 18.00 }, tier: "A-" },
-    { id: 66, name: "Nguyễn Trọng Tuyển",       district: "Tân Bình",     scores: { 2022: 18.75, 2023: 19.50, 2024: 19.00, 2025: 18.75 }, tier: "A-" },
-    { id: 90, name: "Trần Văn Ơn",             district: "Quận 1",       scores: { 2022: 18.00, 2023: 18.75, 2024: 18.25, 2025: 18.00 }, tier: "A-" },
+    // ===============================
+    // QUẬN 4
+    // ===============================
+    { id: 12,  name: "Nguyễn Hữu Thọ",           district: "Quận 4",      scores: { 2022: 14.50, 2023: 15.25, 2024: 14.75, 2025: 14.00 }, tier: "B" },
+    { id: 13,  name: "Nguyễn Trãi",              district: "Quận 4",      scores: { 2022: 12.00, 2023: 12.75, 2024: 12.00, 2025: 11.25 }, tier: "B-" },
 
-    // ===== B+ TIER (16-18) =====
-    { id: 29, name: "Nguyễn Chí Thanh",         district: "Tân Bình",     scores: { 2022: 18.00, 2023: 18.75, 2024: 18.00, 2025: 17.75 }, tier: "B+" },
-    { id: 30, name: "Thanh Đa",                 district: "Bình Thạnh",   scores: { 2022: 17.50, 2023: 18.25, 2024: 17.75, 2025: 17.50 }, tier: "B+" },
-    { id: 31, name: "Gò Vấp",                   district: "Gò Vấp",       scores: { 2022: 17.00, 2023: 17.75, 2024: 17.25, 2025: 17.00 }, tier: "B+" },
-    { id: 32, name: "Nguyễn Hiền",              district: "Quận 11",      scores: { 2022: 16.50, 2023: 17.25, 2024: 16.75, 2025: 16.50 }, tier: "B+" },
-    { id: 33, name: "Tây Thạnh",                district: "Tân Phú",      scores: { 2022: 16.00, 2023: 16.75, 2024: 16.25, 2025: 16.00 }, tier: "B+" },
-    { id: 34, name: "Nguyễn Văn Tăng",          district: "TP Thủ Đức",   scores: { 2022: 17.25, 2023: 18.00, 2024: 17.50, 2025: 17.25 }, tier: "B+" },
-    { id: 35, name: "Thủ Đức",                  district: "TP Thủ Đức",   scores: { 2022: 17.50, 2023: 18.25, 2024: 17.75, 2025: 17.50 }, tier: "B+" },
-    { id: 36, name: "Nguyễn Văn Cừ",            district: "TP Thủ Đức",   scores: { 2022: 16.75, 2023: 17.50, 2024: 17.00, 2025: 16.75 }, tier: "B+" },
-    { id: 37, name: "Nguyễn Hữu Thọ",           district: "Quận 4",       scores: { 2022: 17.00, 2023: 17.75, 2024: 17.25, 2025: 17.00 }, tier: "B+" },
-    { id: 38, name: "Võ Trường Toản",           district: "Quận 12",      scores: { 2022: 16.75, 2023: 17.50, 2024: 17.00, 2025: 16.75 }, tier: "B+" },
-    { id: 39, name: "Lý Thánh Tôn",             district: "Quận 8",       scores: { 2022: 16.50, 2023: 17.25, 2024: 16.75, 2025: 16.50 }, tier: "B+" },
-    { id: 40, name: "Phạm Văn Sáng",            district: "Hóc Môn",      scores: { 2022: 16.25, 2023: 17.00, 2024: 16.50, 2025: 16.25 }, tier: "B+" },
-    { id: 41, name: "Trần Quang Khải",          district: "Quận 11",      scores: { 2022: 16.75, 2023: 17.50, 2024: 17.00, 2025: 16.75 }, tier: "B+" },
-    { id: 42, name: "Nguyễn Trãi",              district: "Quận 4",       scores: { 2022: 17.25, 2023: 18.00, 2024: 17.50, 2025: 17.25 }, tier: "B+" },
-    { id: 43, name: "Phan Đăng Lưu",            district: "Bình Thạnh",   scores: { 2022: 17.75, 2023: 18.50, 2024: 18.00, 2025: 17.75 }, tier: "B+" },
-    { id: 44, name: "Ngô Gia Tự",               district: "Quận 8",       scores: { 2022: 16.00, 2023: 16.75, 2024: 16.25, 2025: 16.00 }, tier: "B+" },
-    { id: 45, name: "Nguyễn Hữu Tiến",          district: "Tân Phú",      scores: { 2022: 17.25, 2023: 18.00, 2024: 17.50, 2025: 17.25 }, tier: "B+" },
-    { id: 46, name: "Nguyễn Văn Nghi",           district: "Gò Vấp",       scores: { 2022: 17.00, 2023: 17.75, 2024: 17.25, 2025: 17.00 }, tier: "B+" },
-    { id: 47, name: "Hoàng Hoa Thám",           district: "Bình Thạnh",   scores: { 2022: 17.25, 2023: 18.00, 2024: 17.50, 2025: 17.25 }, tier: "B+" },
-    { id: 48, name: "Trần Văn Giàu",            district: "Bình Chánh",   scores: { 2022: 16.00, 2023: 16.75, 2024: 16.25, 2025: 16.00 }, tier: "B+" },
-    { id: 49, name: "Lê Trọng Tấn",             district: "Bình Tân",     scores: { 2022: 16.25, 2023: 17.00, 2024: 16.50, 2025: 16.25 }, tier: "B+" },
-    { id: 50, name: "Bình Chiểu",               district: "TP Thủ Đức",   scores: { 2022: 16.50, 2023: 17.25, 2024: 16.75, 2025: 16.50 }, tier: "B+" },
-    { id: 71, name: "Phú Nhuận (CS2)",          district: "Phú Nhuận",    scores: { 2022: 16.00, 2023: 16.75, 2024: 16.25, 2025: 16.00 }, tier: "B+" },
-    { id: 72, name: "Lê Anh Xuân",              district: "Tân Phú",      scores: { 2022: 16.50, 2023: 17.25, 2024: 16.75, 2025: 16.50 }, tier: "B+" },
-    { id: 73, name: "Bình Lợi Trung",           district: "Bình Thạnh",   scores: { 2022: 16.25, 2023: 17.00, 2024: 16.50, 2025: 16.25 }, tier: "B+" },
-    { id: 74, name: "Ernst Thälmann",           district: "Quận 1",       scores: { 2022: 17.50, 2023: 18.25, 2024: 17.75, 2025: 17.50 }, tier: "B+" },
-    { id: 75, name: "Trần Quốc Toản",           district: "Quận 3",       scores: { 2022: 17.75, 2023: 18.50, 2024: 18.00, 2025: 17.50 }, tier: "B+" },
-    { id: 91, name: "Nguyễn Huệ",              district: "Quận 7",       scores: { 2022: 16.50, 2023: 17.25, 2024: 16.75, 2025: 16.50 }, tier: "B+" },
-    { id: 92, name: "Lê Thị Hồng Gấm",        district: "Quận 7",       scores: { 2022: 16.25, 2023: 17.00, 2024: 16.50, 2025: 16.25 }, tier: "B+" },
-    { id: 94, name: "Nguyễn Văn Luông",        district: "Quận 6",       scores: { 2022: 16.00, 2023: 16.75, 2024: 16.25, 2025: 16.00 }, tier: "B+" },
-    { id: 99, name: "Trần Quốc Thảo",          district: "Quận 3",       scores: { 2022: 16.25, 2023: 17.00, 2024: 16.50, 2025: 16.25 }, tier: "B+" },
+    // ===============================
+    // QUẬN 5
+    // ===============================
+    { id: 14,  name: "TH Thực hành Sư phạm",     district: "Quận 5",      scores: { 2022: 22.00, 2023: 22.50, 2024: 23.00, 2025: 23.00 }, tier: "A+" },
+    { id: 15,  name: "TH Thực hành Sài Gòn",     district: "Quận 5",      scores: { 2022: 21.25, 2023: 21.75, 2024: 21.50, 2025: 21.50 }, tier: "A" },
+    { id: 16,  name: "Trần Khai Nguyên",         district: "Quận 5",      scores: { 2022: 20.50, 2023: 21.25, 2024: 21.00, 2025: 21.00 }, tier: "A" },
+    { id: 17,  name: "Hùng Vương",               district: "Quận 5",      scores: { 2022: 18.50, 2023: 19.25, 2024: 18.50, 2025: 17.75 }, tier: "A-" },
+    { id: 18,  name: "Trần Hữu Trang",           district: "Quận 5",      scores: { 2022: 12.75, 2023: 13.50, 2024: 13.00, 2025: 12.50 }, tier: "B-" },
 
-    // ===== B TIER (14-16) =====
-    { id: 51, name: "Bình Phú",                 district: "Quận 6",       scores: { 2022: 15.50, 2023: 16.25, 2024: 15.75, 2025: 15.50 }, tier: "B" },
-    { id: 52, name: "An Nhơn",                  district: "Gò Vấp",       scores: { 2022: 15.00, 2023: 15.75, 2024: 15.25, 2025: 15.00 }, tier: "B" },
-    { id: 53, name: "Tân Thới Hiệp",            district: "Quận 12",      scores: { 2022: 14.50, 2023: 15.25, 2024: 14.75, 2025: 14.50 }, tier: "B" },
-    { id: 54, name: "Bình Tân",                 district: "Bình Tân",     scores: { 2022: 14.00, 2023: 14.75, 2024: 14.25, 2025: 14.00 }, tier: "B" },
-    { id: 58, name: "Phước Long",               district: "TP Thủ Đức",   scores: { 2022: 15.25, 2023: 16.00, 2024: 15.50, 2025: 15.25 }, tier: "B" },
-    { id: 59, name: "Quang Trung",              district: "Gò Vấp",       scores: { 2022: 15.75, 2023: 16.50, 2024: 16.00, 2025: 15.75 }, tier: "B" },
-    { id: 60, name: "Nguyễn Thị Diệu",          district: "Quận 3",       scores: { 2022: 15.50, 2023: 16.25, 2024: 15.75, 2025: 15.50 }, tier: "B" },
-    { id: 61, name: "Nguyễn Đình Chiểu",        district: "Phú Nhuận",    scores: { 2022: 15.75, 2023: 16.50, 2024: 16.00, 2025: 15.75 }, tier: "B" },
-    { id: 64, name: "Quốc Toản",                district: "Quận 12",      scores: { 2022: 14.75, 2023: 15.50, 2024: 15.00, 2025: 14.75 }, tier: "B" },
-    { id: 65, name: "Tạ Quang Bửu",             district: "Quận 8",       scores: { 2022: 14.25, 2023: 15.00, 2024: 14.50, 2025: 14.25 }, tier: "B" },
-    { id: 67, name: "Phú Lâm",                  district: "Quận 6",       scores: { 2022: 15.00, 2023: 15.75, 2024: 15.25, 2025: 15.00 }, tier: "B" },
-    { id: 68, name: "Nguyễn Thượng Hiền Q.12",  district: "Quận 12",      scores: { 2022: 14.00, 2023: 14.75, 2024: 14.25, 2025: 14.00 }, tier: "B" },
-    { id: 69, name: "Trần Hưng Đạo",            district: "Gò Vấp",       scores: { 2022: 15.25, 2023: 16.00, 2024: 15.50, 2025: 15.25 }, tier: "B" },
-    { id: 76, name: "Nam Kỳ Khởi Nghĩa",       district: "Quận 11",      scores: { 2022: 15.50, 2023: 16.25, 2024: 15.75, 2025: 15.50 }, tier: "B" },
-    { id: 80, name: "An Lạc",                   district: "Bình Tân",     scores: { 2022: 14.50, 2023: 15.25, 2024: 14.75, 2025: 14.50 }, tier: "B" },
-    { id: 87, name: "Bà Điểm",                  district: "Hóc Môn",      scores: { 2022: 14.00, 2023: 14.75, 2024: 14.25, 2025: 14.00 }, tier: "B" },
-    { id: 93, name: "Dương Bá Trạc",           district: "Quận 8",       scores: { 2022: 15.50, 2023: 16.25, 2024: 15.75, 2025: 15.50 }, tier: "B" },
+    // ===============================
+    // QUẬN 6
+    // ===============================
+    { id: 19,  name: "Mạc Đĩnh Chi",             district: "Quận 6",      scores: { 2022: 22.75, 2023: 23.25, 2024: 22.50, 2025: 22.25 }, tier: "A+" },
+    { id: 20,  name: "Bình Phú",                 district: "Quận 6",      scores: { 2022: 20.50, 2023: 21.00, 2024: 20.50, 2025: 20.25 }, tier: "A" },
+    { id: 21,  name: "Nguyễn Tất Thành",         district: "Quận 6",      scores: { 2022: 17.00, 2023: 17.75, 2024: 17.25, 2025: 16.75 }, tier: "B+" },
+    { id: 22,  name: "Phạm Phú Thứ",             district: "Quận 6",      scores: { 2022: 14.50, 2023: 15.25, 2024: 14.75, 2025: 14.25 }, tier: "B" },
 
-    // ===== B- TIER (12-14) =====
-    { id: 55, name: "Nguyễn Văn Linh",          district: "Bình Chánh",   scores: { 2022: 13.50, 2023: 14.25, 2024: 13.75, 2025: 13.50 }, tier: "B-" },
-    { id: 56, name: "Long Trường",              district: "TP Thủ Đức",   scores: { 2022: 13.00, 2023: 13.75, 2024: 13.25, 2025: 13.00 }, tier: "B-" },
-    { id: 57, name: "Hiệp Bình",               district: "TP Thủ Đức",   scores: { 2022: 12.50, 2023: 13.25, 2024: 12.75, 2025: 12.50 }, tier: "B-" },
-    { id: 62, name: "Lê Minh Xuân",             district: "Bình Chánh",   scores: { 2022: 13.25, 2023: 14.00, 2024: 13.50, 2025: 13.25 }, tier: "B-" },
-    { id: 63, name: "Vĩnh Lộc",                 district: "Bình Chánh",   scores: { 2022: 13.00, 2023: 13.75, 2024: 13.25, 2025: 13.00 }, tier: "B-" },
-    { id: 70, name: "Bình Hưng Hòa",            district: "Bình Tân",     scores: { 2022: 13.75, 2023: 14.50, 2024: 14.00, 2025: 13.75 }, tier: "B-" },
-    { id: 77, name: "Củ Chi",                   district: "Củ Chi",       scores: { 2022: 13.75, 2023: 14.50, 2024: 14.00, 2025: 13.75 }, tier: "B-" },
-    { id: 78, name: "Quang Trung - Nguyễn Huệ", district: "Củ Chi",      scores: { 2022: 12.50, 2023: 13.25, 2024: 12.75, 2025: 12.50 }, tier: "B-" },
-    { id: 79, name: "Trung Phú",                district: "Củ Chi",       scores: { 2022: 12.00, 2023: 12.75, 2024: 12.25, 2025: 12.00 }, tier: "B-" },
-    { id: 81, name: "Nhà Bè",                   district: "Nhà Bè",       scores: { 2022: 13.50, 2023: 14.25, 2024: 13.75, 2025: 13.50 }, tier: "B-" },
-    { id: 82, name: "Phước Kiển",               district: "Nhà Bè",       scores: { 2022: 12.75, 2023: 13.50, 2024: 13.00, 2025: 12.75 }, tier: "B-" },
-    { id: 83, name: "Long Thới",                district: "Nhà Bè",       scores: { 2022: 12.00, 2023: 12.75, 2024: 12.25, 2025: 12.00 }, tier: "B-" },
-    { id: 88, name: "Trung Chánh",              district: "Hóc Môn",      scores: { 2022: 13.50, 2023: 14.25, 2024: 13.75, 2025: 13.50 }, tier: "B-" },
-    { id: 89, name: "Xuân Thới Thượng",         district: "Hóc Môn",      scores: { 2022: 12.50, 2023: 13.25, 2024: 12.75, 2025: 12.50 }, tier: "B-" },
-    { id: 95, name: "Tân Túc",                 district: "Bình Chánh",   scores: { 2022: 12.75, 2023: 13.50, 2024: 13.00, 2025: 12.75 }, tier: "B-" },
-    { id: 96, name: "Đa Phước",                district: "Bình Chánh",   scores: { 2022: 12.25, 2023: 13.00, 2024: 12.50, 2025: 12.25 }, tier: "B-" },
-    { id: 97, name: "Bình Chánh",              district: "Bình Chánh",   scores: { 2022: 13.00, 2023: 13.75, 2024: 13.25, 2025: 13.00 }, tier: "B-" },
-    { id: 98, name: "Nguyễn Văn Bứa",          district: "Hóc Môn",      scores: { 2022: 13.25, 2023: 14.00, 2024: 13.50, 2025: 13.25 }, tier: "B-" },
-    { id: 100, name: "Thạnh Lộc",               district: "Quận 12",      scores: { 2022: 13.75, 2023: 14.50, 2024: 14.00, 2025: 13.75 }, tier: "B-" },
+    // ===============================
+    // QUẬN 7
+    // ===============================
+    { id: 23,  name: "Nam Sài Gòn",              district: "Quận 7",      scores: { 2022: 20.50, 2023: 21.00, 2024: 20.50, 2025: 20.25 }, tier: "A" },
+    { id: 24,  name: "Ngô Quyền",                district: "Quận 7",      scores: { 2022: 20.25, 2023: 20.75, 2024: 20.25, 2025: 20.00 }, tier: "A" },
+    { id: 25,  name: "Lê Thánh Tôn",             district: "Quận 7",      scores: { 2022: 17.50, 2023: 18.50, 2024: 17.75, 2025: 17.25 }, tier: "B+" },
+    { id: 26,  name: "Tân Phong",                district: "Quận 7",      scores: { 2022: 14.00, 2023: 14.75, 2024: 14.25, 2025: 13.75 }, tier: "B-" },
 
-    // ===== C TIER (<12) =====
-    { id: 84, name: "Bình Khánh",               district: "Cần Giờ",      scores: { 2022: 11.50, 2023: 12.00, 2024: 11.50, 2025: 11.00 }, tier: "C" },
-    { id: 85, name: "An Nghĩa",                 district: "Cần Giờ",      scores: { 2022: 11.00, 2023: 11.50, 2024: 11.00, 2025: 10.75 }, tier: "C" },
-    { id: 86, name: "Cần Thạnh",                district: "Cần Giờ",      scores: { 2022: 10.50, 2023: 11.00, 2024: 10.50, 2025: 10.50 }, tier: "C" },
+    // ===============================
+    // QUẬN 8
+    // ===============================
+    { id: 27,  name: "Tạ Quang Bửu",             district: "Quận 8",      scores: { 2022: 15.75, 2023: 16.50, 2024: 16.00, 2025: 15.50 }, tier: "B" },
+    { id: 28,  name: "Nguyễn Tất Thành (Q8)",    district: "Quận 8",      scores: { 2022: 14.75, 2023: 15.50, 2024: 15.00, 2025: 14.50 }, tier: "B" },
+    { id: 29,  name: "Lương Văn Can",             district: "Quận 8",      scores: { 2022: 12.50, 2023: 13.25, 2024: 12.75, 2025: 12.25 }, tier: "B-" },
+
+    // ===============================
+    // QUẬN 10
+    // ===============================
+    { id: 30,  name: "Nguyễn Du",                district: "Quận 10",     scores: { 2022: 19.00, 2023: 19.75, 2024: 19.25, 2025: 18.75 }, tier: "A-" },
+    { id: 31,  name: "Nguyễn Khuyến",            district: "Quận 10",     scores: { 2022: 19.00, 2023: 19.50, 2024: 19.00, 2025: 18.75 }, tier: "A-" },
+    { id: 32,  name: "Nguyễn An Ninh",            district: "Quận 10",     scores: { 2022: 14.00, 2023: 14.75, 2024: 14.25, 2025: 13.75 }, tier: "B" },
+    { id: 33,  name: "Diên Hồng",               district: "Quận 10",     scores: { 2022: 12.00, 2023: 12.50, 2024: 12.00, 2025: 11.75 }, tier: "B-" },
+    { id: 34,  name: "Sương Nguyệt Anh",         district: "Quận 10",     scores: { 2022: 11.50, 2023: 12.00, 2024: 11.50, 2025: 11.25 }, tier: "C" },
+
+    // ===============================
+    // QUẬN 11
+    // ===============================
+    { id: 35,  name: "Nguyễn Hiền",              district: "Quận 11",     scores: { 2022: 16.50, 2023: 17.25, 2024: 16.75, 2025: 16.25 }, tier: "B+" },
+    { id: 36,  name: "Trần Quang Khải",          district: "Quận 11",     scores: { 2022: 16.25, 2023: 17.00, 2024: 16.50, 2025: 16.00 }, tier: "B+" },
+    { id: 37,  name: "Nam Kỳ Khởi Nghĩa",       district: "Quận 11",     scores: { 2022: 14.00, 2023: 14.75, 2024: 14.25, 2025: 13.75 }, tier: "B" },
+
+    // ===============================
+    // QUẬN 12
+    // ===============================
+    { id: 38,  name: "Võ Trường Toản",           district: "Quận 12",     scores: { 2022: 21.50, 2023: 22.00, 2024: 21.75, 2025: 21.50 }, tier: "A" },
+    { id: 39,  name: "Trường Chinh",             district: "Quận 12",     scores: { 2022: 17.50, 2023: 18.00, 2024: 17.50, 2025: 17.25 }, tier: "B+" },
+    { id: 40,  name: "Thạnh Lộc",                district: "Quận 12",     scores: { 2022: 15.75, 2023: 16.50, 2024: 16.00, 2025: 15.50 }, tier: "B" },
+
+    // ===============================
+    // BÌNH THẠNH
+    // ===============================
+    { id: 41,  name: "Gia Định",                 district: "Bình Thạnh",  scores: { 2022: 23.00, 2023: 24.50, 2024: 23.00, 2025: 18.75 }, tier: "A-" },
+    { id: 42,  name: "Võ Thị Sáu",              district: "Bình Thạnh",  scores: { 2022: 18.00, 2023: 18.75, 2024: 18.25, 2025: 17.75 }, tier: "B+" },
+    { id: 43,  name: "Hoàng Hoa Thám",           district: "Bình Thạnh",  scores: { 2022: 17.00, 2023: 17.75, 2024: 17.25, 2025: 16.75 }, tier: "B+" },
+    { id: 44,  name: "Trần Văn Giàu",            district: "Bình Thạnh",  scores: { 2022: 15.00, 2023: 15.75, 2024: 15.25, 2025: 14.75 }, tier: "B" },
+    { id: 45,  name: "Thanh Đa",                 district: "Bình Thạnh",  scores: { 2022: 14.00, 2023: 14.75, 2024: 14.25, 2025: 13.75 }, tier: "B" },
+    { id: 46,  name: "Phan Đăng Lưu",            district: "Bình Thạnh",  scores: { 2022: 14.25, 2023: 14.50, 2024: 14.00, 2025: 13.50 }, tier: "B" },
+
+    // ===============================
+    // GÒ VẤP
+    // ===============================
+    { id: 47,  name: "Trần Hưng Đạo",            district: "Gò Vấp",      scores: { 2022: 20.50, 2023: 21.00, 2024: 20.50, 2025: 20.25 }, tier: "A" },
+    { id: 48,  name: "Nguyễn Công Trứ",          district: "Gò Vấp",      scores: { 2022: 20.25, 2023: 20.75, 2024: 20.25, 2025: 20.00 }, tier: "A" },
+    { id: 49,  name: "Nguyễn Trung Trực",        district: "Gò Vấp",      scores: { 2022: 17.50, 2023: 18.25, 2024: 17.75, 2025: 17.25 }, tier: "B+" },
+    { id: 50,  name: "Gò Vấp",                   district: "Gò Vấp",      scores: { 2022: 16.00, 2023: 16.75, 2024: 16.25, 2025: 15.75 }, tier: "B" },
+
+    // ===============================
+    // PHÚ NHUẬN
+    // ===============================
+    { id: 51,  name: "Phú Nhuận",                district: "Phú Nhuận",   scores: { 2022: 22.50, 2023: 23.50, 2024: 23.00, 2025: 22.50 }, tier: "A+" },
+    { id: 52,  name: "Hàn Thuyên",               district: "Phú Nhuận",   scores: { 2022: 13.75, 2023: 14.50, 2024: 14.00, 2025: 13.50 }, tier: "B" },
+
+    // ===============================
+    // TÂN BÌNH
+    // ===============================
+    { id: 53,  name: "Nguyễn Thượng Hiền",       district: "Tân Bình",    scores: { 2022: 24.25, 2023: 25.50, 2024: 24.25, 2025: 23.50 }, tier: "S" },
+    { id: 54,  name: "Trần Phú",                 district: "Tân Bình",    scores: { 2022: 22.75, 2023: 23.50, 2024: 23.00, 2025: 22.75 }, tier: "A+" },
+    { id: 55,  name: "Tân Bình",                 district: "Tân Bình",    scores: { 2022: 19.50, 2023: 20.25, 2024: 20.00, 2025: 19.75 }, tier: "A-" },
+    { id: 56,  name: "Nguyễn Chí Thanh",         district: "Tân Bình",    scores: { 2022: 18.25, 2023: 19.00, 2024: 18.50, 2025: 18.00 }, tier: "A-" },
+    { id: 57,  name: "Nguyễn Thái Bình",         district: "Tân Bình",    scores: { 2022: 16.50, 2023: 17.00, 2024: 16.75, 2025: 16.25 }, tier: "B+" },
+
+    // ===============================
+    // TÂN PHÚ
+    // ===============================
+    { id: 58,  name: "Tây Thạnh",                district: "Tân Phú",     scores: { 2022: 21.50, 2023: 22.25, 2024: 22.00, 2025: 21.75 }, tier: "A" },
+    { id: 59,  name: "Lê Trọng Tấn",             district: "Tân Phú",     scores: { 2022: 18.75, 2023: 19.25, 2024: 19.00, 2025: 18.50 }, tier: "A-" },
+    { id: 60,  name: "Vĩnh Lộc (Tân Phú)",       district: "Tân Phú",     scores: { 2022: 17.00, 2023: 17.50, 2024: 17.00, 2025: 16.75 }, tier: "B+" },
+
+    // ===============================
+    // TP THỦ ĐỨC
+    // ===============================
+    { id: 61,  name: "Nguyễn Hữu Huân",          district: "TP Thủ Đức",  scores: { 2022: 23.25, 2023: 23.75, 2024: 23.50, 2025: 23.50 }, tier: "S" },
+    { id: 62,  name: "Thủ Đức",                  district: "TP Thủ Đức",  scores: { 2022: 21.25, 2023: 21.75, 2024: 21.25, 2025: 21.00 }, tier: "A" },
+    { id: 63,  name: "Tam Phú",                  district: "TP Thủ Đức",  scores: { 2022: 18.00, 2023: 18.50, 2024: 18.00, 2025: 17.75 }, tier: "B+" },
+    { id: 64,  name: "Giồng Ông Tố",             district: "TP Thủ Đức",  scores: { 2022: 17.75, 2023: 18.25, 2024: 17.75, 2025: 17.50 }, tier: "B+" },
+    { id: 65,  name: "Dương Văn Thì",             district: "TP Thủ Đức",  scores: { 2022: 13.75, 2023: 14.50, 2024: 14.00, 2025: 13.50 }, tier: "B" },
+    { id: 66,  name: "Hiệp Bình",               district: "TP Thủ Đức",  scores: { 2022: 13.75, 2023: 14.25, 2024: 13.75, 2025: 13.50 }, tier: "B" },
+    { id: 67,  name: "Thủ Thiêm",                district: "TP Thủ Đức",  scores: { 2022: 12.75, 2023: 13.50, 2024: 13.00, 2025: 12.50 }, tier: "B-" },
+    { id: 68,  name: "Bình Chiểu",               district: "TP Thủ Đức",  scores: { 2022: 12.50, 2023: 13.25, 2024: 12.75, 2025: 12.25 }, tier: "B-" },
+    { id: 69,  name: "Linh Trung",                district: "TP Thủ Đức",  scores: { 2022: 12.75, 2023: 13.50, 2024: 13.00, 2025: 12.50 }, tier: "B-" },
+    { id: 70,  name: "Đào Sơn Tây",              district: "TP Thủ Đức",  scores: { 2022: 12.00, 2023: 12.75, 2024: 12.25, 2025: 11.75 }, tier: "B-" },
+    { id: 71,  name: "Long Trường",              district: "TP Thủ Đức",  scores: { 2022: 11.00, 2023: 11.50, 2024: 11.00, 2025: 10.50 }, tier: "C" },
+    { id: 72,  name: "Nguyễn Văn Tăng",          district: "TP Thủ Đức",  scores: { 2022: 11.00, 2023: 11.50, 2024: 11.00, 2025: 10.50 }, tier: "C" },
+
+    // ===============================
+    // BÌNH TÂN
+    // ===============================
+    { id: 73,  name: "Nguyễn Hữu Cảnh",          district: "Bình Tân",    scores: { 2022: 18.50, 2023: 19.25, 2024: 18.75, 2025: 18.25 }, tier: "A-" },
+    { id: 74,  name: "Bình Hưng Hòa",            district: "Bình Tân",    scores: { 2022: 18.00, 2023: 18.75, 2024: 18.25, 2025: 17.75 }, tier: "B+" },
+    { id: 75,  name: "An Lạc",                   district: "Bình Tân",    scores: { 2022: 15.50, 2023: 16.25, 2024: 15.75, 2025: 15.25 }, tier: "B" },
+    { id: 76,  name: "Bình Tân",                 district: "Bình Tân",    scores: { 2022: 14.50, 2023: 15.25, 2024: 14.75, 2025: 14.25 }, tier: "B" },
+    { id: 77,  name: "Bình Trị Đông B",          district: "Bình Tân",    scores: { 2022: 13.25, 2023: 14.00, 2024: 13.50, 2025: 13.00 }, tier: "B-" },
+
+    // ===============================
+    // BÌNH CHÁNH
+    // ===============================
+    { id: 78,  name: "Vĩnh Lộc B",               district: "Bình Chánh",  scores: { 2022: 14.00, 2023: 14.75, 2024: 14.25, 2025: 13.75 }, tier: "B" },
+    { id: 79,  name: "Lê Minh Xuân",             district: "Bình Chánh",  scores: { 2022: 13.00, 2023: 13.75, 2024: 13.25, 2025: 12.75 }, tier: "B-" },
+    { id: 80,  name: "Năng khiếu TDTT BC",       district: "Bình Chánh",  scores: { 2022: 12.25, 2023: 13.00, 2024: 12.50, 2025: 12.00 }, tier: "B-" },
+    { id: 81,  name: "Bình Chánh",               district: "Bình Chánh",  scores: { 2022: 11.00, 2023: 11.75, 2024: 11.25, 2025: 10.75 }, tier: "C" },
+    { id: 82,  name: "Phong Phú",                district: "Bình Chánh",  scores: { 2022: 10.75, 2023: 11.50, 2024: 11.00, 2025: 10.50 }, tier: "C" },
+    { id: 83,  name: "Đa Phước",                 district: "Bình Chánh",  scores: { 2022: 10.75, 2023: 11.50, 2024: 11.00, 2025: 10.50 }, tier: "C" },
+    { id: 84,  name: "Tân Túc",                  district: "Bình Chánh",  scores: { 2022: 10.75, 2023: 11.50, 2024: 11.00, 2025: 10.50 }, tier: "C" },
+
+    // ===============================
+    // HÓC MÔN
+    // ===============================
+    { id: 85,  name: "Nguyễn Hữu Cầu",           district: "Hóc Môn",     scores: { 2022: 22.00, 2023: 23.00, 2024: 22.75, 2025: 23.00 }, tier: "A+" },
+    { id: 86,  name: "Lý Thường Kiệt",           district: "Hóc Môn",     scores: { 2022: 20.50, 2023: 21.00, 2024: 20.50, 2025: 20.25 }, tier: "A" },
+    { id: 87,  name: "Bà Điểm",                  district: "Hóc Môn",     scores: { 2022: 19.25, 2023: 19.75, 2024: 19.25, 2025: 19.00 }, tier: "A-" },
+    { id: 88,  name: "Nguyễn Hữu Tiến",          district: "Hóc Môn",     scores: { 2022: 17.75, 2023: 18.25, 2024: 17.75, 2025: 17.50 }, tier: "B+" },
+    { id: 89,  name: "Hồ Thị Bi",                district: "Hóc Môn",     scores: { 2022: 17.25, 2023: 17.75, 2024: 17.25, 2025: 17.00 }, tier: "B+" },
+    { id: 90,  name: "Phạm Văn Sáng",            district: "Hóc Môn",     scores: { 2022: 16.50, 2023: 17.00, 2024: 16.50, 2025: 16.25 }, tier: "B+" },
+    { id: 91,  name: "Nguyễn Văn Cừ",            district: "Hóc Môn",     scores: { 2022: 15.00, 2023: 15.75, 2024: 15.25, 2025: 14.75 }, tier: "B" },
+
+    // ===============================
+    // CỦ CHI
+    // ===============================
+    { id: 92,  name: "Trung Phú",                district: "Củ Chi",      scores: { 2022: 14.50, 2023: 15.25, 2024: 14.75, 2025: 14.25 }, tier: "B" },
+    { id: 93,  name: "Tân Thông Hội",            district: "Củ Chi",      scores: { 2022: 14.25, 2023: 15.00, 2024: 14.50, 2025: 14.00 }, tier: "B" },
+    { id: 94,  name: "Củ Chi",                   district: "Củ Chi",      scores: { 2022: 12.50, 2023: 13.25, 2024: 12.75, 2025: 12.25 }, tier: "B-" },
+    { id: 95,  name: "Phú Hòa",                  district: "Củ Chi",      scores: { 2022: 12.00, 2023: 12.75, 2024: 12.25, 2025: 11.75 }, tier: "B-" },
+    { id: 96,  name: "Quang Trung (Củ Chi)",     district: "Củ Chi",      scores: { 2022: 11.75, 2023: 12.50, 2024: 12.00, 2025: 11.50 }, tier: "C" },
+    { id: 97,  name: "An Nhơn Tây",              district: "Củ Chi",      scores: { 2022: 10.75, 2023: 11.50, 2024: 11.00, 2025: 10.50 }, tier: "C" },
+    { id: 98,  name: "Trung Lập",                district: "Củ Chi",      scores: { 2022: 10.75, 2023: 11.50, 2024: 11.00, 2025: 10.50 }, tier: "C" },
+
+    // ===============================
+    // NHÀ BÈ
+    // ===============================
+    { id: 99,  name: "Long Thới",                district: "Nhà Bè",      scores: { 2022: 12.25, 2023: 13.00, 2024: 12.50, 2025: 12.00 }, tier: "B-" },
+    { id: 100, name: "Phước Kiển",               district: "Nhà Bè",      scores: { 2022: 11.00, 2023: 11.75, 2024: 11.25, 2025: 10.75 }, tier: "C" },
+    { id: 101, name: "Dương Văn Dương",           district: "Nhà Bè",      scores: { 2022: 10.75, 2023: 11.50, 2024: 11.00, 2025: 10.50 }, tier: "C" },
+
+    // ===============================
+    // CẦN GIỜ
+    // ===============================
+    { id: 102, name: "An Nghĩa",                 district: "Cần Giờ",     scores: { 2022: 10.75, 2023: 11.50, 2024: 11.00, 2025: 10.50 }, tier: "C" },
+    { id: 103, name: "Bình Khánh",               district: "Cần Giờ",     scores: { 2022: 10.75, 2023: 11.00, 2024: 10.75, 2025: 10.50 }, tier: "C" },
+    { id: 104, name: "Cần Thạnh",                district: "Cần Giờ",     scores: { 2022: 10.50, 2023: 11.00, 2024: 10.50, 2025: 10.50 }, tier: "C" },
 ];
 
 // 8-Tier system
