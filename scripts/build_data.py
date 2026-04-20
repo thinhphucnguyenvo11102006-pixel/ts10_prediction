@@ -50,7 +50,7 @@ def build():
             if key in info:
                 val = info[key]
                 parts.append(f"{key}: {val}" if val is not None else f"{key}: null")
-        exam_stats_lines.append(f"    {year}: {{ {', '.join(parts)} }}")
+        exam_stats_lines.append(f"    {year}: {{ {', '.join(parts)} }},")
 
     # Build SCHOOLS_DATA with auto-computed tier
     school_lines = []

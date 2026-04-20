@@ -8,11 +8,11 @@
  */
 
 const EXAM_STATS = {
-    2022: { candidates: 94000, quota: 72000 }
-    2023: { candidates: 96000, quota: 74000 }
-    2024: { candidates: 98600, quota: 77355 }
-    2025: { candidates: 102000, quota: 80000 }
-    2026: { candidates: 169080, quota: 118400 }
+    2022: { candidates: 94000, quota: 72000 },
+    2023: { candidates: 96000, quota: 74000 },
+    2024: { candidates: 98600, quota: 77355 },
+    2025: { candidates: 102000, quota: 80000 },
+    2026: { candidates: 169080, quota: 118400 },
 };
 
 const DISTRICTS = ["Quận 1", "Quận 3", "Quận 4", "Quận 5", "Quận 6", "Quận 7", "Quận 8", "Quận 10", "Quận 11", "Quận 12", "Bình Thạnh", "Gò Vấp", "Phú Nhuận", "Tân Bình", "Tân Phú", "TP Thủ Đức", "Bình Tân", "Bình Chánh", "Hóc Môn", "Củ Chi", "Nhà Bè", "Cần Giờ"];
