@@ -6,7 +6,7 @@ Dự án này là một ứng dụng Web tĩnh (Static Web App) giúp học sinh
 
 ---
 
-## 🚀 Cách Thức Hoạt Động (App Flow)
+## Cách Thức Hoạt Động (App Flow)
 
 Ứng dụng là một trang Single Page Application (SPA), nghĩa là chỉ cần tải đúng 1 lần và mọi thao tác chuyển trang/hiển thị biểu đồ đều mượt mà không cần load lại web. Người dùng sẽ tương tác thông qua 5 Tab chức năng tuần tự:
 
@@ -19,7 +19,7 @@ Dự án này là một ứng dụng Web tĩnh (Static Web App) giúp học sinh
 
 ---
 
-## 🧠 Các Thuật Toán Chi Tiết (Underneath the Hood)
+##  Các Thuật Toán Chi Tiết (Underneath the Hood)
 
 Dự án này không phải một bảng tra cứu excel đơn thuần. Nó vận hành trên các quy luật thống kê. Dưới đây là kiến trúc thuật toán chi tiết. 
 
@@ -54,10 +54,10 @@ Công thức: `Estimate = [(Điểm HK2 × 60%) + (Điểm TBCN × 40%)] × 0.85
 
 ---
 
-## 🎨 Giao Diện (UI/UX)
+##  Giao Diện (UI/UX)
 Sử dụng phong cách Glassmorphism (Kính mờ) trên nền màu **Nâu Cà Phê (Coffee/Earth tone)** (`#1a100c`), đi kèm với mã thiết kế tối giản, chuyên nghiệp giúp cha mẹ học sinh đọc số liệu dễ chịu trong thời gian dài mà vẫn mang tinh thần "công nghệ, hiện đại".
 
-## 🛠 Cách Chạy / Triển Khai (Deployment)
+## Cách Chạy / Triển Khai (Deployment)
 Code thuần Client-side (HTML/CSS/JS). Không Node.js, Không Database.
 *   **Chạy Local:** Double-click file `index.html` hoặc dùng `Live Server` trong VSCode.
 *   **Hoặc truy cập Live Link trên GitHub Pages:** `https://thinhphucnguyenvo11102006-pixel.github.io/ts10_prediction/`
