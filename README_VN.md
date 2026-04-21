@@ -76,6 +76,7 @@ Bạn có thể chạy project theo một trong hai cách:
 
 - [README.md](README.md) - bản tiếng Anh
 - [docs/REQUIRED_FIXES_VN.md](docs/REQUIRED_FIXES_VN.md) - danh sách ưu tiên các hạng mục cần chỉnh sửa
+- [docs/evaluation.md](docs/evaluation.md) - bản đánh giá chi tiết và lộ trình phát triển
 - [docs/PROJECT_EVALUATION_VN.md](docs/PROJECT_EVALUATION_VN.md) - ghi chú đánh giá nội bộ
 - [docs/MAINTENANCE.md](docs/MAINTENANCE.md) - hướng dẫn bảo trì kỹ thuật
 
