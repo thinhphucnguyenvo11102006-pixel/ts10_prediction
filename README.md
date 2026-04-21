@@ -10,7 +10,7 @@ The current version is best described as a **data-driven advisory SPA** built wi
 
 The app currently includes 6 main tabs:
 
-1. `Predicted Cutoffs`: browse historical cutoff scores, predicted 2026 scores, trend, and a detail chart for each school.
+1. `Predicted Cutoffs`: browse historical cutoff scores, predicted 2026 scores, trend, and stability metrics for each school.
 2. `Feasibility Review`: enter 3 subject scores and selected choices to get a risk-oriented admission assessment.
 3. `District Recommendations`: filter schools by district and compare them against an entered total score.
 4. `Score Distribution`: visualize historical and projected score distributions using normal-distribution-style charts.
@@ -21,7 +21,7 @@ The app currently includes 6 main tabs:
 
 - `HTML5`, `CSS3`, `Vanilla JavaScript`
 - `Chart.js` via CDN
-- Optional local Python helper for generating exam-bank data
+- Optional local Python helpers for data processing (`cluster_schools.py`) and exam data (`build_data.py`).
 
 ## Project Structure
 
@@ -31,6 +31,8 @@ The app currently includes 6 main tabs:
 - [js/model.js](js/model.js) - prediction and recommendation heuristics
 - [js/charts.js](js/charts.js) - Chart.js wrappers
 - [js/app.js](js/app.js) - UI state, rendering, and interactions
+- [scripts/cluster_schools.py](scripts/cluster_schools.py) - AI-driven school clustering and stability analysis
+- [scripts/build_data.py](scripts/build_data.py) - main data build pipeline
 - [scripts/exams_crawler.py](scripts/exams_crawler.py) - local helper script for generating `js/exams_data.js`
 
 ## How The Prediction Works Today
@@ -47,6 +49,7 @@ Score_2026 = Anchor_2025 + ΔCompetition + ΔAdaptation + ΔMicroTrend
 | **ΔCompetition** | Adjusts for changes in the candidate/quota ratio between 2026 and 2025, with tier-dependent sensitivity. |
 | **ΔAdaptation** | Models the expected mean-reversion (bounce-back) in the second year after a format change, as students and teachers adapt. |
 | **ΔMicroTrend** | Captures subtle shifts in a school's relative ranking versus the city-wide baseline. |
+| **Stability (AI)** | Schools are grouped into 8 Tiers using **K-Means Clustering** based on historical performance and volatility. |
 
 Historical data (2022–2024) is **not** used for direct score prediction. It is only used to measure historical volatility (for confidence intervals) and relative ranking trends.
 
@@ -69,7 +72,6 @@ You can run the project in either of these ways:
 
 - The app depends on a CDN-loaded `Chart.js`, so it is not fully self-contained offline.
 - Probability outputs are bucketed risk labels derived from score margins, not calibrated statistical probabilities.
-- Tier labels are currently data-defined, not dynamically generated from a clustering algorithm.
 - The exam crawler currently scans local files and generates metadata; it does not yet crawl external sources autonomously.
 
 ## Documentation

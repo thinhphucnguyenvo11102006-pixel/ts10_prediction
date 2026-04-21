@@ -10,7 +10,7 @@ Phiên bản hiện tại phù hợp nhất khi được mô tả là một **SP
 
 Ứng dụng hiện có 6 tab chính:
 
-1. `Dự đoán điểm chuẩn`: xem lịch sử điểm chuẩn, điểm dự đoán 2026, xu hướng, và biểu đồ chi tiết cho từng trường.
+1. `Dự đoán điểm chuẩn`: xem lịch sử điểm chuẩn, điểm dự đoán 2026, xu hướng, và các chỉ số ổn định cho từng trường.
 2. `Đánh giá khả thi`: nhập điểm 3 môn và các nguyện vọng để nhận đánh giá rủi ro đậu/rớt.
 3. `Gợi ý theo quận`: lọc danh sách trường theo quận/huyện và so sánh với tổng điểm đã nhập.
 4. `Phổ điểm`: trực quan hóa phổ điểm lịch sử và dự đoán bằng các biểu đồ dạng phân phối chuẩn.
@@ -21,7 +21,7 @@ Phiên bản hiện tại phù hợp nhất khi được mô tả là một **SP
 
 - `HTML5`, `CSS3`, `Vanilla JavaScript`
 - `Chart.js` tải qua CDN
-- Python script cục bộ để sinh dữ liệu cho module ngân hàng đề
+- Các script Python hỗ trợ xử lý dữ liệu (`cluster_schools.py`) và build database (`build_data.py`).
 
 ## Cấu Trúc Dự Án
 
@@ -31,6 +31,8 @@ Phiên bản hiện tại phù hợp nhất khi được mô tả là một **SP
 - [js/model.js](js/model.js) - logic dự đoán và gợi ý
 - [js/charts.js](js/charts.js) - lớp bọc cho Chart.js
 - [js/app.js](js/app.js) - state UI, render, và xử lý tương tác
+- [scripts/cluster_schools.py](scripts/cluster_schools.py) - phân cụm trường và phân tích độ ổn định bằng AI
+- [scripts/build_data.py](scripts/build_data.py) - pipeline build dữ liệu tổng thể
 - [scripts/exams_crawler.py](scripts/exams_crawler.py) - script hỗ trợ sinh `js/exams_data.js`
 
 ## Cách Mô Hình Hoạt Động Ở Thời Điểm Hiện Tại
@@ -47,6 +49,7 @@ Mô hình dự đoán sử dụng thuật toán **Anchor & Adjust (Mỏ neo & Đ
 | **ΔCạnh tranh (Competition)** | Điều chỉnh theo biến động tỷ lệ thí sinh/chỉ tiêu giữa 2026 và 2025, độ nhạy phụ thuộc tier trường. |
 | **ΔThích nghi (Adaptation)** | Mô phỏng hiệu ứng phục hồi (mean-reversion) ở năm thứ 2 sau đổi form, khi học sinh và giáo viên đã thích nghi. |
 | **ΔXu hướng vi mô (MicroTrend)** | Nắm bắt sự dịch chuyển nhẹ trong ranking tương đối của trường so với mặt bằng chung toàn thành phố. |
+| **Độ ổn định (AI)** | Các trường được chia thành 8 Tier bằng thuật toán **K-Means Clustering** dựa trên phong độ và độ biến động lịch sử. |
 
 Dữ liệu lịch sử (2022–2024) **không** được dùng để tính điểm dự báo trực tiếp. Chúng chỉ được dùng để đo độ biến động lịch sử (cho khoảng tin cậy) và xu hướng ranking tương đối.
 
@@ -69,7 +72,6 @@ Bạn có thể chạy project theo một trong hai cách:
 
 - Ứng dụng đang phụ thuộc `Chart.js` qua CDN nên chưa hoàn toàn tự chứa để chạy offline tuyệt đối.
 - Các con số “xác suất” hiện là mức phân loại rủi ro theo ngưỡng điểm, chưa phải xác suất thống kê đã được calibration.
-- Tier của trường hiện được định nghĩa trong dữ liệu, chưa được sinh ra động bằng thuật toán phân cụm.
 - Script crawler đề thi hiện chỉ quét file local và sinh metadata; chưa tự crawl nguồn ngoài.
 
 ## Tài Liệu Liên Quan
