@@ -35,12 +35,20 @@ The app currently includes 6 main tabs:
 
 ## How The Prediction Works Today
 
-The current prediction layer is heuristic, not a trained machine learning model.
+The prediction engine uses an **Anchor & Adjust** heuristic specifically designed to handle the **structural break** in the 2025 exam (new GDPT 2018 curriculum). Traditional linear regression and weighted moving averages are unreliable when the exam format changes fundamentally, so the model takes a different approach:
 
-- Weighted moving average emphasizes recent years.
-- Linear regression estimates a short trend line from historical cutoff scores.
-- A city-wide competition factor adjusts predictions using candidate/quota ratios.
-- Feasibility and recommendation outputs are generated from rule-based score margins.
+```
+Score_2026 = Anchor_2025 + ΔCompetition + ΔAdaptation + ΔMicroTrend
+```
+
+| Component | Description |
+|---|---|
+| **Anchor** | The 2025 cutoff score is used as the primary anchor (first year of the new exam regime). |
+| **ΔCompetition** | Adjusts for changes in the candidate/quota ratio between 2026 and 2025, with tier-dependent sensitivity. |
+| **ΔAdaptation** | Models the expected mean-reversion (bounce-back) in the second year after a format change, as students and teachers adapt. |
+| **ΔMicroTrend** | Captures subtle shifts in a school's relative ranking versus the city-wide baseline. |
+
+Historical data (2022–2024) is **not** used for direct score prediction. It is only used to measure historical volatility (for confidence intervals) and relative ranking trends.
 
 This makes the app useful for exploration and strategy discussion, but it should be treated as a **decision-support tool**, not an authoritative forecast engine.
 

@@ -35,12 +35,20 @@ Phiên bản hiện tại phù hợp nhất khi được mô tả là một **SP
 
 ## Cách Mô Hình Hoạt Động Ở Thời Điểm Hiện Tại
 
-Lõi dự đoán hiện nay là heuristic thống kê, chưa phải mô hình machine learning đã huấn luyện.
+Mô hình dự đoán sử dụng thuật toán **Anchor & Adjust (Mỏ neo & Điều chỉnh)**, được thiết kế riêng để xử lý **gãy cấu trúc (structural break)** trong kỳ thi 2025 (chuyển sang chương trình GDPT 2018). Hồi quy tuyến tính và trung bình trượt truyền thống không còn đáng tin khi cấu trúc đề thi thay đổi hoàn toàn, nên mô hình áp dụng hướng tiếp cận khác:
 
-- Trung bình động có trọng số ưu tiên các năm gần nhất.
-- Hồi quy tuyến tính ước lượng xu hướng ngắn hạn từ dữ liệu lịch sử.
-- Hệ số cạnh tranh đang dùng tỷ lệ thí sinh/chỉ tiêu ở cấp toàn thành phố.
-- Phần đánh giá khả thi và gợi ý đang dựa trên các luật score margin, không phải xác suất đã hiệu chỉnh.
+```
+Điểm_2026 = Mỏ_neo_2025 + ΔCạnh_tranh + ΔThích_nghi + ΔXu_hướng_vi_mô
+```
+
+| Thành phần | Mô tả |
+|---|---|
+| **Mỏ neo (Anchor)** | Điểm chuẩn 2025 được dùng làm mỏ neo chính (năm đầu tiên của regime thi mới). |
+| **ΔCạnh tranh (Competition)** | Điều chỉnh theo biến động tỷ lệ thí sinh/chỉ tiêu giữa 2026 và 2025, độ nhạy phụ thuộc tier trường. |
+| **ΔThích nghi (Adaptation)** | Mô phỏng hiệu ứng phục hồi (mean-reversion) ở năm thứ 2 sau đổi form, khi học sinh và giáo viên đã thích nghi. |
+| **ΔXu hướng vi mô (MicroTrend)** | Nắm bắt sự dịch chuyển nhẹ trong ranking tương đối của trường so với mặt bằng chung toàn thành phố. |
+
+Dữ liệu lịch sử (2022–2024) **không** được dùng để tính điểm dự báo trực tiếp. Chúng chỉ được dùng để đo độ biến động lịch sử (cho khoảng tin cậy) và xu hướng ranking tương đối.
 
 Điều này giúp ứng dụng hữu ích cho mục đích tham khảo và thảo luận chiến lược, nhưng nên được xem là **công cụ hỗ trợ quyết định**, không phải hệ thống dự báo chính thức.
 

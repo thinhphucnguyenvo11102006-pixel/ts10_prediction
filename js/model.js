@@ -1,134 +1,417 @@
 /**
- * model.js - Mô hình dự đoán điểm chuẩn tuyển sinh lớp 10 TPHCM
+ * model.js - Mo hinh du doan diem chuan tuyen sinh lop 10 TPHCM
+ *
+ * ======================================================================
+ * THUAT TOAN: ANCHOR & ADJUST  (v2 — post Structural-Break 2025)
+ * ======================================================================
+ *
+ * Linear Regression va WMA truyen thong tro nen vo nghia khi cau truc de
+ * thi thay doi hoan toan tu nam 2025 (chuong trinh GDPT 2018).
+ * Du lieu 2022-2024 thuoc "regime cu", khong cung mat bang voi 2025+.
+ *
+ * Thuat toan moi:
+ *   Score_2026_i = Anchor_2025_i
+ *                + ΔCompetition    (bien dong ty le choi)
+ *                + ΔAdaptation     (hieu ung phuc hoi nam thu 2 sau doi form)
+ *                + ΔMicroTrend     (xu huong ranking cua truong)
+ *
+ * Du lieu cu (2022-2024) chi dung de:
+ *   - Do do on dinh lich su (historical volatility) → CI band
+ *   - Uoc luong diem neo khi thieu data 2025
+ * ======================================================================
  */
 
 const PredictionModel = {
     YEARS: [2022, 2023, 2024, 2025],
     TARGET_YEAR: 2026,
-    WMA_WEIGHTS: [0.10, 0.20, 0.30, 0.40], // oldest → newest
+    BREAK_YEAR: 2025,
+
+    // ──────────────────────────────────────────────
+    //  UTILITIES
+    // ──────────────────────────────────────────────
+
+    clamp(value, min, max) {
+        return Math.max(min, Math.min(max, value));
+    },
+
+    median(values) {
+        if (!values.length) return 0;
+        const sorted = [...values].sort((a, b) => a - b);
+        const mid = Math.floor(sorted.length / 2);
+        if (sorted.length % 2 === 0) {
+            return (sorted[mid - 1] + sorted[mid]) / 2;
+        }
+        return sorted[mid];
+    },
+
+    getAvailableYears(scores) {
+        return this.YEARS.filter(y => scores[y] != null);
+    },
+
+    getSchoolsData() {
+        return globalThis.SCHOOLS_DATA ?? SCHOOLS_DATA;
+    },
+
+    getExamStats() {
+        return globalThis.EXAM_STATS ?? EXAM_STATS;
+    },
+
+    // ──────────────────────────────────────────────
+    //  TIER CLASSIFICATION  (nội bộ thuật toán)
+    // ──────────────────────────────────────────────
 
     /**
-     * Weighted Moving Average
+     * Phan loai tier dua tren diem 2025 (hoac diem gan nhat).
+     * Tier anh huong den he so Adaptation va Ceiling effect.
+     *
+     * Returns: "top" | "high" | "mid" | "low"
      */
-    weightedMovingAverage(scores) {
-        let sum = 0, weightSum = 0;
-        const years = this.YEARS;
-        for (let i = 0; i < years.length; i++) {
-            const s = scores[years[i]];
-            if (s != null) {
-                sum += s * this.WMA_WEIGHTS[i];
-                weightSum += this.WMA_WEIGHTS[i];
-            }
-        }
-        return weightSum > 0 ? sum / weightSum : null;
+    getSchoolTier(score) {
+        if (score == null) return "mid"; // fallback
+        if (score >= 22)  return "top";   // Truong dau vao rat cao
+        if (score >= 18)  return "high";  // Truong kha - cao
+        if (score >= 14)  return "mid";   // Truong trung binh kha
+        return "low";                     // Truong thap
+    },
+
+    // ──────────────────────────────────────────────
+    //  COMPETITION FACTOR
+    // ──────────────────────────────────────────────
+
+    /**
+     * Ty le bien dong giua ty le choi nam 2026 vs 2025.
+     * Duong = canh tranh tang → diem tang.
+     * Am   = canh tranh giam → diem giam.
+     *
+     * Returns: số thực (ví dụ: +0.03 = tăng 3%)
+     */
+    getCompetitionFactor() {
+        const examStats = this.getExamStats();
+        const stats2025 = examStats[2025];
+        const stats2026 = examStats[2026];
+        const ratio2025 = stats2025.candidates / stats2025.quota;
+        const ratio2026 = stats2026.candidates / stats2026.quota;
+        return (ratio2026 / ratio2025 - 1);
     },
 
     /**
-     * Simple Linear Regression
-     * Returns: { slope, intercept, predict(x) }
+     * Diem dieu chinh do canh tranh, phu thuoc tier:
+     * - Truong top: it nhay (hoc sinh gioi van du & ceiling effect)
+     * - Truong mid/low: nhay hon
      */
-    linearRegression(scores) {
-        const points = [];
-        for (const y of this.YEARS) {
-            if (scores[y] != null) points.push({ x: y, y: scores[y] });
-        }
-        if (points.length < 2) return null;
+    getCompetitionAdjustment(anchor, tier) {
+        const rawFactor = this.getCompetitionFactor();
 
-        const n = points.length;
-        let sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0;
-        for (const p of points) {
-            sumX += p.x;
-            sumY += p.y;
-            sumXY += p.x * p.y;
-            sumX2 += p.x * p.x;
+        // He so nhay cam theo tier
+        const sensitivity = {
+            top:  0.06,
+            high: 0.09,
+            mid:  0.12,
+            low:  0.10
+        };
+
+        return anchor * rawFactor * (sensitivity[tier] ?? 0.10);
+    },
+
+    // ──────────────────────────────────────────────
+    //  ADAPTATION FACTOR  (Mean Reversion sau Structural Break)
+    // ──────────────────────────────────────────────
+
+    /**
+     * Nam dau tien doi form (2025): diem thuong "shock" giam.
+     * Nam thu 2 (2026): giao vien & hoc sinh da quen → diem phuc hoi (mean reversion).
+     *
+     * Adaptation = phan tram "bounce-back" tu muc do sut giam 2024→2025,
+     * dieu chinh theo tier:
+     *   - Truong top:  phuc hoi manh (hoc sinh gioi thich nghi nhanh, ceiling co gioi han)
+     *   - Truong high: phuc hoi kha
+     *   - Truong mid:  phuc hoi trung binh (dan hoi cao nhat)
+     *   - Truong low:  phuc hoi yeu (hoc sinh gap kho khan hon khi doi form)
+     */
+    getAdaptationFactor(scores, tier) {
+        const s2024 = scores[2024];
+        const s2025 = scores[2025];
+
+        // Neu thieu data, khong co adaptation
+        if (s2024 == null || s2025 == null) return 0;
+
+        const drop = s2024 - s2025; // Duong = diem giam tu 2024→2025
+
+        // Neu diem 2025 tang hoac giu nguyen → khong can bounce-back
+        if (drop <= 0) return 0;
+
+        // Phan tram phuc hoi theo tier
+        const recoveryRate = {
+            top:  0.40,  // Phuc hoi ~40% phan sut giam
+            high: 0.35,
+            mid:  0.30,
+            low:  0.20
+        };
+
+        const rate = recoveryRate[tier] ?? 0.30;
+
+        // Cap toi da de tranh phuc hoi qua muc
+        return this.clamp(drop * rate, 0, 1.5);
+    },
+
+    // ──────────────────────────────────────────────
+    //  MICRO-TREND (xu huong ranking tuong doi)
+    // ──────────────────────────────────────────────
+
+    /**
+     * Tinh xu huong "ranking" cua truong so voi mat bang chung
+     * bang cach xem chuoi diem tuong doi (score - system_median),
+     * roi lay median cua cac delta lien tiep.
+     *
+     * Day la "micro-trend" nhe, chi co nhiem vu phan biet truong dang
+     * len (vi du: dau tu manh) vs truong dang xuong (vi du: mat hoc sinh gioi).
+     */
+    getMicroTrend(scores) {
+        const baselineSeries = this.getSystemBaselineSeries();
+        const relativeSeries = {};
+
+        for (const year of this.YEARS) {
+            const score = scores[year];
+            const baseline = baselineSeries[year];
+            if (score != null && baseline != null) {
+                relativeSeries[year] = score - baseline;
+            }
         }
-        const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX);
-        const intercept = (sumY - slope * sumX) / n;
+
+        const years = this.YEARS.filter(y => relativeSeries[y] != null);
+        if (years.length < 2) return 0;
+
+        const deltas = [];
+        for (let i = 1; i < years.length; i++) {
+            deltas.push(relativeSeries[years[i]] - relativeSeries[years[i - 1]]);
+        }
+
+        const trend = this.median(deltas);
+
+        // Giam dampening khi chi co it data points
+        const dampening = Math.min(1, years.length / 4) * 0.50;
+        return this.clamp(trend * dampening, -0.50, 0.50);
+    },
+
+    // ──────────────────────────────────────────────
+    //  SYSTEM BASELINE
+    // ──────────────────────────────────────────────
+
+    getSystemBaselineSeries() {
+        const baseline = {};
+        const schools = this.getSchoolsData();
+        for (const year of this.YEARS) {
+            const values = schools
+                .map(school => school.scores?.[year])
+                .filter(value => value != null);
+            baseline[year] = values.length ? this.median(values) : null;
+        }
+        return baseline;
+    },
+
+    /**
+     * Du bao system baseline 2026.
+     * Anchor = median diem cua TOAN BO he thong nam 2025.
+     * + Competition adjustment (he thong)
+     * + System-level adaptation
+     */
+    predictSystemBaseline() {
+        const baselineSeries = this.getSystemBaselineSeries();
+
+        // Anchor = system median 2025
+        const anchor = baselineSeries[2025]
+            ?? baselineSeries[2024]
+            ?? this.median(Object.values(baselineSeries).filter(v => v != null));
+
+        // System-level adaptation: median muc do sut giam 2024→2025
+        const s2024 = baselineSeries[2024];
+        const s2025 = baselineSeries[2025];
+        let systemAdaptation = 0;
+        if (s2024 != null && s2025 != null && s2024 > s2025) {
+            systemAdaptation = (s2024 - s2025) * 0.30; // Phuc hoi 30% muc sut system
+        }
+
+        // Competition adjustment (system-level)
+        const rawFactor = this.getCompetitionFactor();
+        const competitionAdj = anchor * rawFactor * 0.10;
+
+        const predicted = anchor + systemAdaptation + competitionAdj;
 
         return {
-            slope,
-            intercept,
-            predict: (x) => slope * x + intercept
+            predicted,
+            anchor,
+            adaptation: systemAdaptation,
+            competition: competitionAdj
         };
     },
 
-    /**
-     * Calculate competition factor for 2026
-     */
-    getCompetitionFactor() {
-        const stats2025 = EXAM_STATS[2025];
-        const stats2026 = EXAM_STATS[2026];
-        const ratio2025 = stats2025.candidates / stats2025.quota;
-        const ratio2026 = stats2026.candidates / stats2026.quota;
-        return (ratio2026 / ratio2025 - 1); // % change in competition
-    },
+    // ──────────────────────────────────────────────
+    //  HISTORICAL VOLATILITY (chi dung cho CI band)
+    // ──────────────────────────────────────────────
 
     /**
-     * Historical variance for confidence interval
+     * Do luong do bien dong lich su cua diem so.
+     * Du lieu cu (2022-2024) van co vai tro o day: cho biet truong do co
+     * on dinh khong. Truong cang bien dong → khoang du bao cang rong.
      */
-    historicalVariance(scores) {
+    historicalVolatility(scores) {
         const vals = this.YEARS.map(y => scores[y]).filter(v => v != null);
-        if (vals.length < 2) return 1;
+        if (vals.length < 2) return 1.5; // Default rong khi thieu data
+
         const mean = vals.reduce((a, b) => a + b, 0) / vals.length;
         const variance = vals.reduce((s, v) => s + (v - mean) ** 2, 0) / (vals.length - 1);
         return Math.sqrt(variance);
     },
 
     /**
-     * Predict score for a single school
-     * Returns: { predicted, low, high, confidence, trend }
+     * Relative volatility: do do bien dong cua vi the truong so voi he thong.
+     * On dinh hon raw volatility vi loai bo bien dong he thong.
+     */
+    relativeVolatility(scores) {
+        const baselineSeries = this.getSystemBaselineSeries();
+        const relativeVals = [];
+
+        for (const year of this.YEARS) {
+            const s = scores[year];
+            const b = baselineSeries[year];
+            if (s != null && b != null) relativeVals.push(s - b);
+        }
+
+        if (relativeVals.length < 2) return 1.0;
+
+        const mean = relativeVals.reduce((a, b) => a + b, 0) / relativeVals.length;
+        const variance = relativeVals.reduce((s, v) => s + (v - mean) ** 2, 0) / (relativeVals.length - 1);
+        return Math.sqrt(variance);
+    },
+
+    // ──────────────────────────────────────────────
+    //  FALLBACK: Uoc luong diem 2025 khi thieu data
+    // ──────────────────────────────────────────────
+
+    /**
+     * Khi truong khong co diem 2025, uoc luong tu data cu tru di
+     * "do sut giam chung cua he thong nam 2025".
+     */
+    estimateScore2025(scores) {
+        const baselineSeries = this.getSystemBaselineSeries();
+        const systemDrop = (baselineSeries[2024] ?? 0) - (baselineSeries[2025] ?? 0);
+
+        // Lay diem gan nhat
+        const latestYear = [2024, 2023, 2022].find(y => scores[y] != null);
+        if (latestYear == null) return null;
+
+        return scores[latestYear] - systemDrop;
+    },
+
+    // ──────────────────────────────────────────────
+    //  CORE: PREDICT SCHOOL
+    // ──────────────────────────────────────────────
+
+    /**
+     * Du doan diem chuan 2026 cho mot truong.
+     *
+     * CONG THUC LOI:
+     *   Score_2026 = Anchor_2025
+     *              + ΔCompetition
+     *              + ΔAdaptation
+     *              + ΔMicroTrend
+     *
+     * Returns: { predicted, low, high, confidence, trend, anchor, baseline }
      */
     predictSchool(school) {
         const scores = school.scores;
+        const years = this.getAvailableYears(scores);
 
-        // Method 1: WMA
-        const wma = this.weightedMovingAverage(scores);
-
-        // Method 2: Linear Regression
-        const lr = this.linearRegression(scores);
-        const lrPred = lr ? lr.predict(this.TARGET_YEAR) : wma;
-
-        // Method 3: Competition adjustment
-        const compFactor = this.getCompetitionFactor();
-        const sensitivity = 0.15; // How much competition affects score
-        const adjusted = wma * (1 + compFactor * sensitivity);
-
-        // Method 3: Trend Bonus
-        let trendBonus = 0;
-        if (lr && lr.slope > 0.2) { 
-            // Nếu xu hướng tăng rõ rệt (> 0.2 điểm/năm)
-            trendBonus = 0.5; // Cộng nhẹ nửa điểm
-        } else if (lr && lr.slope < -0.2) {
-            // Nếu xu hướng giảm
-            trendBonus = -0.5;
+        if (!years.length) {
+            return {
+                predicted: null,
+                low: null,
+                high: null,
+                confidence: 40,
+                trend: 0,
+                wma: null,
+                linear: null,
+                anchor: null,
+                baseline: null
+            };
         }
 
-        // Dự đoán cuối cùng hoàn toàn dựa vào WMA + Cạnh tranh + Trend Bonus
-        const predicted = 0.70 * wma + 0.30 * adjusted + trendBonus;
+        // ── 1. SYSTEM BASELINE ──
+        const systemForecast = this.predictSystemBaseline();
 
-        // Asymmetrical confidence interval (Scores drop easier than they rise)
-        // We ensure a minimum buffer using max(1.0, std) to guarantee at least -0.75 / +0.5
-        const std = this.historicalVariance(scores);
-        const effectiveStd = Math.max(1.0, std);
-        const low = predicted - 0.75 * effectiveStd;
-        const high = predicted + 0.50 * effectiveStd;
+        // ── 2. ANCHOR (mỏ neo) ──
+        // Ưu tiên dùng điểm 2025. Nếu thiếu, ước lượng.
+        let schoolAnchor = scores[2025];
+        let anchorEstimated = false;
 
-        // Trend (positive = increasing, negative = decreasing)
-        const trend = lr ? lr.slope : 0;
+        if (schoolAnchor == null) {
+            schoolAnchor = this.estimateScore2025(scores);
+            anchorEstimated = true;
+        }
 
-        // Confidence level (based on historical consistency)
-        const maxScore = 30;
-        const consistency = 1 - (std / maxScore) * 5;
-        const confidence = Math.max(0.4, Math.min(0.95, consistency));
+        if (schoolAnchor == null) {
+            // Không có cách nào ước lượng → fallback thô
+            schoolAnchor = scores[years[years.length - 1]];
+        }
+
+        // ── 3. TIER ──
+        const tier = this.getSchoolTier(schoolAnchor);
+
+        // ── 4. COMPETITION ──
+        const competitionAdj = this.getCompetitionAdjustment(schoolAnchor, tier);
+
+        // ── 5. ADAPTATION ──
+        const adaptationAdj = this.getAdaptationFactor(scores, tier);
+
+        // ── 6. MICRO-TREND ──
+        const microTrend = this.getMicroTrend(scores);
+
+        // ── 7. TỔNG HỢP ──
+        let predicted = schoolAnchor + competitionAdj + adaptationAdj + microTrend;
+
+        // ── 8. SANITY CHECK ──
+        // Diem khong the vuot qua 30 (tong toi da 3 mon * 10)
+        // va khong the nho hon 0
+        predicted = this.clamp(predicted, 0, 30);
+
+        // ── 9. CONFIDENCE INTERVAL ──
+        const rawStd = this.historicalVolatility(scores);
+        const relStd = this.relativeVolatility(scores);
+
+        // Ket hop raw va relative volatility
+        const effectiveStd = Math.max(
+            0.50,
+            Math.sqrt(rawStd ** 2 * 0.40 + relStd ** 2 * 0.60)
+        );
+
+        // Mo rong CI khi anchor la uoc luong (khong co 2025 thuc te)
+        const uncertaintyMultiplier = anchorEstimated ? 1.6 : 1.0;
+
+        const low  = predicted - 0.90 * effectiveStd * uncertaintyMultiplier;
+        const high = predicted + 0.65 * effectiveStd * uncertaintyMultiplier;
+
+        // ── 10. CONFIDENCE SCORE ──
+        const yearsFactor = years.length / this.YEARS.length;
+        const has2025 = scores[2025] != null ? 0.30 : 0; // Bonus neu co 2025
+        const consistency = 1 - Math.min(1, relStd / 2.5);
+
+        const confidence = this.clamp(
+            0.30 + 0.20 * yearsFactor + has2025 + 0.20 * consistency,
+            0.30,
+            0.95
+        );
 
         return {
-            predicted: Math.round(predicted * 4) / 4, // Round to 0.25
-            low: Math.round(low * 4) / 4,
-            high: Math.round(high * 4) / 4,
+            predicted: Math.round(predicted * 4) / 4,
+            low:       Math.round(low * 4) / 4,
+            high:      Math.round(high * 4) / 4,
             confidence: Math.round(confidence * 100),
-            trend: Math.round(trend * 100) / 100,
-            wma: Math.round(wma * 100) / 100,
-            linear: Math.round(lrPred * 100) / 100,
+            trend:     Math.round(microTrend * 100) / 100,
+            // Retained for backward-compat with UI (but no longer primary)
+            wma:       null,
+            linear:    null,
+            anchor:    Math.round(schoolAnchor * 100) / 100,
+            baseline:  Math.round(systemForecast.predicted * 100) / 100
         };
     },
 
@@ -136,7 +419,7 @@ const PredictionModel = {
      * Predict all schools
      */
     predictAll() {
-        return SCHOOLS_DATA.map(school => ({
+        return this.getSchoolsData().map(school => ({
             ...school,
             prediction: this.predictSchool(school)
         }));
@@ -153,7 +436,7 @@ const PredictionModel = {
 
         for (let i = 0; i < choices.length; i++) {
             const choice = choices[i];
-            const school = SCHOOLS_DATA.find(s => s.id === choice.schoolId);
+            const school = this.getSchoolsData().find(s => s.id === choice.schoolId);
             if (!school) continue;
 
             const pred = this.predictSchool(school);
@@ -163,10 +446,10 @@ const PredictionModel = {
             const margin = totalScore - effectiveThreshold;
             let feasibilityScore, status, statusLabel;
 
-            // Tính điểm khả thi bằng hàm Logistic (tham khảo) 
-            // KHÔNG PHẢI LÀ XÁC SUẤT ĐÃ CALIBRATE THEO THỐNG KÊ (Uncalibrated Probability)
+            // Tinh diem kha thi bang ham Logistic (tham khao)
+            // KHONG PHAI LA XAC SUAT DA CALIBRATE THEO THONG KE
             const rawProb = 100 / (1 + Math.exp(-1.15 * (margin - 0.15)));
-            feasibilityScore = Math.max(1, Math.min(99, Math.round(rawProb))); // Cắt nghẽn 1-99
+            feasibilityScore = Math.max(1, Math.min(99, Math.round(rawProb)));
 
             if (margin >= 2.0) {
                 status = "safe";
@@ -204,7 +487,6 @@ const PredictionModel = {
             });
         }
 
-        // Overall assessment
         const anyPass = results.some(r => r.feasibilityScore >= 50);
         const bestChance = Math.max(...results.map(r => r.feasibilityScore));
 
@@ -225,16 +507,16 @@ const PredictionModel = {
         const bestNv = results.reduce((best, r) => r.feasibilityScore > best.feasibilityScore ? r : best, results[0]);
 
         if (bestNv.feasibilityScore >= 85) {
-            msgs.push(`✅ Lựa chọn NV${bestNv.nv} (${bestNv.school.name}) rất an toàn.`);
+            msgs.push(`Lựa chọn NV${bestNv.nv} (${bestNv.school.name}) rất an toàn.`);
         } else if (bestNv.feasibilityScore >= 50) {
-            msgs.push(`⚠️ Mức khả thi tốt nhất là NV${bestNv.nv} (${bestNv.school.name}) - ${bestNv.feasibilityScore}/100.`);
+            msgs.push(`Mức khả thi tốt nhất là NV${bestNv.nv} (${bestNv.school.name}) - ${bestNv.feasibilityScore}/100.`);
         } else {
-            msgs.push(`❌ Cả 3 nguyện vọng đều có rủi ro cao. Nên xem xét lại.`);
+            msgs.push(`Cả 3 nguyện vọng đều có rủi ro cao. Nên xem xét lại.`);
         }
 
         const allDanger = results.every(r => r.status === "danger");
         if (allDanger) {
-            msgs.push(`💡 Với ${totalScore} điểm, nên chọn trường có điểm chuẩn dự kiến ≤ ${(totalScore - 1).toFixed(1)}.`);
+            msgs.push(`Với ${totalScore} điểm, nên chọn trường có điểm chuẩn dự kiến <= ${(totalScore - 1).toFixed(1)}.`);
         }
 
         return msgs;
@@ -283,7 +565,6 @@ const PredictionModel = {
                 matchLabel
             };
         }).sort((a, b) => {
-            // Sort: matchLevel 3-4 first (good matches), then by predicted score desc
             const aScore = a.matchLevel >= 3 && a.matchLevel <= 4 ? 100 + a.prediction.predicted : a.matchLevel * 10;
             const bScore = b.matchLevel >= 3 && b.matchLevel <= 4 ? 100 + b.prediction.predicted : b.matchLevel * 10;
             return bScore - aScore;
@@ -296,7 +577,6 @@ const PredictionModel = {
     generateDistribution(mean, std, count = 1000) {
         const data = [];
         for (let i = 0; i < count; i++) {
-            // Box-Muller transform
             const u1 = Math.random();
             const u2 = Math.random();
             const z = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
@@ -324,32 +604,43 @@ const PredictionModel = {
     },
 
     /**
-     * Predict 2026 score distribution based on historical trends
+     * Predict 2026 score distribution.
+     * Van dung phuong phap Anchor & Adjust cho tung subject parameter.
      */
     predict2026Distribution() {
         const params = SCORE_DISTRIBUTION_PARAMS;
-        // Predict 2026 params using linear trends from 2022-2025
+
         const predictParam = (subject, param) => {
             const years = [2022, 2023, 2024, 2025];
             const vals = years.map(y => params[y][subject][param]);
-            const lr = this.linearRegression(
-                Object.fromEntries(years.map((y, i) => [y, vals[i]]))
-            );
-            return lr ? lr.predict(2026) : vals[vals.length - 1];
+
+            // Anchor = gia tri 2025
+            const anchor = vals[3]; // index 3 = 2025
+
+            // Micro delta: xu huong nhe tu 2024→2025
+            const delta2425 = vals[3] - vals[2];
+
+            // Adaptation nhe: neu param giam tu 2024→2025, phuc hoi 25%
+            const adaptation = delta2425 < 0 ? Math.abs(delta2425) * 0.25 : 0;
+
+            // Damped extrapolation
+            const dampedDelta = delta2425 * 0.30;
+
+            return anchor + dampedDelta + adaptation;
         };
 
         return {
             math: {
-                mean: Math.round(predictParam('math', 'mean') * 100) / 100,
-                std: Math.round(predictParam('math', 'std') * 100) / 100
+                mean: Math.round(predictParam("math", "mean") * 100) / 100,
+                std: Math.round(predictParam("math", "std") * 100) / 100
             },
             lit: {
-                mean: Math.round(predictParam('lit', 'mean') * 100) / 100,
-                std: Math.round(predictParam('lit', 'std') * 100) / 100
+                mean: Math.round(predictParam("lit", "mean") * 100) / 100,
+                std: Math.round(predictParam("lit", "std") * 100) / 100
             },
             eng: {
-                mean: Math.round(predictParam('eng', 'mean') * 100) / 100,
-                std: Math.round(predictParam('eng', 'std') * 100) / 100
+                mean: Math.round(predictParam("eng", "mean") * 100) / 100,
+                std: Math.round(predictParam("eng", "std") * 100) / 100
             }
         };
     }
