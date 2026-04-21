@@ -169,6 +169,7 @@ const App = {
                 case '2024': va = a.scores[2024]; vb = b.scores[2024]; break;
                 case '2025': va = a.scores[2025]; vb = b.scores[2025]; break;
                 case 'predicted': va = a.prediction.predicted; vb = b.prediction.predicted; break;
+                case 'stability': va = a.stability; vb = b.stability; break;
                 case 'trend': va = a.prediction.trend; vb = b.prediction.trend; break;
                 case 'confidence': va = a.prediction.confidence; vb = b.prediction.confidence; break;
                 default: va = a.prediction.predicted; vb = b.prediction.predicted;
@@ -191,6 +192,7 @@ const App = {
                 <tr data-school-id="${s.id}" onclick="App.showSchoolDetail(${s.id})">
                     <td>${idx + 1}</td>
                     <td><span class="tier-badge tier-${s.tier}">${s.tier}</span></td>
+                    <td><span class="stability-tag" data-stability="${s.stability}">${s.stability}</span></td>
                     <td><strong>${s.name}</strong></td>
                     <td>${s.district}</td>
                     <td class="score-cell">${s.scores[2022]?.toFixed(2) || '-'}</td>
@@ -241,6 +243,11 @@ const App = {
         document.getElementById('detailSchoolName').textContent = school.name;
         document.getElementById('detailDistrict').textContent = school.district;
         document.getElementById('detailTier').textContent = `Tier ${school.tier} - ${TIER_INFO[school.tier].label}`;
+        
+        // Add stability to detail header if exists
+        const tierEl = document.getElementById('detailTier');
+        tierEl.innerHTML += ` | <span class="stability-tag" data-stability="${school.stability}">${school.stability}</span>`;
+
         document.getElementById('detailPredicted').textContent = school.prediction.predicted.toFixed(2);
         document.getElementById('detailRange').textContent = `${school.prediction.low.toFixed(2)} - ${school.prediction.high.toFixed(2)}`;
         document.getElementById('detailConfidence').textContent = `${school.prediction.confidence}%`;

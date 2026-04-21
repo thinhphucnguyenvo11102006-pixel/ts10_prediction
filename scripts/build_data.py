@@ -12,25 +12,7 @@ SCHOOLS_JSON = os.path.join(ROOT, "data", "schools.json")
 STATS_JSON = os.path.join(ROOT, "data", "exam_stats.json")
 OUTPUT_JS = os.path.join(ROOT, "js", "data.js")
 
-TIER_THRESHOLDS = [
-    ("S",  24),
-    ("A+", 22),
-    ("A",  20),
-    ("A-", 18),
-    ("B+", 16),
-    ("B",  14),
-    ("B-", 12),
-    ("C",  0),
-]
-
-def compute_tier(score_2025):
-    """Tính tier tự động từ điểm chuẩn 2025."""
-    if score_2025 is None:
-        return "C"
-    for tier, threshold in TIER_THRESHOLDS:
-        if score_2025 >= threshold:
-            return tier
-    return "C"
+# (Logic tính Tier thủ công đã được thay thế bằng KMeans Clustering trong cluster_schools.py)
 
 def build():
     with open(SCHOOLS_JSON, "r", encoding="utf-8") as f:
@@ -57,8 +39,8 @@ def build():
     districts_seen = set()
     current_district = None
     for s in schools:
-        score_2025 = s["scores"].get("2025")
-        tier = compute_tier(score_2025)
+        tier = s.get("tier", "C")
+        stability = s.get("stability_rating", "N/A")
 
         if s["district"] != current_district:
             current_district = s["district"]
@@ -71,7 +53,7 @@ def build():
         scores_str = ", ".join(f"{y}: {s['scores'][y]:.2f}" for y in ["2022", "2023", "2024", "2025"])
         school_lines.append(
             f'    {{ id: {s["id"]}, name: "{s["name"]}", district: "{s["district"]}", '
-            f'scores: {{ {scores_str} }}, tier: "{tier}" }},'
+            f'scores: {{ {scores_str} }}, tier: "{tier}", stability: "{stability}" }},'
         )
 
     # Build DISTRICTS

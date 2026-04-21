@@ -539,6 +539,35 @@ body::after {
     color: #a1a1aa;
 }
 
+/* Stability Tags */
+.stability-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.stability-tag[data-stability="Rất ổn định"] {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+}
+
+.stability-tag[data-stability="Ổn định"] {
+    background: rgba(59, 130, 246, 0.15);
+    color: #3b82f6;
+}
+
+.stability-tag[data-stability="Biến động"] {
+    background: rgba(245, 158, 11, 0.15);
+    color: #f59e0b;
+}
+
+.stability-tag[data-stability="Rất biến động"] {
+    background: rgba(239, 68, 68, 0.15);
+    color: #ef4444;
+}
+
 .trend-up {
     color: var(--success);
 }
