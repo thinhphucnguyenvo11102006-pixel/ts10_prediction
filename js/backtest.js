@@ -27,9 +27,9 @@ const Backtest = {
 
     getSchoolTier(score) {
         if (score == null) return "mid";
-        if (score >= 22)  return "top";
-        if (score >= 18)  return "high";
-        if (score >= 14)  return "mid";
+        if (score >= 22) return "top";
+        if (score >= 18) return "high";
+        if (score >= 14) return "mid";
         return "low";
     },
 

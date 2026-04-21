@@ -1,6 +1,0 @@
-{
-  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
-  "summary": "Kế hoạch triển khai ứng dụng web dự đoán điểm chuẩn tuyển sinh lớp 10 TPHCM năm 2026.\n\nỨng dụng sẽ bao gồm:\n1. Cơ sở dữ liệu lịch sử điểm chuẩn 2022-2025 của 100+ trường THPT công lập\n2. Mô hình dự đoán dựa trên phân tích xu hướng (linear regression & weighted moving average)\n3. Phổ điểm mô phỏng dựa trên dữ liệu lịch sử\n4. Giao diện web interactive với biểu đồ Chart.js\n5. Công cụ tra cứu và so sánh trường\n6. Dashboard phân tích tổng quan\n\nCông nghệ: Vanilla HTML/CSS/JS với Chart.js cho visualization",
-  "updatedAt": "2026-04-19T01:22:46.076931700Z",
-  "requestFeedback": true
-}

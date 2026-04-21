@@ -75,8 +75,9 @@ You can run the project in either of these ways:
 ## Documentation
 
 - [README_VN.md](README_VN.md) - Vietnamese version
-- [README/REQUIRED_FIXES_VN.md](README/REQUIRED_FIXES_VN.md) - prioritized list of improvements and fixes
-- [README/PROJECT_EVALUATION_VN.md](README/PROJECT_EVALUATION_VN.md) - internal evaluation notes
+- [docs/REQUIRED_FIXES_VN.md](docs/REQUIRED_FIXES_VN.md) - prioritized list of improvements and fixes
+- [docs/PROJECT_EVALUATION_VN.md](docs/PROJECT_EVALUATION_VN.md) - internal evaluation notes
+- [docs/MAINTENANCE.md](docs/MAINTENANCE.md) - technical maintenance guide
 
 ## Goal
 

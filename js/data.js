@@ -217,14 +217,14 @@ const SCHOOLS_DATA = [
 
 // 8-Tier system — ngưỡng được dùng bởi build script để tự phân loại
 const TIER_INFO = {
-    "S":  { label: "Xuất sắc",       color: "#f59e0b", min: 24 },
-    "A+": { label: "Rất cao",        color: "#eab308", min: 22 },
-    "A":  { label: "Cao",            color: "#3b82f6", min: 20 },
-    "A-": { label: "Khá cao",        color: "#06b6d4", min: 18 },
-    "B+": { label: "Khá",            color: "#8b5cf6", min: 16 },
-    "B":  { label: "Trung bình khá", color: "#a78bfa", min: 14 },
-    "B-": { label: "Trung bình",     color: "#6b7280", min: 12 },
-    "C":  { label: "Thấp",           color: "#71717a", min: 10 }
+    "S": { label: "Xuất sắc", color: "#f59e0b", min: 24 },
+    "A+": { label: "Rất cao", color: "#eab308", min: 22 },
+    "A": { label: "Cao", color: "#3b82f6", min: 20 },
+    "A-": { label: "Khá cao", color: "#06b6d4", min: 18 },
+    "B+": { label: "Khá", color: "#8b5cf6", min: 16 },
+    "B": { label: "Trung bình khá", color: "#a78bfa", min: 14 },
+    "B-": { label: "Trung bình", color: "#6b7280", min: 12 },
+    "C": { label: "Thấp", color: "#71717a", min: 10 }
 };
 
 // Phổ điểm mô phỏng
