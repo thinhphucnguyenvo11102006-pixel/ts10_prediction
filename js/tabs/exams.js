@@ -7,18 +7,25 @@ Object.assign(App, {
     // TAB 6: EXAM BANK
     // ========================
     filterExams(subject, btnElement) {
-        // Update active class on buttons if provided
+        // Update active class on buttons
         if (btnElement) {
             document.querySelectorAll('.subject-filters .btn').forEach(b => b.classList.remove('active'));
             btnElement.classList.add('active');
-        } else {
-            // Fallback for initial load
-            const defaultBtn = document.querySelector(`.subject-filters .btn[data-subject="${subject}"]`);
-            if (defaultBtn) defaultBtn.classList.add('active');
         }
 
         // Filter and render
-        const exams = EXAMS_DATA.filter(e => e.subject === subject);
+        let exams = EXAMS_DATA;
+        if (subject !== 'all') {
+            exams = EXAMS_DATA.filter(e => e.subject === subject);
+        }
+        
+        // Sort by date (newest first)
+        exams.sort((a, b) => {
+            const dateA = a.date.split('/').reverse().join('');
+            const dateB = b.date.split('/').reverse().join('');
+            return dateB.localeCompare(dateA);
+        });
+
         this.renderExamGrid(exams);
     },
 
@@ -27,31 +34,69 @@ Object.assign(App, {
         if (!container) return;
 
         if (exams.length === 0) {
-            container.innerHTML = `<div style="text-align:center;width:100%;padding:40px;color:var(--text-muted)">Không có dữ liệu Đề thi cho môn này.</div>`;
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="icon">🔍</div>
+                    <p>Không tìm thấy đề thi nào phù hợp.</p>
+                </div>`;
             return;
         }
 
         let html = '';
         exams.forEach(ex => {
             const iconObj = {
-                math: '📐', lit: '📝', eng: '🌐'
+                math: '📐', 
+                lit: '📝', 
+                eng: '🌐',
+                phys: '⚡',
+                chem: '🧪',
+                bio: '🌿',
+                hist: '📜',
+                geo: '🗺️',
+                civic: '⚖️'
             };
             const icon = iconObj[ex.subject] || '📄';
-            // CSS safe class for type
-            const typeClass = ex.type.toLowerCase().replace(/\s+/g, '-');
+            
+            // Badge color based on type
+            let typeLabel = ex.type;
+            let typeClass = 'type-other';
+            if (ex.title.toLowerCase().includes('thử')) {
+                typeLabel = 'Đề Thi Thử';
+                typeClass = 'type-mock';
+            } else if (ex.title.toLowerCase().includes('tuyển sinh') || ex.title.toLowerCase().includes('chính thức')) {
+                typeLabel = 'Tuyển Sinh';
+                typeClass = 'type-official';
+            } else if (ex.title.toLowerCase().includes('khảo sát')) {
+                typeLabel = 'Khảo Sát';
+                typeClass = 'type-survey';
+            }
 
             html += `
-                <div class="exam-card" onclick="App.openExamViewer('${ex.id}')">
+                <div class="exam-card animate-in" onclick="App.openExamViewer('${ex.id}')">
                     <div class="exam-card-header">
-                        <div class="exam-icon">${icon}</div>
-                        <span class="exam-type ${typeClass}">${ex.type}</span>
+                        <div class="exam-icon-wrapper">
+                            <span class="exam-icon-emoji">${icon}</span>
+                        </div>
+                        <span class="exam-type-badge ${typeClass}">${typeLabel}</span>
                     </div>
-                    <div class="exam-title">${ex.title}</div>
-                    <div class="exam-meta">
-                        <div class="exam-meta-item"><span>🏛️</span> ${ex.school}</div>
-                        <div class="exam-meta-item"><span>📅</span> Năm: ${ex.year} • Ngày đăng: ${ex.date}</div>
-                        <div class="exam-meta-item" style="color:var(--primary);margin-top:4px">
-                            <span>⬇️</span> ${ex.downloads.toLocaleString('vi-VN')} lượt quan tâm
+                    <div class="exam-title" title="${ex.title}">${ex.title}</div>
+                    <div class="exam-info-grid">
+                        <div class="info-item">
+                            <span class="info-icon">📍</span>
+                            <span class="info-text">${ex.district}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon">📅</span>
+                            <span class="info-text">${ex.date}</span>
+                        </div>
+                    </div>
+                    <div class="exam-card-footer">
+                        <div class="exam-views">
+                            <span class="view-icon">👁️</span>
+                            <span>${(ex.downloads + 120).toLocaleString()} lượt xem</span>
+                        </div>
+                        <div class="btn-download-mini">
+                            <span class="icon">📄</span> Xem đề
                         </div>
                     </div>
                 </div>

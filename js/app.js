@@ -22,7 +22,7 @@ const App = {
         this.renderTab1_Predictions();
         this.renderTab2_SchoolSelects();
         this.renderTab3_DistrictSelect();
-        this.filterExams('math'); // Pre-render exams for first view
+        this.filterExams('all'); // Pre-render all exams for first view
 
         // Event listeners
         this.bindEvents();

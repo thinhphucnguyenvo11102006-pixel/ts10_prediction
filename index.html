@@ -433,15 +433,18 @@
     ======================================================================= -->
     <div class="tab-content" id="tab-exams">
         <div class="card">
-            <div class="card-title"><span class="icon">📚</span> Ngân Hàng Đề Thi TPHCM <span style="background:var(--accent);color:#fff;font-size:0.7rem;padding:2px 6px;border-radius:4px;margin-left:8px;vertical-align:middle">Beta</span></div>
+            <div class="card-title"><span class="icon">📚</span> Ngân Hàng Đề Thi Live Feed <span style="background:var(--success);color:#fff;font-size:0.65rem;padding:2px 8px;border-radius:50px;margin-left:8px;vertical-align:middle;text-transform:uppercase;letter-spacing:0.5px">Realtime</span></div>
             <p style="color:var(--text-secondary);font-size:0.88rem;margin-bottom:20px">
-                Hệ thống lưu trữ đề thi, tài liệu (Đang trong quá trình hoàn thiện crawler và data format).
+                Hệ thống tự động cập nhật đề thi mới nhất từ các nguồn uy tín. Click để xem trực tiếp hoặc tải về máy.
             </p>
             
             <div class="subject-filters">
-                <button class="btn btn-secondary active" data-subject="math" onclick="App.filterExams('math', this)">📐 Toán</button>
+                <button class="btn btn-secondary active" data-subject="all" onclick="App.filterExams('all', this)">📑 Tất cả</button>
+                <button class="btn btn-secondary" data-subject="math" onclick="App.filterExams('math', this)">📐 Toán</button>
                 <button class="btn btn-secondary" data-subject="lit" onclick="App.filterExams('lit', this)">📝 Ngữ Văn</button>
                 <button class="btn btn-secondary" data-subject="eng" onclick="App.filterExams('eng', this)">🌐 Tiếng Anh</button>
+                <button class="btn btn-secondary" data-subject="phys" onclick="App.filterExams('phys', this)">⚡ Vật Lý</button>
+                <button class="btn btn-secondary" data-subject="chem" onclick="App.filterExams('chem', this)">🧪 Hóa Học</button>
             </div>
         </div>
 
