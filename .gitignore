@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+debug.html
+node_modules/
+.DS_Store
