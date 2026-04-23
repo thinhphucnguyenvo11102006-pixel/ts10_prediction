@@ -1,0 +1,2 @@
+# Dependencies for scripts/ (crawler, build, cluster utilities)
+requests>=2.31,<3.0
