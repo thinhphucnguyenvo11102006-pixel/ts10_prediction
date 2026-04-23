@@ -26,6 +26,7 @@ Biến môi trường (tuỳ chọn):
     EXAMS_CRAWLER_SKIP_PDF    "1" → bỏ bước tải PDF (test nhanh)
     EXAMS_CRAWLER_ALLOW_DEMO  "1" → fallback demo khi cào rỗng
     EXAMS_CRAWLER_MERGE       "0" → ghi đè thay vì merge dữ liệu cũ (mặc định 1)
+    EXAMS_CRAWLER_MAX_PAGES   Số trang tối đa mỗi listing URL (mặc định 8)
 """
 
 from __future__ import annotations
@@ -72,60 +73,63 @@ HEADERS = {
 REQUEST_TIMEOUT = 30
 DOWNLOAD_TIMEOUT = 90
 
+# Maximum extra pages to follow per listing URL (page 1 is always fetched)
+MAX_PAGES_PER_SOURCE = int(os.environ.get("EXAMS_CRAWLER_MAX_PAGES", "8"))
+
 # ---------------------------------------------------------------------------
 # Environment defaults — per-subject sources
 # ---------------------------------------------------------------------------
 # Subject whitelist (fixed scope: Toán, Văn, Anh)
 ALLOWED_SUBJECTS = {"math", "lit", "eng"}
 
-# Per-subject seed listing URLs (search endpoints). %q% is replaced at runtime.
-# Each tuple is (search_url_template, subject_hint).
+# Per-subject listing URL templates (%q% is replaced with URL-encoded query).
+# Each template will be fetched for every query, plus up to MAX_PAGES_PER_SOURCE
+# additional pages (page/2/, page/3/, ...).
 SUBJECT_SOURCES: dict[str, list[tuple[str, str]]] = {
     "math": [
         ("https://thcs.toanmath.com/?s=%q%", "math"),
     ],
     "lit": [
         ("https://thcs.toanmath.com/?s=%q%", "lit"),
-        ("https://tailieudieuky.com/?s=%q%", "lit"),
     ],
     "eng": [
         ("https://thcs.toanmath.com/?s=%q%", "eng"),
-        ("https://tailieudieuky.com/?s=%q%", "eng"),
     ],
 }
 
+# High-precision per-subject queries (verified to produce article grids on thcs.toanmath.com).
+# Listed in decreasing precision order — most targeted first.
 DEFAULT_SUBJECT_QUERIES: dict[str, list[str]] = {
     "math": [
-        "TPHCM",
+        # Cực kỳ chính xác — chỉ ra đề tuyển sinh 10 TPHCM môn Toán
+        "TP HCM Toán tuyển sinh",
+        "Toán tuyển sinh lớp 10 TP HCM",
+        "Hồ Chí Minh",           # broad sweep for remaining HCM exams
         "TP HCM",
-        "Hồ Chí Minh",
-        "đề thi thử Toán vào lớp 10 TPHCM",
-        "tuyển sinh lớp 10 Toán TPHCM",
     ],
     "lit": [
-        "Ngữ Văn TPHCM",
-        "Văn TPHCM",
-        "Văn Hồ Chí Minh",
-        "đề thi thử vào lớp 10 Ngữ Văn TPHCM",
-        "tuyển sinh lớp 10 Văn TPHCM",
+        # Toanmath có Văn khi search "Ngữ Văn tuyển sinh TP HCM" → 20 bài đúng
+        "Ngữ Văn tuyển sinh TP HCM",
+        "Văn vào lớp 10 TP HCM",
+        "Ngữ Văn tuyển sinh Hồ Chí Minh",
     ],
     "eng": [
-        "Tiếng Anh TPHCM",
-        "Anh TPHCM",
-        "Tiếng Anh Hồ Chí Minh",
-        "đề thi thử vào lớp 10 Tiếng Anh TPHCM",
-        "tuyển sinh lớp 10 Tiếng Anh TPHCM",
+        "Tiếng Anh tuyển sinh TP HCM",
+        "Tiếng Anh vào lớp 10 TP HCM",
+        "Tiếng Anh Hồ Chí Minh tuyển sinh lớp 10",
     ],
 }
 
-# Curated single-article seeds (resolver will treat each as one exam).
+# Curated single-article seeds — each is treated as one exam entry.
+# Only include URLs whose page titles clearly state TPHCM + lớp 10 entrance + subject.
 DEFAULT_ARTICLE_SEEDS: list[str] = [
-    # LangGo — HCM Tiếng Anh chính thức / tham khảo (direct PDF in page)
+    # ── Tiếng Anh ────────────────────────────────────────────────────────────
+    # LangGo: chính thức Sở GD&ĐT TPHCM + đề tham khảo (PDF trực tiếp trong page)
     "https://langgo.edu.vn/de-thi-tieng-anh-vao-10-tphcm-2025",
     "https://langgo.edu.vn/de-tieng-anh-tuyen-sinh-vao-lop-10-tphcm-2024",
-    # Tài liệu Giảng Dạy — HCM Ngữ Văn (PDF embedded via pdfjs viewer)
-    # Note: item/8054 (Anh chuyên) dùng Google Drive consent page → không tải được tự động, bỏ.
-    "https://tailieugiangday.vn/item/de-thi-tuyen-sinh-lop-10-mon-van-2025-2026-de-tu-luan-van-9-vao-10-day-du-the-loai/44506",
+
+    # ── Ngữ Văn ──────────────────────────────────────────────────────────────
+    # Tài liệu Giảng Dạy: đề thi thử Văn TP HCM 2024-2025 (PDF Wasabi S3)
     "https://tailieugiangday.vn/item/de-thi-thu-vao-10-mon-ngu-van-tp-ho-chi-minh-nam-hoc-2024-2025/42932",
 ]
 
@@ -326,6 +330,28 @@ def _fill_query(template: str, query: str) -> str:
     return template.replace("%q%", quote_plus(query))
 
 
+def _paginate(base_url: str, max_pages: int) -> list[str]:
+    """Generate page URLs for a WordPress-style search listing.
+
+    Page 1  → base_url  (e.g. https://thcs.toanmath.com/?s=foo)
+    Page N  → insert /page/N/ before the query string
+              https://thcs.toanmath.com/page/N/?s=foo
+    """
+    if max_pages <= 1:
+        return [base_url]
+
+    parsed = urlparse(base_url)
+    # Build base path without trailing slash
+    path = parsed.path.rstrip("/")
+    qs = f"?{parsed.query}" if parsed.query else ""
+    base_no_qs = f"{parsed.scheme}://{parsed.netloc}{path}"
+
+    pages = [base_url]  # page 1
+    for n in range(2, max_pages + 1):
+        pages.append(f"{base_no_qs}/page/{n}/{qs}")
+    return pages
+
+
 def search_sources(subjects: Iterable[str]) -> list[str]:
     """Build the ordered list of URLs to crawl (listing + single-article seeds)."""
     subjects = [s for s in subjects if s in ALLOWED_SUBJECTS]
@@ -337,14 +363,15 @@ def search_sources(subjects: Iterable[str]) -> list[str]:
 
     urls: list[str] = []
 
-    # Per-subject search URLs
+    # Per-subject search URLs (with pagination)
     for subject in subjects:
         queries = extra_queries or DEFAULT_SUBJECT_QUERIES.get(subject, [])
         for (tmpl, _hint) in SUBJECT_SOURCES.get(subject, []):
             for q in queries:
-                urls.append(_fill_query(tmpl, q))
+                base = _fill_query(tmpl, q)
+                urls.extend(_paginate(base, MAX_PAGES_PER_SOURCE))
 
-    # Curated single-article seeds + env seeds
+    # Curated single-article seeds + env seeds (no pagination)
     urls.extend(DEFAULT_ARTICLE_SEEDS)
     urls.extend(extra_seeds)
 
@@ -614,11 +641,11 @@ def publish(exams: list[dict]) -> None:
 # ---------------------------------------------------------------------------
 def run_pipeline() -> None:
     print("=" * 56)
-    print("   HỆ THỐNG CRAWLER NGÂN HÀNG ĐỀ TPHCM  v4.0")
+    print("   HỆ THỐNG CRAWLER NGÂN HÀNG ĐỀ TPHCM  v5.0")
     print("=" * 56)
 
     max_per_source = int(os.environ.get("EXAMS_CRAWLER_MAX", "30"))
-    total_max = int(os.environ.get("EXAMS_CRAWLER_TOTAL_MAX", "80"))
+    total_max = int(os.environ.get("EXAMS_CRAWLER_TOTAL_MAX", "150"))
     skip_pdf = os.environ.get("EXAMS_CRAWLER_SKIP_PDF", "").lower() in {"1", "true", "yes"}
     allow_demo = os.environ.get("EXAMS_CRAWLER_ALLOW_DEMO", "").lower() in {"1", "true", "yes"}
     merge_old = os.environ.get("EXAMS_CRAWLER_MERGE", "1").lower() not in {"0", "false", "no"}
@@ -633,7 +660,7 @@ def run_pipeline() -> None:
 
     # ------ STAGE 1 — SEARCH
     log("STAGE 1 · SEARCH — xác định nguồn dữ liệu", "STEP")
-    log(f"  Phạm vi: TPHCM · lớp 10 tuyển sinh · môn = {','.join(subjects)}", "INFO")
+    log(f"  Phạm vi: TPHCM · lớp 10 tuyển sinh · môn = {','.join(subjects)} · max_pages={MAX_PAGES_PER_SOURCE}", "INFO")
     sources = search_sources(subjects)
     for u in sources:
         log(f"  · {u}", "INFO")

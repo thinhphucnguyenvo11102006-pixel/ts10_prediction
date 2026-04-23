@@ -1,7 +1,7 @@
 // CẢNH BÁO: File này được sinh tự động bởi Bot Crawler Pipeline.
 // KHÔNG chỉnh sửa thủ công tại đây.
-// Cập nhật lần cuối: 2026-04-23 10:47:53
-// Tổng số đề TPHCM: 21
+// Cập nhật lần cuối: 2026-04-23 13:16:31
+// Tổng số đề TPHCM: 63
 
 const EXAMS_DATA = [
     {
@@ -42,6 +42,58 @@ const EXAMS_DATA = [
         "downloads": 0,
         "pdfUrl": "pdfs/de-thi-thu-vao-10-mon-ngu-van-tp-ho-chi-minh-nam-hoc-2024-2025.pdf",
         "sourceUrl": "https://tailieugiangday.vn/item/de-thi-thu-vao-10-mon-ngu-van-tp-ho-chi-minh-nam-hoc-2024-2025/42932"
+    },
+    {
+        "id": "math-de-minh-hoa-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2026-2027-truong-ptnk-tp-hcm",
+        "subject": "math",
+        "title": "Đề minh họa tuyển sinh lớp 10 môn Toán (chuyên) năm 2026 – 2027 trường PTNK – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "25/03/2026",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-minh-hoa-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2026-2027-truong-ptnk-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2026/03/de-minh-hoa-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2026-2027-truong-ptnk-tp-hcm.html"
+    },
+    {
+        "id": "math-de-minh-hoa-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-truong-ptnk-tp-hcm",
+        "subject": "math",
+        "title": "Đề minh họa tuyển sinh lớp 10 môn Toán năm 2026 – 2027 trường PTNK – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "25/03/2026",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-minh-hoa-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-truong-ptnk-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2026/03/de-minh-hoa-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-truong-ptnk-tp-hcm.html"
+    },
+    {
+        "id": "math-dap-an-bo-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gddt-tp-hcm",
+        "subject": "math",
+        "title": "Đáp án bộ đề tham khảo tuyển sinh lớp 10 môn Toán năm 2026 – 2027 sở GD&ĐT TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "26/02/2026",
+        "downloads": 0,
+        "pdfUrl": "pdfs/dap-an-bo-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gd-dt-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2026/02/dap-an-bo-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gddt-tp-hcm.html"
+    },
+    {
+        "id": "math-tuyen-tap-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gddt-tp-hcm",
+        "subject": "math",
+        "title": "Tuyển tập đề tham khảo tuyển sinh lớp 10 môn Toán năm 2026 – 2027 sở GD&ĐT TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "28/01/2026",
+        "downloads": 0,
+        "pdfUrl": "pdfs/tuyen-tap-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gd-dt-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2026/01/tuyen-tap-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gddt-tp-hcm.html"
     },
     {
         "id": "math-bo-15-de-on-thi-tuyen-sinh-vao-lop-10-thpt-mon-toan-nam-2026-tp-ho-chi-minh",
@@ -96,6 +148,97 @@ const EXAMS_DATA = [
         "sourceUrl": "https://thcs.toanmath.com/2025/06/de-tuyen-sinh-lop-10-mon-toan-nam-2025-2026-so-gddt-tp-ho-chi-minh.html"
     },
     {
+        "id": "math-de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2025-truong-ptnk-tp-hcm",
+        "subject": "math",
+        "title": "Đề tuyển sinh lớp 10 môn Toán (không chuyên) năm 2025 trường PTNK – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "26/05/2025",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2025-truong-ptnk-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2025/05/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2025-truong-ptnk-tp-hcm.html"
+    },
+    {
+        "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2025-truong-ptnk-tp-hcm",
+        "subject": "math",
+        "title": "Đề tuyển sinh lớp 10 môn Toán (chuyên) năm 2025 trường PTNK – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "26/05/2025",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2025-truong-ptnk-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2025/05/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2025-truong-ptnk-tp-hcm.html"
+    },
+    {
+        "id": "math-de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thcs-hong-bang-tp-hcm",
+        "subject": "math",
+        "title": "Đề thi thử Toán vào lớp 10 năm 2025 – 2026 trường THCS Hồng Bàng – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Thi Thử",
+        "date": "25/05/2025",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thcs-hong-bang-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2025/05/de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thcs-hong-bang-tp-hcm.html"
+    },
+    {
+        "id": "math-de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thcs-tran-quoc-toan-1-tp-hcm",
+        "subject": "math",
+        "title": "Đề thi thử Toán vào lớp 10 năm 2025 – 2026 trường THCS Trần Quốc Toản 1 – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Thi Thử",
+        "date": "25/05/2025",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thcs-tran-quoc-toan-1-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2025/05/de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thcs-tran-quoc-toan-1-tp-hcm.html"
+    },
+    {
+        "id": "math-de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thuc-hanh-sai-gon-tp-hcm",
+        "subject": "math",
+        "title": "Đề thi thử Toán vào lớp 10 năm 2025 – 2026 trường Thực hành Sài Gòn – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Thi Thử",
+        "date": "23/05/2025",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thuc-hanh-sai-gon-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2025/05/de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thuc-hanh-sai-gon-tp-hcm.html"
+    },
+    {
+        "id": "math-de-minh-hoa-tuyen-sinh-10-mon-toan-chuyen-nam-2025-2026-truong-ptnk-tp-hcm",
+        "subject": "math",
+        "title": "Đề minh họa tuyển sinh 10 môn Toán (chuyên) năm 2025 – 2026 trường PTNK – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "22/02/2025",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-minh-hoa-tuyen-sinh-10-mon-toan-chuyen-nam-2025-2026-truong-ptnk-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2025/02/de-minh-hoa-tuyen-sinh-10-mon-toan-chuyen-nam-2025-2026-truong-ptnk-tp-hcm.html"
+    },
+    {
+        "id": "math-de-minh-hoa-tuyen-sinh-10-mon-toan-khong-chuyen-2025-2026-truong-ptnk-tp-hcm",
+        "subject": "math",
+        "title": "Đề minh họa tuyển sinh 10 môn Toán (không chuyên) 2025 – 2026 trường PTNK – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "22/02/2025",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-minh-hoa-tuyen-sinh-10-mon-toan-khong-chuyen-2025-2026-truong-ptnk-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2025/02/de-minh-hoa-tuyen-sinh-10-mon-toan-khong-chuyen-2025-2026-truong-ptnk-tp-hcm.html"
+    },
+    {
         "id": "math-bo-de-tham-khao-tuyen-sinh-lop-10-mon-toan-2025-2026-so-gddt-tp-ho-chi-minh",
         "subject": "math",
         "title": "Bộ đề tham khảo tuyển sinh lớp 10 môn Toán 2025 – 2026 sở GD&ĐT TP Hồ Chí Minh",
@@ -107,6 +250,45 @@ const EXAMS_DATA = [
         "downloads": 0,
         "pdfUrl": "pdfs/bo-de-tham-khao-tuyen-sinh-lop-10-mon-toan-2025-2026-so-gd-dt-tp-ho-chi-minh.pdf",
         "sourceUrl": "https://thcs.toanmath.com/2025/02/bo-de-tham-khao-tuyen-sinh-lop-10-mon-toan-2025-2026-so-gddt-tp-ho-chi-minh.html"
+    },
+    {
+        "id": "math-de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gddt-cu-chi-tp-hcm",
+        "subject": "math",
+        "title": "Đề tham khảo tuyển sinh 10 môn Toán 2025 – 2026 phòng GD&ĐT Củ Chi – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "12/02/2025",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gd-dt-cu-chi-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2025/02/de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gddt-cu-chi-tp-hcm.html"
+    },
+    {
+        "id": "math-de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gddt-tan-phu-tp-hcm",
+        "subject": "math",
+        "title": "Đề tham khảo tuyển sinh 10 môn Toán 2025 – 2026 phòng GD&ĐT Tân Phú – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "12/02/2025",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gd-dt-tan-phu-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2025/02/de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gddt-tan-phu-tp-hcm.html"
+    },
+    {
+        "id": "math-de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gddt-quan-7-tp-hcm",
+        "subject": "math",
+        "title": "Đề tham khảo tuyển sinh 10 môn Toán 2025 – 2026 phòng GD&ĐT Quận 7 – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "11/02/2025",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gd-dt-quan-7-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2025/02/de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gddt-quan-7-tp-hcm.html"
     },
     {
         "id": "math-de-tham-khao-tuyen-sinh-lop-10-mon-toan-gdpt-2018-so-gddt-tp-ho-chi-minh",
@@ -133,6 +315,32 @@ const EXAMS_DATA = [
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-nam-2024-2025-so-gd-dt-tp-ho-chi-minh.pdf",
         "sourceUrl": "https://thcs.toanmath.com/2024/06/de-tuyen-sinh-lop-10-mon-toan-nam-2024-2025-so-gddt-tp-ho-chi-minh.html"
+    },
+    {
+        "id": "math-de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2024-2025-truong-ptnk-tp-hcm",
+        "subject": "math",
+        "title": "Đề tuyển sinh lớp 10 môn Toán (không chuyên) năm 2024 – 2025 trường PTNK – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "28/05/2024",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2024-2025-truong-ptnk-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2024/05/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2024-2025-truong-ptnk-tp-hcm.html"
+    },
+    {
+        "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2024-2025-truong-ptnk-tp-hcm",
+        "subject": "math",
+        "title": "Đề tuyển sinh lớp 10 môn Toán (chuyên) năm 2024 – 2025 trường PTNK – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "27/05/2024",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2024-2025-truong-ptnk-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2024/05/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2024-2025-truong-ptnk-tp-hcm.html"
     },
     {
         "id": "math-dap-an-de-tham-khao-toan-tuyen-sinh-10-nam-2024-2025-so-gddt-tp-ho-chi-minh",
@@ -174,6 +382,19 @@ const EXAMS_DATA = [
         "sourceUrl": "https://thcs.toanmath.com/2024/02/53-de-on-tap-tuyen-sinh-lop-10-mon-toan-nam-2024-2025-so-gddt-tp-hcm.html"
     },
     {
+        "id": "math-de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-binh-tan-tp-hcm",
+        "subject": "math",
+        "title": "Đề tham khảo tuyển sinh 10 môn Toán 2024 – 2025 phòng GD&ĐT Bình Tân – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "28/01/2024",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gd-dt-binh-tan-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2024/01/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-binh-tan-tp-hcm.html"
+    },
+    {
         "id": "math-de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-tan-binh-tp-hcm",
         "subject": "math",
         "title": "Đề tham khảo tuyển sinh 10 môn Toán 2024 – 2025 phòng GD&ĐT Tân Bình – TP HCM",
@@ -185,6 +406,71 @@ const EXAMS_DATA = [
         "downloads": 0,
         "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gd-dt-tan-binh-tp-hcm.pdf",
         "sourceUrl": "https://thcs.toanmath.com/2024/01/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-tan-binh-tp-hcm.html"
+    },
+    {
+        "id": "math-de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-quan-11-tp-hcm",
+        "subject": "math",
+        "title": "Đề tham khảo tuyển sinh 10 môn Toán 2024 – 2025 phòng GD&ĐT Quận 11 – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "26/01/2024",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gd-dt-quan-11-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2024/01/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-quan-11-tp-hcm.html"
+    },
+    {
+        "id": "math-de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-quan-8-tp-hcm",
+        "subject": "math",
+        "title": "Đề tham khảo tuyển sinh 10 môn Toán 2024 – 2025 phòng GD&ĐT Quận 8 – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "26/01/2024",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gd-dt-quan-8-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2024/01/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-quan-8-tp-hcm.html"
+    },
+    {
+        "id": "math-de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-quan-7-tp-hcm",
+        "subject": "math",
+        "title": "Đề tham khảo tuyển sinh 10 môn Toán 2024 – 2025 phòng GD&ĐT Quận 7 – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "26/01/2024",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gd-dt-quan-7-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2024/01/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-quan-7-tp-hcm.html"
+    },
+    {
+        "id": "math-de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2023-2024-truong-ptnk-tp-hcm",
+        "subject": "math",
+        "title": "Đề tuyển sinh lớp 10 môn Toán (không chuyên) năm 2023 – 2024 trường PTNK – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "12/06/2023",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2023-2024-truong-ptnk-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2023/06/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2023-2024-truong-ptnk-tp-hcm.html"
+    },
+    {
+        "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2023-2024-truong-ptnk-tp-hcm",
+        "subject": "math",
+        "title": "Đề tuyển sinh lớp 10 môn Toán (chuyên) năm 2023 – 2024 trường PTNK – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "12/06/2023",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2023-2024-truong-ptnk-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2023/06/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2023-2024-truong-ptnk-tp-hcm.html"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-nam-2023-2024-so-gddt-tp-ho-chi-minh",
@@ -213,6 +499,19 @@ const EXAMS_DATA = [
         "sourceUrl": "https://thcs.toanmath.com/2023/06/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2023-2024-so-gddt-tp-ho-chi-minh.html"
     },
     {
+        "id": "math-de-thi-thu-toan-vao-lop-10-nam-2023-2024-truong-thcs-vo-thanh-trang-tp-hcm",
+        "subject": "math",
+        "title": "Đề thi thử Toán vào lớp 10 năm 2023 – 2024 trường THCS Võ Thành Trang – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Thi Thử",
+        "date": "20/05/2023",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-thi-thu-toan-vao-lop-10-nam-2023-2024-truong-thcs-vo-thanh-trang-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2023/05/de-thi-thu-toan-vao-lop-10-nam-2023-2024-truong-thcs-vo-thanh-trang-tp-hcm.html"
+    },
+    {
         "id": "math-bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2023-2024-so-gddt-tp-ho-chi-minh",
         "subject": "math",
         "title": "Bộ đề tham khảo môn Toán tuyển sinh 10 năm 2023 – 2024 sở GD&ĐT TP Hồ Chí Minh",
@@ -224,19 +523,6 @@ const EXAMS_DATA = [
         "downloads": 0,
         "pdfUrl": "pdfs/bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2023-2024-so-gd-dt-tp-ho-chi-minh.pdf",
         "sourceUrl": "https://thcs.toanmath.com/2023/02/bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2023-2024-so-gddt-tp-ho-chi-minh.html"
-    },
-    {
-        "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-so-gddt-tp-ho-chi-minh",
-        "subject": "math",
-        "title": "Đề tuyển sinh lớp 10 môn Toán (chuyên) năm 2022 – 2023 sở GD&ĐT TP Hồ Chí Minh",
-        "school": "THCS (Tự động cập nhật)",
-        "year": "2026",
-        "district": "TPHCM",
-        "type": "Tuyển Sinh Chính Thức",
-        "date": "12/06/2022",
-        "downloads": 0,
-        "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-so-gd-dt-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2022/06/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-so-gddt-tp-ho-chi-minh.html"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-thpt-mon-toan-nam-2022-2023-so-gddt-tp-ho-chi-minh",
@@ -252,6 +538,58 @@ const EXAMS_DATA = [
         "sourceUrl": "https://thcs.toanmath.com/2022/06/de-tuyen-sinh-lop-10-thpt-mon-toan-nam-2022-2023-so-gddt-tp-ho-chi-minh.html"
     },
     {
+        "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-so-gddt-tp-ho-chi-minh",
+        "subject": "math",
+        "title": "Đề tuyển sinh lớp 10 môn Toán (chuyên) năm 2022 – 2023 sở GD&ĐT TP Hồ Chí Minh",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "12/06/2022",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-so-gd-dt-tp-ho-chi-minh.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2022/06/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-so-gddt-tp-ho-chi-minh.html"
+    },
+    {
+        "id": "math-de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2022-2023-truong-ptnk-tp-hcm",
+        "subject": "math",
+        "title": "Đề tuyển sinh lớp 10 môn Toán (không chuyên) năm 2022 – 2023 trường PTNK – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "06/06/2022",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2022-2023-truong-ptnk-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2022/06/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2022-2023-truong-ptnk-tp-hcm.html"
+    },
+    {
+        "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-truong-ptnk-tp-hcm",
+        "subject": "math",
+        "title": "Đề tuyển sinh lớp 10 môn Toán (chuyên) năm 2022 – 2023 trường PTNK – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "06/06/2022",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-truong-ptnk-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2022/06/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-truong-ptnk-tp-hcm.html"
+    },
+    {
+        "id": "math-de-thi-thu-toan-vao-lop-10-nam-2022-2023-truong-thcs-dang-tan-tai-tp-hcm",
+        "subject": "math",
+        "title": "Đề thi thử Toán vào lớp 10 năm 2022 – 2023 trường THCS Đặng Tấn Tài – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Thi Thử",
+        "date": "01/06/2022",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-thi-thu-toan-vao-lop-10-nam-2022-2023-truong-thcs-dang-tan-tai-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2022/06/de-thi-thu-toan-vao-lop-10-nam-2022-2023-truong-thcs-dang-tan-tai-tp-hcm.html"
+    },
+    {
         "id": "math-bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2022-2023-so-gddt-tp-ho-chi-minh",
         "subject": "math",
         "title": "Bộ đề tham khảo môn Toán tuyển sinh 10 năm 2022 – 2023 sở GD&ĐT TP Hồ Chí Minh",
@@ -265,6 +603,32 @@ const EXAMS_DATA = [
         "sourceUrl": "https://thcs.toanmath.com/2022/03/bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2022-2023-so-gddt-tp-ho-chi-minh.html"
     },
     {
+        "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2021-2022-truong-ptnk-tp-hcm",
+        "subject": "math",
+        "title": "Đề tuyển sinh lớp 10 môn Toán (chuyên) năm 2021 – 2022 trường PTNK – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "20/06/2021",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2021-2022-truong-ptnk-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2021/06/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2021-2022-truong-ptnk-tp-hcm.html"
+    },
+    {
+        "id": "math-de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2021-2022-truong-ptnk-tp-hcm",
+        "subject": "math",
+        "title": "Đề tuyển sinh lớp 10 môn Toán (không chuyên) năm 2021 – 2022 trường PTNK – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "20/06/2021",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2021-2022-truong-ptnk-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2021/06/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2021-2022-truong-ptnk-tp-hcm.html"
+    },
+    {
         "id": "math-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2021-2022-so-gddt-tp-ho-chi-minh",
         "subject": "math",
         "title": "Đề tham khảo tuyển sinh lớp 10 môn Toán năm 2021 – 2022 sở GD&ĐT TP Hồ Chí Minh",
@@ -276,5 +640,187 @@ const EXAMS_DATA = [
         "downloads": 0,
         "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2021-2022-so-gd-dt-tp-ho-chi-minh.pdf",
         "sourceUrl": "https://thcs.toanmath.com/2021/05/de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2021-2022-so-gddt-tp-ho-chi-minh.html"
+    },
+    {
+        "id": "math-de-tuyen-sinh-lop-10-mon-toan-nam-2020-2021-truong-dhsp-tp-hcm-chung",
+        "subject": "math",
+        "title": "Đề tuyển sinh lớp 10 môn Toán năm 2020 – 2021 trường ĐHSP – TP HCM (chung)",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "21/07/2020",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-nam-2020-2021-truong-dhsp-tp-hcm-chung.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2020/07/de-tuyen-sinh-lop-10-mon-toan-nam-2020-2021-truong-dhsp-tp-hcm-chung.html"
+    },
+    {
+        "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2020-2021-so-gddt-tp-hcm",
+        "subject": "math",
+        "title": "Đề tuyển sinh lớp 10 môn Toán (chuyên) năm 2020 – 2021 sở GD&ĐT TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "18/07/2020",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2020-2021-so-gd-dt-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2020/07/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2020-2021-so-gddt-tp-hcm.html"
+    },
+    {
+        "id": "math-de-tuyen-sinh-lop-10-mon-toan-nam-hoc-2020-2021-so-gddt-tp-hcm",
+        "subject": "math",
+        "title": "Đề tuyển sinh lớp 10 môn Toán năm học 2020 – 2021 sở GD&ĐT TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "17/07/2020",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-nam-hoc-2020-2021-so-gd-dt-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2020/07/de-tuyen-sinh-lop-10-mon-toan-nam-hoc-2020-2021-so-gddt-tp-hcm.html"
+    },
+    {
+        "id": "math-de-tuyen-sinh-10-mon-toan-chuyen-nam-2020-2021-truong-ptnk-tp-hcm",
+        "subject": "math",
+        "title": "Đề tuyển sinh 10 môn Toán (chuyên) năm 2020 – 2021 trường PTNK – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "13/07/2020",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-10-mon-toan-chuyen-nam-2020-2021-truong-ptnk-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2020/07/de-tuyen-sinh-10-mon-toan-chuyen-nam-2020-2021-truong-ptnk-tp-hcm.html"
+    },
+    {
+        "id": "math-de-tuyen-sinh-10-mon-toan-khong-chuyen-nam-2020-2021-truong-ptnk-tp-hcm",
+        "subject": "math",
+        "title": "Đề tuyển sinh 10 môn Toán (không chuyên) năm 2020 – 2021 trường PTNK – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "13/07/2020",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-10-mon-toan-khong-chuyen-nam-2020-2021-truong-ptnk-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2020/07/de-tuyen-sinh-10-mon-toan-khong-chuyen-nam-2020-2021-truong-ptnk-tp-hcm.html"
+    },
+    {
+        "id": "math-bo-de-tham-khao-tuyen-sinh-lop-10-nam-2020-2021-mon-toan-so-gddt-tp-hcm",
+        "subject": "math",
+        "title": "Bộ đề tham khảo tuyển sinh lớp 10 năm 2020 – 2021 môn Toán sở GD&ĐT TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "04/07/2020",
+        "downloads": 0,
+        "pdfUrl": "pdfs/bo-de-tham-khao-tuyen-sinh-lop-10-nam-2020-2021-mon-toan-so-gd-dt-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2020/07/bo-de-tham-khao-tuyen-sinh-lop-10-nam-2020-2021-mon-toan-so-gddt-tp-hcm.html"
+    },
+    {
+        "id": "math-de-toan-tuyen-sinh-lop-10-nam-2019-2020-so-gddt-thanh-pho-ho-chi-minh",
+        "subject": "math",
+        "title": "Đề Toán tuyển sinh lớp 10 năm 2019 – 2020 sở GD&ĐT thành phố Hồ Chí Minh",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "03/06/2019",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-toan-tuyen-sinh-lop-10-nam-2019-2020-so-gd-dt-thanh-pho-ho-chi-minh.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2019/06/de-toan-tuyen-sinh-lop-10-nam-2019-2020-so-gddt-thanh-pho-ho-chi-minh.html"
+    },
+    {
+        "id": "math-de-toan-tuyen-sinh-lop-10-nam-2019-truong-ptnk-tp-hcm-vong-2",
+        "subject": "math",
+        "title": "Đề Toán tuyển sinh lớp 10 năm 2019 trường PTNK – TP HCM (Vòng 2)",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "28/05/2019",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-toan-tuyen-sinh-lop-10-nam-2019-truong-ptnk-tp-hcm-vong-2.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2019/05/de-toan-tuyen-sinh-lop-10-nam-2019-truong-ptnk-tp-hcm-vong-2.html"
+    },
+    {
+        "id": "math-de-toan-tuyen-sinh-lop-10-nam-2019-2020-truong-pho-thong-nang-khieu-tp-hcm",
+        "subject": "math",
+        "title": "Đề Toán tuyển sinh lớp 10 năm 2019 – 2020 trường Phổ thông Năng khiếu – TP HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "25/05/2019",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-toan-tuyen-sinh-lop-10-nam-2019-2020-truong-pho-thong-nang-khieu-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2019/05/de-toan-tuyen-sinh-lop-10-nam-2019-2020-truong-pho-thong-nang-khieu-tp-hcm.html"
+    },
+    {
+        "id": "math-de-tuyen-sinh-vao-lop-10-thpt-mon-toan-nam-2018-2019-so-gd-va-dt-tp-hcm",
+        "subject": "math",
+        "title": "Đề tuyển sinh vào lớp 10 THPT môn Toán năm 2018 – 2019 sở GD và ĐT TP. HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "03/06/2018",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-vao-lop-10-thpt-mon-toan-nam-2018-2019-so-gd-va-dt-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2018/06/de-tuyen-sinh-vao-lop-10-thpt-mon-toan-nam-2018-2019-so-gd-va-dt-tp-hcm.html"
+    },
+    {
+        "id": "math-de-tuyen-sinh-lop-10-mon-toan-2018-2019-truong-ptnk-tp-hcm-khong-chuyen",
+        "subject": "math",
+        "title": "Đề tuyển sinh lớp 10 môn Toán 2018 – 2019 trường PTNK – TP. HCM (không chuyên)",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "02/06/2018",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-2018-2019-truong-ptnk-tp-hcm-khong-chuyen.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2018/06/de-tuyen-sinh-lop-10-mon-toan-2018-2019-truong-ptnk-tp-hcm-khong-chuyen.html"
+    },
+    {
+        "id": "math-de-minh-hoa-ky-thi-tuyen-sinh-lop-10-thpt-nam-hoc-2018-2019-mon-toan-so-gd-va-dt",
+        "subject": "math",
+        "title": "Đề minh họa kỳ thi tuyển sinh lớp 10 THPT năm học 2018 – 2019 môn Toán sở GD và ĐT TP. HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "28/09/2017",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-minh-hoa-ky-thi-tuyen-sinh-lop-10-thpt-nam-hoc-2018-2019-mon-toan-so-gd-va-dt.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2017/09/de-minh-hoa-ky-thi-tuyen-sinh-lop-10-thpt-nam-hoc-2018-2019-mon-toan-so-gd-va-dt-tp-hcm.html"
+    },
+    {
+        "id": "math-de-thi-tuyen-sinh-lop-10-thpt-nam-hoc-2017-2018-mon-toan-so-gd-va-dt-tp-hcm",
+        "subject": "math",
+        "title": "Đề thi tuyển sinh lớp 10 THPT năm học 2017 – 2018 môn Toán sở GD và ĐT TP. HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "03/06/2017",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-thi-tuyen-sinh-lop-10-thpt-nam-hoc-2017-2018-mon-toan-so-gd-va-dt-tp-hcm.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2017/06/de-thi-tuyen-sinh-lop-10-thpt-nam-hoc-2017-2018-mon-toan-so-gd-va-dt-tp-hcm.html"
+    },
+    {
+        "id": "math-de-thi-thu-tuyen-sinh-vao-lop-10-nam-2017-mon-toan-truong-thcs-luong-the-vinh-tp",
+        "subject": "math",
+        "title": "Đề thi thử tuyển sinh vào lớp 10 năm 2017 môn Toán trường THCS Lương Thế Vinh – TP. HCM",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Thi Thử",
+        "date": "03/05/2017",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-thi-thu-tuyen-sinh-vao-lop-10-nam-2017-mon-toan-truong-thcs-luong-the-vinh-tp.pdf",
+        "sourceUrl": "https://thcs.toanmath.com/2017/05/de-thi-thu-tuyen-sinh-vao-lop-10-nam-2017-mon-toan-truong-thcs-luong-the-vinh-tp-hcm.html"
     }
 ];
