@@ -1373,6 +1373,28 @@ body::after {
     gap: 4px;
 }
 
+.exam-card-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.btn-download-pdf-mini {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: #fff !important;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-download-pdf-mini:hover {
+    background: linear-gradient(135deg, #4f46e5, #4338ca);
+    transform: translateY(-1px);
+}
+
 .btn-download-mini {
     background: var(--primary-light);
     color: var(--primary);
@@ -1457,6 +1479,30 @@ body::after {
     font-size: 1.2rem;
     color: var(--text-primary);
     margin: 0;
+}
+
+.exam-viewer-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-download-pdf {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-download-pdf:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
 }
 
 .btn-close-viewer {
