@@ -15,7 +15,7 @@ The app currently includes 6 main tabs:
 3. `District Recommendations`: filter schools by district and compare them against an entered total score.
 4. `Score Distribution`: visualize historical and projected score distributions using normal-distribution-style charts.
 5. `Choice Optimization`: estimate entrance-exam performance from semester and year-end scores, then suggest a 3-choice strategy.
-6. `Exam Bank`: an early-stage exam library UI backed by generated data.
+6. `Exam Bank`: exam library fed by a local Python crawler that filters **TPHCM grade-10 entrance** materials (Math / Literature / English), downloads PDFs into `pdfs/`, and regenerates `js/exams_data.js`.
 
 ## Tech Stack
 
@@ -59,7 +59,7 @@ This makes the app useful for exploration and strategy discussion, but it should
 
 - Historical school and exam stats are currently stored directly in `js/data.js`.
 - The repository currently contains **107 schools** in the shipped dataset.
-- The exam-bank module is still in an early/demo state and does not yet represent a full automated collection pipeline.
+- The exam bank is backed by an automated crawl → filter → download → publish pipeline; coverage of Literature still depends on stable public PDF sources and curated seeds.
 
 ## Running Locally
 
@@ -72,7 +72,7 @@ You can run the project in either of these ways:
 
 - The app depends on a CDN-loaded `Chart.js`, so it is not fully self-contained offline.
 - Probability outputs are bucketed risk labels derived from score margins, not calibrated statistical probabilities.
-- The exam crawler currently scans local files and generates metadata; it does not yet crawl external sources autonomously.
+- The exam crawler depends on live HTTP fetches; hosts may change HTML layout, throttle, or block automated clients without notice.
 
 ## Documentation
 
@@ -81,6 +81,8 @@ You can run the project in either of these ways:
 - [docs/evaluation.md](docs/evaluation.md) - detailed project evaluation and roadmap
 - [docs/PROJECT_EVALUATION_VN.md](docs/PROJECT_EVALUATION_VN.md) - internal evaluation notes
 - [docs/MAINTENANCE.md](docs/MAINTENANCE.md) - technical maintenance guide
+- [README_EXAM_PIPELINE.md](README_EXAM_PIPELINE.md) - Exam Bank crawler: flow, env vars, how to regenerate data
+- [RE_EVALUATION.md](RE_EVALUATION.md) - Re-evaluation of the recent Exam Bank / crawler / UI changes
 
 ## Goal
 
