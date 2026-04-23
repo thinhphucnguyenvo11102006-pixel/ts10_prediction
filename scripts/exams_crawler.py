@@ -1,26 +1,31 @@
 """
-exams_crawler.py — Ngân hàng đề TPHCM · Full Automation Pipeline
+exams_crawler.py — Ngân hàng đề TPHCM · Full Automation Pipeline (v4)
 
-    SEARCH  →  CRAWL  →  FILTER (TPHCM)  →  RESOLVE PDF  →  DOWNLOAD  →  PUBLISH
+    SEARCH → CRAWL → FILTER (TPHCM + lớp 10 + 3 môn) → RESOLVE PDF → DOWNLOAD → PUBLISH
 
-Stage 1 (SEARCH)   : Duyệt các listing URL (mặc định = query HCM trên toanmath)
-Stage 2 (CRAWL)    : Parse bài viết → {title, detail_url, date}
-Stage 3 (FILTER)   : Chỉ giữ lại đề TPHCM (từ khoá HCM + blacklist tỉnh khác)
-Stage 4 (RESOLVE)  : Truy cập trang chi tiết → trích xuất URL file PDF thật
-Stage 5 (DOWNLOAD) : Tải PDF về thư mục ./pdfs/<slug>.pdf (có cache)
-Stage 6 (PUBLISH)  : Sinh js/exams_data.js với pdfUrl = "pdfs/<slug>.pdf"
+Phạm vi dữ liệu:
+    - Chỉ lấy đề TUYỂN SINH vào LỚP 10 (loại bỏ đề học kì / cuối kì / kiểm tra).
+    - Chỉ 3 môn: Toán, Ngữ Văn, Tiếng Anh.
+    - Chỉ khu vực TPHCM.
+
+Nguồn dữ liệu mặc định (có thể mở rộng qua biến môi trường):
+    · thcs.toanmath.com   (Toán — search `?s=...`)
+    · langgo.edu.vn       (Tiếng Anh — curated article seeds)
+    · tailieudieuky.com   (Văn + Anh — search `?s=...`)
+    · tailieugiangday.vn  (Văn — curated seeds)
 
 Chạy:
     python scripts/exams_crawler.py
 
 Biến môi trường (tuỳ chọn):
-    EXAMS_CRAWLER_QUERIES     Danh sách truy vấn HCM, phân cách bởi "|"
-    EXAMS_CRAWLER_SEED_URLS   Danh sách listing URL, phân cách bởi "|"
+    EXAMS_CRAWLER_QUERIES     Danh sách truy vấn (pipe-sep) — ghi đè toàn bộ query mặc định
+    EXAMS_CRAWLER_SEED_URLS   URL listing / article thêm (pipe-sep)
+    EXAMS_CRAWLER_SUBJECTS    Danh sách môn học (mặc định math,lit,eng)
     EXAMS_CRAWLER_MAX         Giới hạn đề mỗi nguồn (mặc định 30)
-    EXAMS_CRAWLER_TOTAL_MAX   Tổng đề tối đa (mặc định 60)
-    EXAMS_CRAWLER_SKIP_PDF    "1" để bỏ qua bước tải PDF (test nhanh)
-    EXAMS_CRAWLER_ALLOW_DEMO  "1" để cho phép fallback demo khi cào rỗng
-    EXAMS_CRAWLER_MERGE       "0" để ghi đè thay vì merge dữ liệu cũ (mặc định 1)
+    EXAMS_CRAWLER_TOTAL_MAX   Tổng đề tối đa (mặc định 80)
+    EXAMS_CRAWLER_SKIP_PDF    "1" → bỏ bước tải PDF (test nhanh)
+    EXAMS_CRAWLER_ALLOW_DEMO  "1" → fallback demo khi cào rỗng
+    EXAMS_CRAWLER_MERGE       "0" → ghi đè thay vì merge dữ liệu cũ (mặc định 1)
 """
 
 from __future__ import annotations
@@ -35,7 +40,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from html import unescape
 from typing import Iterable, Optional
-from urllib.parse import quote_plus, urljoin, urlparse
+from urllib.parse import quote_plus, unquote, urljoin, urlparse
 
 import requests
 
@@ -64,32 +69,102 @@ HEADERS = {
     )
 }
 
-REQUEST_TIMEOUT = 20
-DOWNLOAD_TIMEOUT = 60
+REQUEST_TIMEOUT = 30
+DOWNLOAD_TIMEOUT = 90
 
-# Environment defaults
-DEFAULT_QUERIES = [
-    "tuyển sinh lớp 10 TPHCM",
-    "đề thi vào 10 TP HCM",
-    "đề thi thử vào 10 Hồ Chí Minh",
-    "đề khảo sát lớp 10 Sài Gòn",
+# ---------------------------------------------------------------------------
+# Environment defaults — per-subject sources
+# ---------------------------------------------------------------------------
+# Subject whitelist (fixed scope: Toán, Văn, Anh)
+ALLOWED_SUBJECTS = {"math", "lit", "eng"}
+
+# Per-subject seed listing URLs (search endpoints). %q% is replaced at runtime.
+# Each tuple is (search_url_template, subject_hint).
+SUBJECT_SOURCES: dict[str, list[tuple[str, str]]] = {
+    "math": [
+        ("https://thcs.toanmath.com/?s=%q%", "math"),
+    ],
+    "lit": [
+        ("https://thcs.toanmath.com/?s=%q%", "lit"),
+        ("https://tailieudieuky.com/?s=%q%", "lit"),
+    ],
+    "eng": [
+        ("https://thcs.toanmath.com/?s=%q%", "eng"),
+        ("https://tailieudieuky.com/?s=%q%", "eng"),
+    ],
+}
+
+DEFAULT_SUBJECT_QUERIES: dict[str, list[str]] = {
+    "math": [
+        "TPHCM",
+        "TP HCM",
+        "Hồ Chí Minh",
+        "đề thi thử Toán vào lớp 10 TPHCM",
+        "tuyển sinh lớp 10 Toán TPHCM",
+    ],
+    "lit": [
+        "Ngữ Văn TPHCM",
+        "Văn TPHCM",
+        "Văn Hồ Chí Minh",
+        "đề thi thử vào lớp 10 Ngữ Văn TPHCM",
+        "tuyển sinh lớp 10 Văn TPHCM",
+    ],
+    "eng": [
+        "Tiếng Anh TPHCM",
+        "Anh TPHCM",
+        "Tiếng Anh Hồ Chí Minh",
+        "đề thi thử vào lớp 10 Tiếng Anh TPHCM",
+        "tuyển sinh lớp 10 Tiếng Anh TPHCM",
+    ],
+}
+
+# Curated single-article seeds (resolver will treat each as one exam).
+DEFAULT_ARTICLE_SEEDS: list[str] = [
+    # LangGo — HCM Tiếng Anh chính thức / tham khảo (direct PDF in page)
+    "https://langgo.edu.vn/de-thi-tieng-anh-vao-10-tphcm-2025",
+    "https://langgo.edu.vn/de-tieng-anh-tuyen-sinh-vao-lop-10-tphcm-2024",
+    # Tài liệu Giảng Dạy — HCM Ngữ Văn (PDF embedded via pdfjs viewer)
+    # Note: item/8054 (Anh chuyên) dùng Google Drive consent page → không tải được tự động, bỏ.
+    "https://tailieugiangday.vn/item/de-thi-tuyen-sinh-lop-10-mon-van-2025-2026-de-tu-luan-van-9-vao-10-day-du-the-loai/44506",
+    "https://tailieugiangday.vn/item/de-thi-thu-vao-10-mon-ngu-van-tp-ho-chi-minh-nam-hoc-2024-2025/42932",
 ]
-DEFAULT_SEED_URLS: list[str] = []  # by default we use the query-based search
 
 
 # ---------------------------------------------------------------------------
-# Subject & district classifiers
+# Subject classifier (only 3 môn được giữ lại)
 # ---------------------------------------------------------------------------
 SUBJECT_PATTERNS = {
+    "eng":   [r"\btieng\s*anh\b", r"\banh\s*van\b", r"\benglish\b"],
+    "lit":   [r"\bngu\s*van\b", r"\bvan\s*hoc\b", r"\bmon\s*van\b", r"\bliterature\b"],
     "math":  [r"\btoan\b", r"\bmath\b", r"\bmathematics\b"],
-    "lit":   [r"\bvan\b", r"\bngu\s*van\b", r"\bliterature\b"],
-    "eng":   [r"\btieng\s*anh\b", r"\benglish\b"],
-    "phys":  [r"\bvat\s*ly\b", r"\bphysics\b"],
-    "chem":  [r"\bhoa(?:\s*hoc)?\b", r"\bchemistry\b"],
-    "bio":   [r"\bsinh(?:\s*hoc)?\b", r"\bbiology\b"],
-    "hist":  [r"\blich\s*su\b", r"\bhistory\b"],
-    "geog":  [r"\bdia(?:\s*ly)?\b", r"\bgeography\b"],
 }
+
+# ---------------------------------------------------------------------------
+# Lớp 10 entrance-exam detector
+# ---------------------------------------------------------------------------
+# Positive signals — title must explicitly mention "vào lớp 10" / "tuyển sinh"
+_LOP10_POS_PATTERNS = [
+    r"\bvao\s*lop\s*10\b",
+    r"\bvao\s*10\b",
+    r"\btuyen\s*sinh\s*(?:vao\s*)?(?:lop\s*)?10\b",
+    r"\bthi\s*vao\s*(?:lop\s*)?10\b",
+    r"\bon\s*thi\s*(?:vao\s*)?(?:lop\s*)?10\b",
+    r"\bon\s*tap\s*tuyen\s*sinh\s*(?:lop\s*)?10\b",
+    r"\bkhao\s*sat\s*(?:vao\s*)?(?:lop\s*)?10\b",
+]
+
+# Negative signals — within-semester / in-grade exams must be rejected
+_NON_ENTRANCE_PATTERNS = [
+    r"\bhoc\s*ki\b",          # học kì
+    r"\bcuoi\s*ki\b",         # cuối kì
+    r"\bgiua\s*ki\b",         # giữa kì
+    r"\bhoc\s*ky\b",          # học kỳ (diacritic variant)
+    r"\bkiem\s*tra\s*(?:cuoi|giua|dinh\s*ki)\b",
+    r"\b(?:de\s*)?nghi\s*cuoi\s*ki\b",
+    r"\btham\s*khao\s*hoc\s*ki\b",
+    r"\bon\s*tap\s*hoc\s*ki\b",
+    r"\bkhao\s*sat\s*chat\s*luong\s*(?:dau|giua|cuoi)\s*nam\b",
+]
 
 # Positive signals — something is definitely a TPHCM exam
 HCM_PATTERNS = [
@@ -176,12 +251,23 @@ def _slugify(text: str, max_len: int = 80) -> str:
     return s[:max_len] or f"exam-{int(time.time())}"
 
 
-def guess_subject(title: str) -> str:
+def guess_subject(title: str) -> Optional[str]:
+    """Return 'math' | 'lit' | 'eng' or None if the title is not one of the 3 target subjects."""
     norm = _strip_accents(title)
-    for subject, patterns in SUBJECT_PATTERNS.items():
-        if any(re.search(p, norm) for p in patterns):
-            return subject
-    return "math"
+    # Order matters: check eng/lit first so "Toán" inside an English title doesn't mis-classify
+    for subject in ("eng", "lit", "math"):
+        for pattern in SUBJECT_PATTERNS[subject]:
+            if re.search(pattern, norm):
+                return subject
+    return None
+
+
+def is_lop10_entrance(title: str) -> bool:
+    """True only if the title is an entrance exam for grade 10 (reject semester tests)."""
+    norm = _strip_accents(title)
+    if any(re.search(p, norm) for p in _NON_ENTRANCE_PATTERNS):
+        return False
+    return any(re.search(p, norm) for p in _LOP10_POS_PATTERNS)
 
 
 def is_tphcm(title: str, extra_text: str = "") -> bool:
@@ -235,24 +321,33 @@ def _fetch(url: str, timeout: int = REQUEST_TIMEOUT) -> Optional[str]:
 # ---------------------------------------------------------------------------
 # STAGE 1 — SEARCH
 # ---------------------------------------------------------------------------
-def _build_toanmath_search_url(query: str) -> str:
-    return f"https://thcs.toanmath.com/?s={quote_plus(query)}"
+def _fill_query(template: str, query: str) -> str:
+    """Replace %q% placeholder with URL-encoded query."""
+    return template.replace("%q%", quote_plus(query))
 
 
-def search_sources() -> list[str]:
+def search_sources(subjects: Iterable[str]) -> list[str]:
+    """Build the ordered list of URLs to crawl (listing + single-article seeds)."""
+    subjects = [s for s in subjects if s in ALLOWED_SUBJECTS]
     queries_env = os.environ.get("EXAMS_CRAWLER_QUERIES", "").strip()
     seed_env = os.environ.get("EXAMS_CRAWLER_SEED_URLS", "").strip()
 
-    queries = (
-        [q.strip() for q in queries_env.split("|") if q.strip()]
-        if queries_env else DEFAULT_QUERIES
-    )
-    seeds = (
-        [u.strip() for u in seed_env.split("|") if u.strip()]
-        if seed_env else list(DEFAULT_SEED_URLS)
-    )
+    extra_queries = [q.strip() for q in queries_env.split("|") if q.strip()] if queries_env else []
+    extra_seeds = [u.strip() for u in seed_env.split("|") if u.strip()] if seed_env else []
 
-    urls = [_build_toanmath_search_url(q) for q in queries] + seeds
+    urls: list[str] = []
+
+    # Per-subject search URLs
+    for subject in subjects:
+        queries = extra_queries or DEFAULT_SUBJECT_QUERIES.get(subject, [])
+        for (tmpl, _hint) in SUBJECT_SOURCES.get(subject, []):
+            for q in queries:
+                urls.append(_fill_query(tmpl, q))
+
+    # Curated single-article seeds + env seeds
+    urls.extend(DEFAULT_ARTICLE_SEEDS)
+    urls.extend(extra_seeds)
+
     # Dedupe while preserving order
     seen: set[str] = set()
     out: list[str] = []
@@ -287,37 +382,68 @@ def _clean_text(html_fragment: str) -> str:
     return unescape(re.sub(r"<[^>]+>", "", html_fragment or "")).strip()
 
 
+_PAGE_TITLE_RE = re.compile(r"<title[^>]*>(.*?)</title>", re.I | re.S)
+_OG_TITLE_RE = re.compile(r'<meta[^>]+property="og:title"[^>]+content="([^"]+)"', re.I)
+_H1_RE = re.compile(r'<h1[^>]*>(.*?)</h1>', re.I | re.S)
+
+
+def _extract_page_title(html: str) -> Optional[str]:
+    for pat in (_OG_TITLE_RE, _H1_RE, _PAGE_TITLE_RE):
+        m = pat.search(html)
+        if m:
+            title = _clean_text(m.group(1))
+            # Strip common site-name suffixes  " - THCS.TOANMATH.com" / "| LangGo"
+            title = re.split(
+                r"\s*[-|–]\s*(?:thcs\.toanmath|toanmath|langgo|tailieudieuky)",
+                title, maxsplit=1, flags=re.I,
+            )[0].strip()
+            if title:
+                return title
+    return None
+
+
 def extract_candidates(listing_url: str, max_items: int) -> list[Candidate]:
     html = _fetch(listing_url)
     if not html:
         return []
 
+    host = urlparse(listing_url).netloc
+
+    # --- Listing mode (multiple <article> cards) ---
     articles = _ARTICLE_RE.findall(html)
-    if not articles:
-        log(f"Không tìm thấy <article> nào ở {listing_url}", "WARN")
+    if articles:
+        out: list[Candidate] = []
+        for art in articles[:max_items]:
+            tm = _TITLE_RE.search(art)
+            if not tm:
+                continue
+            href = unescape(tm.group(1)).strip()
+            title = _clean_text(tm.group(2))
+            if not title or not href.startswith("http"):
+                continue
+            dm = _DATE_RE.search(art)
+            date = extract_date(_clean_text(dm.group(1)) if dm else "") or extract_date(_clean_text(art))
+            out.append(Candidate(
+                title=title, detail_url=href, date=date, source=host,
+            ))
+        return out
+
+    # --- Single-article fallback mode ---
+    # Heuristic: the URL does NOT look like a search/listing page.
+    parsed = urlparse(listing_url)
+    is_search_like = ("?s=" in listing_url or "/search" in parsed.path or "/tim-kiem" in parsed.path
+                      or "/category/" in parsed.path or "/tag/" in parsed.path)
+    if is_search_like:
+        log(f"Không tìm thấy bài viết ở listing: {listing_url}", "WARN")
         return []
 
-    out: list[Candidate] = []
-    for art in articles[:max_items]:
-        tm = _TITLE_RE.search(art)
-        if not tm:
-            continue
-        href = unescape(tm.group(1)).strip()
-        title = _clean_text(tm.group(2))
-        if not title or not href.startswith("http"):
-            continue
+    title = _extract_page_title(html)
+    if not title:
+        log(f"Không trích xuất được tiêu đề: {listing_url}", "WARN")
+        return []
 
-        # Date
-        dm = _DATE_RE.search(art)
-        date = extract_date(_clean_text(dm.group(1)) if dm else "") or extract_date(_clean_text(art))
-
-        out.append(Candidate(
-            title=title,
-            detail_url=href,
-            date=date,
-            source=urlparse(listing_url).netloc,
-        ))
-    return out
+    date = extract_date(html[:10000]) or None
+    return [Candidate(title=title, detail_url=listing_url, date=date, source=host)]
 
 
 # ---------------------------------------------------------------------------
@@ -333,13 +459,14 @@ def resolve_pdf_url(detail_url: str) -> Optional[str]:
     if not html:
         return None
 
-    # (a) Toanmath wonderplugin-pdf-embed pattern:
-    #     <iframe src=".../viewer.html?...&file=https://.../file.pdf">
+    # (a) PDFjs-viewer embed pattern (toanmath wonderplugin, tailieugiangday, etc.):
+    #     <iframe src=".../viewer.html?...&file=https%3A%2F%2F.../file.pdf">
     for src in _IFRAME_SRC_RE.findall(html):
         src = unescape(src)
-        m = re.search(r"[?&]file=([^&]+\.pdf[^&]*)", src, re.I)
+        m = re.search(r"[?&]file=([^&]+(?:\.pdf|%2Fpreview%2F)[^&]*)", src, re.I)
         if m:
-            return unescape(m.group(1))
+            # Decode both HTML entities and URL percent-encoding
+            return unquote(m.group(1))
         # Direct PDF in iframe src
         if re.search(r"\.pdf(\?|$)", src, re.I):
             return urljoin(detail_url, src)
@@ -431,13 +558,15 @@ def _id_from_url(detail_url: str) -> str:
 
 def build_exam_entry(cand: Candidate, existing: dict[str, dict]) -> dict:
     prev = existing.get(cand.detail_url) or {}
-    subject = cand.subject or guess_subject(cand.title)
+    subject = cand.subject or guess_subject(cand.title) or "math"
     date = cand.date or prev.get("date") or datetime.now().strftime("%d/%m/%Y")
 
-    # Determine type label from title
+    # Determine type label from title (order matters — check specific before generic)
     title_low = cand.title.lower()
     if "thử" in title_low:
         exam_type = "Đề Thi Thử"
+    elif "tham khảo" in title_low or "ôn thi" in title_low or "ôn tập" in title_low:
+        exam_type = "Đề Tham Khảo"
     elif "khảo sát" in title_low:
         exam_type = "Đề Khảo Sát"
     elif "tuyển sinh" in title_low or "chính thức" in title_low:
@@ -485,20 +614,27 @@ def publish(exams: list[dict]) -> None:
 # ---------------------------------------------------------------------------
 def run_pipeline() -> None:
     print("=" * 56)
-    print("   HỆ THỐNG CRAWLER NGÂN HÀNG ĐỀ TPHCM  v3.0")
+    print("   HỆ THỐNG CRAWLER NGÂN HÀNG ĐỀ TPHCM  v4.0")
     print("=" * 56)
 
     max_per_source = int(os.environ.get("EXAMS_CRAWLER_MAX", "30"))
-    total_max = int(os.environ.get("EXAMS_CRAWLER_TOTAL_MAX", "60"))
+    total_max = int(os.environ.get("EXAMS_CRAWLER_TOTAL_MAX", "80"))
     skip_pdf = os.environ.get("EXAMS_CRAWLER_SKIP_PDF", "").lower() in {"1", "true", "yes"}
     allow_demo = os.environ.get("EXAMS_CRAWLER_ALLOW_DEMO", "").lower() in {"1", "true", "yes"}
     merge_old = os.environ.get("EXAMS_CRAWLER_MERGE", "1").lower() not in {"0", "false", "no"}
+
+    subjects_env = os.environ.get("EXAMS_CRAWLER_SUBJECTS", "").strip()
+    subjects = (
+        [s.strip() for s in subjects_env.split(",") if s.strip() in ALLOWED_SUBJECTS]
+        if subjects_env else sorted(ALLOWED_SUBJECTS)
+    )
 
     existing = _load_existing_exams() if merge_old else {}
 
     # ------ STAGE 1 — SEARCH
     log("STAGE 1 · SEARCH — xác định nguồn dữ liệu", "STEP")
-    sources = search_sources()
+    log(f"  Phạm vi: TPHCM · lớp 10 tuyển sinh · môn = {','.join(subjects)}", "INFO")
+    sources = search_sources(subjects)
     for u in sources:
         log(f"  · {u}", "INFO")
 
@@ -514,16 +650,26 @@ def run_pipeline() -> None:
             raw.append(c)
     log(f"  Tổng ứng viên thô: {len(raw)}", "INFO")
 
-    # ------ STAGE 3 — FILTER (TPHCM)
-    log("STAGE 3 · FILTER — chỉ giữ đề TPHCM", "STEP")
+    # ------ STAGE 3 — FILTER (TPHCM + Lớp 10 tuyển sinh + 3 môn)
+    log("STAGE 3 · FILTER — TPHCM · lớp 10 · Toán/Văn/Anh", "STEP")
     hcm: list[Candidate] = []
-    rejected = 0
+    rej_district = rej_entrance = rej_subject = 0
     for c in raw:
-        if is_tphcm(c.title):
-            hcm.append(c)
-        else:
-            rejected += 1
-    log(f"  Giữ lại: {len(hcm)} | Loại: {rejected}", "INFO")
+        if not is_tphcm(c.title):
+            rej_district += 1
+            continue
+        if not is_lop10_entrance(c.title):
+            rej_entrance += 1
+            continue
+        subj = guess_subject(c.title)
+        if subj is None or subj not in subjects:
+            rej_subject += 1
+            continue
+        c.subject = subj
+        hcm.append(c)
+    log(f"  Giữ lại: {len(hcm)} | Loại: {rej_district} (ngoài HCM) "
+        f"+ {rej_entrance} (không phải tuyển sinh 10) "
+        f"+ {rej_subject} (môn khác)", "INFO")
 
     if not hcm:
         if allow_demo:
@@ -540,7 +686,6 @@ def run_pipeline() -> None:
     os.makedirs(PDF_DIR, exist_ok=True)
     published: list[dict] = []
     for i, c in enumerate(hcm, 1):
-        c.subject = guess_subject(c.title)
         prefix = f"[{i}/{len(hcm)}]"
 
         if skip_pdf:

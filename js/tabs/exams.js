@@ -71,6 +71,7 @@ Object.assign(App, {
                 typeClass = 'type-survey';
             }
 
+            const downloadName = `${ex.id}.pdf`;
             html += `
                 <div class="exam-card animate-in" onclick="App.openExamViewer('${ex.id}')">
                     <div class="exam-card-header">
@@ -95,8 +96,17 @@ Object.assign(App, {
                             <span class="view-icon">👁️</span>
                             <span>${(ex.downloads + 120).toLocaleString()} lượt xem</span>
                         </div>
-                        <div class="btn-download-mini">
-                            <span class="icon">📄</span> Xem đề
+                        <div class="exam-card-actions">
+                            <div class="btn-download-mini">
+                                <span class="icon">📄</span> Xem đề
+                            </div>
+                            <a class="btn-download-mini btn-download-pdf-mini"
+                               href="${ex.pdfUrl}"
+                               download="${downloadName}"
+                               target="_blank" rel="noopener"
+                               onclick="event.stopPropagation(); App.trackDownload('${ex.id}')">
+                                <span class="icon">⬇️</span> Tải PDF
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -114,20 +124,31 @@ Object.assign(App, {
         const iframe = document.getElementById('pdfIframe');
         const title = document.getElementById('viewerTitle');
         const subtitle = document.getElementById('viewerSubtitle');
+        const downloadBtn = document.getElementById('viewerDownloadBtn');
 
         if (modal && iframe) {
-            // Prevent iframe from caching history if needed
             iframe.src = exam.pdfUrl + "#toolbar=0&navpanes=0&scrollbar=0";
             title.textContent = exam.title;
             subtitle.textContent = `${exam.school} - ${exam.year}`;
-            modal.classList.add('active');
 
-            // Lock body scroll
+            if (downloadBtn) {
+                downloadBtn.href = exam.pdfUrl;
+                downloadBtn.setAttribute('download', `${exam.id}.pdf`);
+                downloadBtn.onclick = () => this.trackDownload(exam.id);
+            }
+
+            modal.classList.add('active');
             document.body.style.overflow = 'hidden';
 
-            // Increment dummy downloads
             exam.downloads++;
-            this.filterExams(exam.subject); // re-render grid in background to show updated number
+            this.filterExams(exam.subject);
+        }
+    },
+
+    trackDownload(id) {
+        const exam = EXAMS_DATA.find(e => e.id === id);
+        if (exam) {
+            exam.downloads++;
         }
     },
 
