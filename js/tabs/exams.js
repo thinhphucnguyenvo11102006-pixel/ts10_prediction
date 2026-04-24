@@ -114,12 +114,20 @@ Object.assign(App, {
         const iframe = document.getElementById('pdfIframe');
         const title = document.getElementById('viewerTitle');
         const subtitle = document.getElementById('viewerSubtitle');
+        const downloadBtn = document.getElementById('viewerDownloadBtn');
 
         if (modal && iframe) {
             // Prevent iframe from caching history if needed
             iframe.src = exam.pdfUrl + "#toolbar=0&navpanes=0&scrollbar=0";
             title.textContent = exam.title;
             subtitle.textContent = `${exam.school} - ${exam.year}`;
+            
+            // Set download link
+            if (downloadBtn) {
+                downloadBtn.href = exam.pdfUrl;
+                downloadBtn.download = exam.title + ".pdf";
+            }
+
             modal.classList.add('active');
 
             // Lock body scroll
