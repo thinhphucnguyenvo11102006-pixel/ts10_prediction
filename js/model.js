@@ -25,6 +25,11 @@ const PredictionModel = {
     YEARS: [2022, 2023, 2024, 2025],
     TARGET_YEAR: 2026,
     BREAK_YEAR: 2025,
+    NV_PRIORITY_PENALTIES: {
+        1: 0,
+        2: 0.75,
+        3: 1.5
+    },
 
     // ──────────────────────────────────────────────
     //  UTILITIES
@@ -46,6 +51,37 @@ const PredictionModel = {
 
     getAvailableYears(scores) {
         return this.YEARS.filter(y => scores[y] != null);
+    },
+
+    getNvPenalty(priority) {
+        return this.NV_PRIORITY_PENALTIES[priority] ?? 0;
+    },
+
+    buildPriorityThresholds(basePredicted, baseLow, baseHigh) {
+        const roundQuarter = (value) => Math.round(value * 4) / 4;
+        return {
+            nv1: {
+                priority: 1,
+                penalty: this.getNvPenalty(1),
+                predicted: roundQuarter(basePredicted + this.getNvPenalty(1)),
+                low: roundQuarter(baseLow + this.getNvPenalty(1)),
+                high: roundQuarter(baseHigh + this.getNvPenalty(1))
+            },
+            nv2: {
+                priority: 2,
+                penalty: this.getNvPenalty(2),
+                predicted: roundQuarter(basePredicted + this.getNvPenalty(2)),
+                low: roundQuarter(baseLow + this.getNvPenalty(2)),
+                high: roundQuarter(baseHigh + this.getNvPenalty(2))
+            },
+            nv3: {
+                priority: 3,
+                penalty: this.getNvPenalty(3),
+                predicted: roundQuarter(basePredicted + this.getNvPenalty(3)),
+                low: roundQuarter(baseLow + this.getNvPenalty(3)),
+                high: roundQuarter(baseHigh + this.getNvPenalty(3))
+            }
+        };
     },
 
     getSchoolsData() {
@@ -401,17 +437,22 @@ const PredictionModel = {
             0.95
         );
 
+        const roundedPredicted = Math.round(predicted * 4) / 4;
+        const roundedLow = Math.round(low * 4) / 4;
+        const roundedHigh = Math.round(high * 4) / 4;
+
         return {
-            predicted: Math.round(predicted * 4) / 4,
-            low:       Math.round(low * 4) / 4,
-            high:      Math.round(high * 4) / 4,
+            predicted: roundedPredicted,
+            low:       roundedLow,
+            high:      roundedHigh,
             confidence: Math.round(confidence * 100),
             trend:     Math.round(microTrend * 100) / 100,
             // Retained for backward-compat with UI (but no longer primary)
             wma:       null,
             linear:    null,
             anchor:    Math.round(schoolAnchor * 100) / 100,
-            baseline:  Math.round(systemForecast.predicted * 100) / 100
+            baseline:  Math.round(systemForecast.predicted * 100) / 100,
+            priorities: this.buildPriorityThresholds(roundedPredicted, roundedLow, roundedHigh)
         };
     },
 
@@ -440,8 +481,9 @@ const PredictionModel = {
             if (!school) continue;
 
             const pred = this.predictSchool(school);
-            const nvPenalty = i * 0.75; // NV2 +0.75, NV3 +1.5 effective threshold
-            const effectiveThreshold = pred.predicted + nvPenalty;
+            const priority = i + 1;
+            const nvPenalty = this.getNvPenalty(priority);
+            const effectiveThreshold = pred.priorities?.[`nv${priority}`]?.predicted ?? (pred.predicted + nvPenalty);
 
             const margin = totalScore - effectiveThreshold;
             let feasibilityScore, status, statusLabel;
