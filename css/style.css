@@ -1459,6 +1459,30 @@ body::after {
     margin: 0;
 }
 
+.exam-viewer-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-download-pdf {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.btn-download-pdf:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(99, 102, 241, 0.35);
+}
+
 .btn-close-viewer {
     background: rgba(255,255,255,0.1);
     color: var(--text-primary);
