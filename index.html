@@ -459,8 +459,12 @@
                     <div>
                         <h3 id="viewerTitle">Đang Tải Đề...</h3>
                         <p id="viewerSubtitle" style="font-size:0.8rem;color:var(--text-secondary)"></p>
+                    <div class="exam-viewer-actions">
+                        <a id="viewerDownloadBtn" class="btn btn-primary btn-download-pdf" href="#" download target="_blank" rel="noopener">
+                            <span class="icon">⬇️</span> Tải PDF
+                        </a>
+                        <button class="btn-close-viewer" onclick="App.closeExamViewer()">✕ Đóng</button>
                     </div>
-                    <button class="btn-close-viewer" onclick="App.closeExamViewer()">✕ Đóng</button>
                 </div>
                 <div class="exam-viewer-body">
                     <div class="exam-viewer-pdf">
