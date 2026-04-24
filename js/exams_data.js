@@ -1,9 +1,79 @@
 // CẢNH BÁO: File này được sinh tự động bởi Bot Crawler Pipeline.
 // KHÔNG chỉnh sửa thủ công tại đây.
-// Cập nhật lần cuối: 2026-04-23 13:16:31
-// Tổng số đề TPHCM: 63
+// Cập nhật lần cuối: 2026-04-24 11:03:02
+// Tổng số đề TPHCM: 77
 
 const EXAMS_DATA = [
+    {
+        "id": "eng-de-tham-khao-tieng-anh-thi-vao-lop-10-tphcm-2026",
+        "subject": "eng",
+        "title": "Đề minh họa Tiếng Anh thi vào 10 TP.HCM 2026 (PDF và Đáp án)",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "24/04/2026",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-minh-hoa-tieng-anh-thi-vao-10-tp-hcm-2026-pdf-va-dap-an.pdf",
+        "sourceUrl": "https://langgo.edu.vn/de-tham-khao-tieng-anh-thi-vao-lop-10-tphcm-2026",
+        "resourceType": "pdf"
+    },
+    {
+        "id": "eng-cau-truc-de-thi-tieng-anh-vao-10-tphcm",
+        "subject": "eng",
+        "title": "Cấu trúc đề thi tiếng Anh vào 10 TPHCM 2025 (PDF + Đáp án)",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "24/04/2026",
+        "downloads": 0,
+        "pdfUrl": "pdfs/cau-truc-de-thi-tieng-anh-vao-10-tphcm-2025-pdf-dap-an.pdf",
+        "sourceUrl": "https://langgo.edu.vn/cau-truc-de-thi-tieng-anh-vao-10-tphcm",
+        "resourceType": "pdf"
+    },
+    {
+        "id": "lit-de-tham-khao-mon-ngu-van-ky-thi-vao-lop-10-nam-2026-tai-tphcm-co-gi-dac-biet-pos",
+        "subject": "lit",
+        "title": "Đề tham khảo môn Ngữ văn kỳ thi vào lớp 10 năm 2026 tại TP.HCM có gì đặc biệt?",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "24/04/2026",
+        "downloads": 0,
+        "pdfUrl": "https://tienphong.vn/de-tham-khao-mon-ngu-van-ky-thi-vao-lop-10-nam-2026-tai-tphcm-co-gi-dac-biet-post1789764.tpo",
+        "sourceUrl": "https://tienphong.vn/de-tham-khao-mon-ngu-van-ky-thi-vao-lop-10-nam-2026-tai-tphcm-co-gi-dac-biet-post1789764.tpo",
+        "resourceType": "article"
+    },
+    {
+        "id": "lit-de-thi-chinh-thuc-mon-ngu-van-lop-10-tphcm-nam-2024-185240604230305645",
+        "subject": "lit",
+        "title": "Đề thi chính thức môn ngữ văn lớp 10 TP.HCM năm 2024",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "24/04/2026",
+        "downloads": 0,
+        "pdfUrl": "https://thanhnien.vn/de-thi-chinh-thuc-mon-ngu-van-lop-10-tphcm-nam-2024-185240604230305645.htm",
+        "sourceUrl": "https://thanhnien.vn/de-thi-chinh-thuc-mon-ngu-van-lop-10-tphcm-nam-2024-185240604230305645.htm",
+        "resourceType": "article"
+    },
+    {
+        "id": "eng-tphcm-cong-bo-de-thi-tham-khao-lop-10-cac-mon-toan-ngu-van-va-tieng-anh",
+        "subject": "eng",
+        "title": "TP.HCM công bố đề thi tham khảo lớp 10 các môn toán, ngữ văn và tiếng Anh",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "24/04/2026",
+        "downloads": 0,
+        "pdfUrl": "https://nhipsonghomnay.vn/doi-song-xa-hoi/giao-duc/tphcm-cong-bo-de-thi-tham-khao-lop-10-cac-mon-toan-ngu-van-va-tieng-anh.html",
+        "sourceUrl": "https://nhipsonghomnay.vn/doi-song-xa-hoi/giao-duc/tphcm-cong-bo-de-thi-tham-khao-lop-10-cac-mon-toan-ngu-van-va-tieng-anh.html",
+        "resourceType": "article"
+    },
     {
         "id": "eng-de-thi-tieng-anh-vao-10-tphcm-2025",
         "subject": "eng",
@@ -15,7 +85,8 @@ const EXAMS_DATA = [
         "date": "23/04/2026",
         "downloads": 0,
         "pdfUrl": "pdfs/de-thi-tieng-anh-vao-10-tp-hcm-2025-pdf-va-dap-an.pdf",
-        "sourceUrl": "https://langgo.edu.vn/de-thi-tieng-anh-vao-10-tphcm-2025"
+        "sourceUrl": "https://langgo.edu.vn/de-thi-tieng-anh-vao-10-tphcm-2025",
+        "resourceType": "pdf"
     },
     {
         "id": "eng-de-tieng-anh-tuyen-sinh-vao-lop-10-tphcm-2024",
@@ -28,7 +99,8 @@ const EXAMS_DATA = [
         "date": "23/04/2026",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tieng-anh-tuyen-sinh-lop-10-tp-hcm-2024-pdf-dap-an.pdf",
-        "sourceUrl": "https://langgo.edu.vn/de-tieng-anh-tuyen-sinh-vao-lop-10-tphcm-2024"
+        "sourceUrl": "https://langgo.edu.vn/de-tieng-anh-tuyen-sinh-vao-lop-10-tphcm-2024",
+        "resourceType": "pdf"
     },
     {
         "id": "lit-42932",
@@ -41,7 +113,8 @@ const EXAMS_DATA = [
         "date": "23/04/2026",
         "downloads": 0,
         "pdfUrl": "pdfs/de-thi-thu-vao-10-mon-ngu-van-tp-ho-chi-minh-nam-hoc-2024-2025.pdf",
-        "sourceUrl": "https://tailieugiangday.vn/item/de-thi-thu-vao-10-mon-ngu-van-tp-ho-chi-minh-nam-hoc-2024-2025/42932"
+        "sourceUrl": "https://tailieugiangday.vn/item/de-thi-thu-vao-10-mon-ngu-van-tp-ho-chi-minh-nam-hoc-2024-2025/42932",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-minh-hoa-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2026-2027-truong-ptnk-tp-hcm",
@@ -54,7 +127,8 @@ const EXAMS_DATA = [
         "date": "25/03/2026",
         "downloads": 0,
         "pdfUrl": "pdfs/de-minh-hoa-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2026-2027-truong-ptnk-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2026/03/de-minh-hoa-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2026-2027-truong-ptnk-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2026/03/de-minh-hoa-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2026-2027-truong-ptnk-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-minh-hoa-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-truong-ptnk-tp-hcm",
@@ -67,7 +141,8 @@ const EXAMS_DATA = [
         "date": "25/03/2026",
         "downloads": 0,
         "pdfUrl": "pdfs/de-minh-hoa-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-truong-ptnk-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2026/03/de-minh-hoa-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-truong-ptnk-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2026/03/de-minh-hoa-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-truong-ptnk-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-dap-an-bo-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gddt-tp-hcm",
@@ -80,7 +155,8 @@ const EXAMS_DATA = [
         "date": "26/02/2026",
         "downloads": 0,
         "pdfUrl": "pdfs/dap-an-bo-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gd-dt-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2026/02/dap-an-bo-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gddt-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2026/02/dap-an-bo-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gddt-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-tuyen-tap-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gddt-tp-hcm",
@@ -93,7 +169,8 @@ const EXAMS_DATA = [
         "date": "28/01/2026",
         "downloads": 0,
         "pdfUrl": "pdfs/tuyen-tap-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gd-dt-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2026/01/tuyen-tap-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gddt-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2026/01/tuyen-tap-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gddt-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-bo-15-de-on-thi-tuyen-sinh-vao-lop-10-thpt-mon-toan-nam-2026-tp-ho-chi-minh",
@@ -106,7 +183,8 @@ const EXAMS_DATA = [
         "date": "23/12/2025",
         "downloads": 0,
         "pdfUrl": "pdfs/bo-15-de-on-thi-tuyen-sinh-vao-lop-10-thpt-mon-toan-nam-2026-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2025/12/bo-15-de-on-thi-tuyen-sinh-vao-lop-10-thpt-mon-toan-nam-2026-tp-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2025/12/bo-15-de-on-thi-tuyen-sinh-vao-lop-10-thpt-mon-toan-nam-2026-tp-ho-chi-minh.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gddt-tp-ho-chi-minh",
@@ -119,7 +197,8 @@ const EXAMS_DATA = [
         "date": "27/10/2025",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gd-dt-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2025/10/de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gddt-tp-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2025/10/de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2026-2027-so-gddt-tp-ho-chi-minh.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2025-2026-so-gddt-tp-ho-chi-minh",
@@ -132,7 +211,22 @@ const EXAMS_DATA = [
         "date": "01/09/2025",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2025-2026-so-gd-dt-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2025/09/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2025-2026-so-gddt-tp-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2025/09/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2025-2026-so-gddt-tp-ho-chi-minh.html",
+        "resourceType": "pdf"
+    },
+    {
+        "id": "lit-de-ngu-van-vao-10-tp-hcm-co-tinh-goi-mo-phan-loai-thi-sinh-tot-10293517",
+        "subject": "lit",
+        "title": "Đề ngữ văn vào 10 TP.HCM: Có tính gợi mở, phân loại thí sinh tốt",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "06/07/2025",
+        "downloads": 0,
+        "pdfUrl": "https://congluan.vn/de-ngu-van-vao-10-tp-hcm-co-tinh-goi-mo-phan-loai-thi-sinh-tot-10293517.html",
+        "sourceUrl": "https://congluan.vn/de-ngu-van-vao-10-tp-hcm-co-tinh-goi-mo-phan-loai-thi-sinh-tot-10293517.html",
+        "resourceType": "article"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-nam-2025-2026-so-gddt-tp-ho-chi-minh",
@@ -145,7 +239,8 @@ const EXAMS_DATA = [
         "date": "07/06/2025",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-nam-2025-2026-so-gd-dt-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2025/06/de-tuyen-sinh-lop-10-mon-toan-nam-2025-2026-so-gddt-tp-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2025/06/de-tuyen-sinh-lop-10-mon-toan-nam-2025-2026-so-gddt-tp-ho-chi-minh.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2025-truong-ptnk-tp-hcm",
@@ -158,7 +253,8 @@ const EXAMS_DATA = [
         "date": "26/05/2025",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2025-truong-ptnk-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2025/05/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2025-truong-ptnk-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2025/05/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2025-truong-ptnk-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2025-truong-ptnk-tp-hcm",
@@ -171,7 +267,36 @@ const EXAMS_DATA = [
         "date": "26/05/2025",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2025-truong-ptnk-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2025/05/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2025-truong-ptnk-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2025/05/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2025-truong-ptnk-tp-hcm.html",
+        "resourceType": "pdf"
+    },
+    {
+        "id": "eng-de-thi-chinh-thuc-ky-thi-tuyen-sinh-lop-10-nam-2025-paper-eng-khong-chuyen",
+        "subject": "eng",
+        "title": "Đề thi chính thức Tiếng Anh (không chuyên) PTNK TP.HCM năm 2025",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "26/05/2025",
+        "downloads": 0,
+        "pdfUrl": "https://ptnk.edu.vn/de-thi-chinh-thuc-ky-thi-tuyen-sinh-lop-10-nam-2025/",
+        "sourceUrl": "https://ptnk.edu.vn/de-thi-chinh-thuc-ky-thi-tuyen-sinh-lop-10-nam-2025/?paper=eng-khong-chuyen",
+        "resourceType": "article"
+    },
+    {
+        "id": "eng-de-thi-chinh-thuc-ky-thi-tuyen-sinh-lop-10-nam-2025-paper-eng-chuyen",
+        "subject": "eng",
+        "title": "Đề thi chính thức Tiếng Anh (chuyên) PTNK TP.HCM năm 2025",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "26/05/2025",
+        "downloads": 0,
+        "pdfUrl": "https://ptnk.edu.vn/de-thi-chinh-thuc-ky-thi-tuyen-sinh-lop-10-nam-2025/",
+        "sourceUrl": "https://ptnk.edu.vn/de-thi-chinh-thuc-ky-thi-tuyen-sinh-lop-10-nam-2025/?paper=eng-chuyen",
+        "resourceType": "article"
     },
     {
         "id": "math-de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thcs-hong-bang-tp-hcm",
@@ -184,7 +309,8 @@ const EXAMS_DATA = [
         "date": "25/05/2025",
         "downloads": 0,
         "pdfUrl": "pdfs/de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thcs-hong-bang-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2025/05/de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thcs-hong-bang-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2025/05/de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thcs-hong-bang-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thcs-tran-quoc-toan-1-tp-hcm",
@@ -197,7 +323,8 @@ const EXAMS_DATA = [
         "date": "25/05/2025",
         "downloads": 0,
         "pdfUrl": "pdfs/de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thcs-tran-quoc-toan-1-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2025/05/de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thcs-tran-quoc-toan-1-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2025/05/de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thcs-tran-quoc-toan-1-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thuc-hanh-sai-gon-tp-hcm",
@@ -210,7 +337,8 @@ const EXAMS_DATA = [
         "date": "23/05/2025",
         "downloads": 0,
         "pdfUrl": "pdfs/de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thuc-hanh-sai-gon-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2025/05/de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thuc-hanh-sai-gon-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2025/05/de-thi-thu-toan-vao-lop-10-nam-2025-2026-truong-thuc-hanh-sai-gon-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-minh-hoa-tuyen-sinh-10-mon-toan-chuyen-nam-2025-2026-truong-ptnk-tp-hcm",
@@ -223,7 +351,8 @@ const EXAMS_DATA = [
         "date": "22/02/2025",
         "downloads": 0,
         "pdfUrl": "pdfs/de-minh-hoa-tuyen-sinh-10-mon-toan-chuyen-nam-2025-2026-truong-ptnk-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2025/02/de-minh-hoa-tuyen-sinh-10-mon-toan-chuyen-nam-2025-2026-truong-ptnk-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2025/02/de-minh-hoa-tuyen-sinh-10-mon-toan-chuyen-nam-2025-2026-truong-ptnk-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-minh-hoa-tuyen-sinh-10-mon-toan-khong-chuyen-2025-2026-truong-ptnk-tp-hcm",
@@ -236,7 +365,8 @@ const EXAMS_DATA = [
         "date": "22/02/2025",
         "downloads": 0,
         "pdfUrl": "pdfs/de-minh-hoa-tuyen-sinh-10-mon-toan-khong-chuyen-2025-2026-truong-ptnk-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2025/02/de-minh-hoa-tuyen-sinh-10-mon-toan-khong-chuyen-2025-2026-truong-ptnk-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2025/02/de-minh-hoa-tuyen-sinh-10-mon-toan-khong-chuyen-2025-2026-truong-ptnk-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-bo-de-tham-khao-tuyen-sinh-lop-10-mon-toan-2025-2026-so-gddt-tp-ho-chi-minh",
@@ -249,7 +379,8 @@ const EXAMS_DATA = [
         "date": "19/02/2025",
         "downloads": 0,
         "pdfUrl": "pdfs/bo-de-tham-khao-tuyen-sinh-lop-10-mon-toan-2025-2026-so-gd-dt-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2025/02/bo-de-tham-khao-tuyen-sinh-lop-10-mon-toan-2025-2026-so-gddt-tp-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2025/02/bo-de-tham-khao-tuyen-sinh-lop-10-mon-toan-2025-2026-so-gddt-tp-ho-chi-minh.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gddt-cu-chi-tp-hcm",
@@ -262,7 +393,8 @@ const EXAMS_DATA = [
         "date": "12/02/2025",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gd-dt-cu-chi-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2025/02/de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gddt-cu-chi-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2025/02/de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gddt-cu-chi-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gddt-tan-phu-tp-hcm",
@@ -275,7 +407,8 @@ const EXAMS_DATA = [
         "date": "12/02/2025",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gd-dt-tan-phu-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2025/02/de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gddt-tan-phu-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2025/02/de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gddt-tan-phu-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gddt-quan-7-tp-hcm",
@@ -288,7 +421,8 @@ const EXAMS_DATA = [
         "date": "11/02/2025",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gd-dt-quan-7-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2025/02/de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gddt-quan-7-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2025/02/de-tham-khao-tuyen-sinh-10-mon-toan-2025-2026-phong-gddt-quan-7-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tham-khao-tuyen-sinh-lop-10-mon-toan-gdpt-2018-so-gddt-tp-ho-chi-minh",
@@ -301,7 +435,8 @@ const EXAMS_DATA = [
         "date": "02/10/2024",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-lop-10-mon-toan-gdpt-2018-so-gd-dt-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2024/10/de-tham-khao-tuyen-sinh-lop-10-mon-toan-gdpt-2018-so-gddt-tp-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2024/10/de-tham-khao-tuyen-sinh-lop-10-mon-toan-gdpt-2018-so-gddt-tp-ho-chi-minh.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-nam-2024-2025-so-gddt-tp-ho-chi-minh",
@@ -314,7 +449,8 @@ const EXAMS_DATA = [
         "date": "07/06/2024",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-nam-2024-2025-so-gd-dt-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2024/06/de-tuyen-sinh-lop-10-mon-toan-nam-2024-2025-so-gddt-tp-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2024/06/de-tuyen-sinh-lop-10-mon-toan-nam-2024-2025-so-gddt-tp-ho-chi-minh.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2024-2025-truong-ptnk-tp-hcm",
@@ -327,7 +463,8 @@ const EXAMS_DATA = [
         "date": "28/05/2024",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2024-2025-truong-ptnk-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2024/05/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2024-2025-truong-ptnk-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2024/05/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2024-2025-truong-ptnk-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2024-2025-truong-ptnk-tp-hcm",
@@ -340,7 +477,36 @@ const EXAMS_DATA = [
         "date": "27/05/2024",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2024-2025-truong-ptnk-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2024/05/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2024-2025-truong-ptnk-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2024/05/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2024-2025-truong-ptnk-tp-hcm.html",
+        "resourceType": "pdf"
+    },
+    {
+        "id": "eng-cong-bo-de-thi-chinh-thuc-tuyen-sinh-lop-10-nam-hoc-2024-2025-paper-eng-khong-ch",
+        "subject": "eng",
+        "title": "Đề thi chính thức Tiếng Anh (không chuyên) PTNK TP.HCM năm 2024",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "26/05/2024",
+        "downloads": 0,
+        "pdfUrl": "https://ptnk.edu.vn/cong-bo-de-thi-chinh-thuc-tuyen-sinh-lop-10-nam-hoc-2024-2025/",
+        "sourceUrl": "https://ptnk.edu.vn/cong-bo-de-thi-chinh-thuc-tuyen-sinh-lop-10-nam-hoc-2024-2025/?paper=eng-khong-chuyen",
+        "resourceType": "article"
+    },
+    {
+        "id": "eng-cong-bo-de-thi-chinh-thuc-tuyen-sinh-lop-10-nam-hoc-2024-2025-paper-eng-chuyen",
+        "subject": "eng",
+        "title": "Đề thi chính thức Tiếng Anh (chuyên) PTNK TP.HCM năm 2024",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Tuyển Sinh Chính Thức",
+        "date": "26/05/2024",
+        "downloads": 0,
+        "pdfUrl": "https://ptnk.edu.vn/cong-bo-de-thi-chinh-thuc-tuyen-sinh-lop-10-nam-hoc-2024-2025/",
+        "sourceUrl": "https://ptnk.edu.vn/cong-bo-de-thi-chinh-thuc-tuyen-sinh-lop-10-nam-hoc-2024-2025/?paper=eng-chuyen",
+        "resourceType": "article"
     },
     {
         "id": "math-dap-an-de-tham-khao-toan-tuyen-sinh-10-nam-2024-2025-so-gddt-tp-ho-chi-minh",
@@ -353,7 +519,8 @@ const EXAMS_DATA = [
         "date": "27/02/2024",
         "downloads": 0,
         "pdfUrl": "pdfs/dap-an-de-tham-khao-toan-tuyen-sinh-10-nam-2024-2025-so-gd-dt-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2024/02/dap-an-de-tham-khao-toan-tuyen-sinh-10-nam-2024-2025-so-gddt-tp-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2024/02/dap-an-de-tham-khao-toan-tuyen-sinh-10-nam-2024-2025-so-gddt-tp-ho-chi-minh.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2024-2025-so-gddt-tp-ho-chi-minh",
@@ -366,7 +533,8 @@ const EXAMS_DATA = [
         "date": "20/02/2024",
         "downloads": 0,
         "pdfUrl": "pdfs/bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2024-2025-so-gd-dt-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2024/02/bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2024-2025-so-gddt-tp-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2024/02/bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2024-2025-so-gddt-tp-ho-chi-minh.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-53-de-on-tap-tuyen-sinh-lop-10-mon-toan-nam-2024-2025-so-gddt-tp-hcm",
@@ -379,7 +547,8 @@ const EXAMS_DATA = [
         "date": "18/02/2024",
         "downloads": 0,
         "pdfUrl": "pdfs/53-de-on-tap-tuyen-sinh-lop-10-mon-toan-nam-2024-2025-so-gd-dt-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2024/02/53-de-on-tap-tuyen-sinh-lop-10-mon-toan-nam-2024-2025-so-gddt-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2024/02/53-de-on-tap-tuyen-sinh-lop-10-mon-toan-nam-2024-2025-so-gddt-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-binh-tan-tp-hcm",
@@ -392,7 +561,8 @@ const EXAMS_DATA = [
         "date": "28/01/2024",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gd-dt-binh-tan-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2024/01/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-binh-tan-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2024/01/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-binh-tan-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-tan-binh-tp-hcm",
@@ -405,7 +575,8 @@ const EXAMS_DATA = [
         "date": "27/01/2024",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gd-dt-tan-binh-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2024/01/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-tan-binh-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2024/01/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-tan-binh-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-quan-11-tp-hcm",
@@ -418,7 +589,8 @@ const EXAMS_DATA = [
         "date": "26/01/2024",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gd-dt-quan-11-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2024/01/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-quan-11-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2024/01/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-quan-11-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-quan-8-tp-hcm",
@@ -431,7 +603,8 @@ const EXAMS_DATA = [
         "date": "26/01/2024",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gd-dt-quan-8-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2024/01/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-quan-8-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2024/01/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-quan-8-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-quan-7-tp-hcm",
@@ -444,7 +617,8 @@ const EXAMS_DATA = [
         "date": "26/01/2024",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gd-dt-quan-7-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2024/01/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-quan-7-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2024/01/de-tham-khao-tuyen-sinh-10-mon-toan-2024-2025-phong-gddt-quan-7-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2023-2024-truong-ptnk-tp-hcm",
@@ -457,7 +631,8 @@ const EXAMS_DATA = [
         "date": "12/06/2023",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2023-2024-truong-ptnk-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2023/06/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2023-2024-truong-ptnk-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2023/06/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2023-2024-truong-ptnk-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2023-2024-truong-ptnk-tp-hcm",
@@ -470,7 +645,36 @@ const EXAMS_DATA = [
         "date": "12/06/2023",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2023-2024-truong-ptnk-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2023/06/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2023-2024-truong-ptnk-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2023/06/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2023-2024-truong-ptnk-tp-hcm.html",
+        "resourceType": "pdf"
+    },
+    {
+        "id": "eng-de-thi-anhkc-2023-2024-pdf",
+        "subject": "eng",
+        "title": "Đề thi Tiếng Anh (không chuyên) PTNK TP.HCM năm học 2023 - 2024",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "12/06/2023",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-thi-tieng-anh-khong-chuyen-ptnk-tp-hcm-nam-hoc-2023-2024.pdf",
+        "sourceUrl": "https://ptnk.edu.vn/wp-content/uploads/2023/06/De-thi-AnhKC-2023-2024.pdf",
+        "resourceType": "pdf"
+    },
+    {
+        "id": "eng-de-thi-tieng-anh-chuyen-2023-2024-pdf",
+        "subject": "eng",
+        "title": "Đề thi Tiếng Anh (chuyên) PTNK TP.HCM năm học 2023 - 2024",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "12/06/2023",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-thi-tieng-anh-chuyen-ptnk-tp-hcm-nam-hoc-2023-2024.pdf",
+        "sourceUrl": "https://ptnk.edu.vn/wp-content/uploads/2023/06/De-thi-Tieng-Anh-chuyen-2023-2024.pdf",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-nam-2023-2024-so-gddt-tp-ho-chi-minh",
@@ -483,7 +687,8 @@ const EXAMS_DATA = [
         "date": "07/06/2023",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-nam-2023-2024-so-gd-dt-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2023/06/de-tuyen-sinh-lop-10-mon-toan-nam-2023-2024-so-gddt-tp-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2023/06/de-tuyen-sinh-lop-10-mon-toan-nam-2023-2024-so-gddt-tp-ho-chi-minh.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2023-2024-so-gddt-tp-ho-chi-minh",
@@ -496,7 +701,8 @@ const EXAMS_DATA = [
         "date": "07/06/2023",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2023-2024-so-gd-dt-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2023/06/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2023-2024-so-gddt-tp-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2023/06/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2023-2024-so-gddt-tp-ho-chi-minh.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-thi-thu-toan-vao-lop-10-nam-2023-2024-truong-thcs-vo-thanh-trang-tp-hcm",
@@ -509,7 +715,8 @@ const EXAMS_DATA = [
         "date": "20/05/2023",
         "downloads": 0,
         "pdfUrl": "pdfs/de-thi-thu-toan-vao-lop-10-nam-2023-2024-truong-thcs-vo-thanh-trang-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2023/05/de-thi-thu-toan-vao-lop-10-nam-2023-2024-truong-thcs-vo-thanh-trang-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2023/05/de-thi-thu-toan-vao-lop-10-nam-2023-2024-truong-thcs-vo-thanh-trang-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2023-2024-so-gddt-tp-ho-chi-minh",
@@ -522,7 +729,8 @@ const EXAMS_DATA = [
         "date": "20/02/2023",
         "downloads": 0,
         "pdfUrl": "pdfs/bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2023-2024-so-gd-dt-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2023/02/bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2023-2024-so-gddt-tp-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2023/02/bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2023-2024-so-gddt-tp-ho-chi-minh.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-thpt-mon-toan-nam-2022-2023-so-gddt-tp-ho-chi-minh",
@@ -535,7 +743,8 @@ const EXAMS_DATA = [
         "date": "12/06/2022",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-thpt-mon-toan-nam-2022-2023-so-gd-dt-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2022/06/de-tuyen-sinh-lop-10-thpt-mon-toan-nam-2022-2023-so-gddt-tp-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2022/06/de-tuyen-sinh-lop-10-thpt-mon-toan-nam-2022-2023-so-gddt-tp-ho-chi-minh.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-so-gddt-tp-ho-chi-minh",
@@ -548,7 +757,8 @@ const EXAMS_DATA = [
         "date": "12/06/2022",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-so-gd-dt-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2022/06/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-so-gddt-tp-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2022/06/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-so-gddt-tp-ho-chi-minh.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2022-2023-truong-ptnk-tp-hcm",
@@ -561,7 +771,8 @@ const EXAMS_DATA = [
         "date": "06/06/2022",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2022-2023-truong-ptnk-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2022/06/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2022-2023-truong-ptnk-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2022/06/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2022-2023-truong-ptnk-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-truong-ptnk-tp-hcm",
@@ -574,7 +785,36 @@ const EXAMS_DATA = [
         "date": "06/06/2022",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-truong-ptnk-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2022/06/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-truong-ptnk-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2022/06/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2022-2023-truong-ptnk-tp-hcm.html",
+        "resourceType": "pdf"
+    },
+    {
+        "id": "eng-tieng-anh-khong-chuyen-pdf",
+        "subject": "eng",
+        "title": "Đề thi Tiếng Anh (không chuyên) PTNK TP.HCM năm học 2022 - 2023",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "06/06/2022",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-thi-tieng-anh-khong-chuyen-ptnk-tp-hcm-nam-hoc-2022-2023.pdf",
+        "sourceUrl": "https://ptnk.edu.vn/wp-content/uploads/2022/06/TIẾNG-ANH-Không-chuyên.pdf",
+        "resourceType": "pdf"
+    },
+    {
+        "id": "eng-tieng-anh-chuyen-pdf",
+        "subject": "eng",
+        "title": "Đề thi Tiếng Anh (chuyên) PTNK TP.HCM năm học 2022 - 2023",
+        "school": "THCS (Tự động cập nhật)",
+        "year": "2026",
+        "district": "TPHCM",
+        "type": "Đề Tham Khảo",
+        "date": "06/06/2022",
+        "downloads": 0,
+        "pdfUrl": "pdfs/de-thi-tieng-anh-chuyen-ptnk-tp-hcm-nam-hoc-2022-2023.pdf",
+        "sourceUrl": "https://ptnk.edu.vn/wp-content/uploads/2022/06/TIẾNG-ANH-Chuyên.pdf",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-thi-thu-toan-vao-lop-10-nam-2022-2023-truong-thcs-dang-tan-tai-tp-hcm",
@@ -587,7 +827,8 @@ const EXAMS_DATA = [
         "date": "01/06/2022",
         "downloads": 0,
         "pdfUrl": "pdfs/de-thi-thu-toan-vao-lop-10-nam-2022-2023-truong-thcs-dang-tan-tai-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2022/06/de-thi-thu-toan-vao-lop-10-nam-2022-2023-truong-thcs-dang-tan-tai-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2022/06/de-thi-thu-toan-vao-lop-10-nam-2022-2023-truong-thcs-dang-tan-tai-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2022-2023-so-gddt-tp-ho-chi-minh",
@@ -600,7 +841,8 @@ const EXAMS_DATA = [
         "date": "30/03/2022",
         "downloads": 0,
         "pdfUrl": "pdfs/bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2022-2023-so-gd-dt-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2022/03/bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2022-2023-so-gddt-tp-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2022/03/bo-de-tham-khao-mon-toan-tuyen-sinh-10-nam-2022-2023-so-gddt-tp-ho-chi-minh.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2021-2022-truong-ptnk-tp-hcm",
@@ -613,7 +855,8 @@ const EXAMS_DATA = [
         "date": "20/06/2021",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2021-2022-truong-ptnk-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2021/06/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2021-2022-truong-ptnk-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2021/06/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2021-2022-truong-ptnk-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2021-2022-truong-ptnk-tp-hcm",
@@ -626,7 +869,8 @@ const EXAMS_DATA = [
         "date": "20/06/2021",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2021-2022-truong-ptnk-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2021/06/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2021-2022-truong-ptnk-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2021/06/de-tuyen-sinh-lop-10-mon-toan-khong-chuyen-nam-2021-2022-truong-ptnk-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2021-2022-so-gddt-tp-ho-chi-minh",
@@ -639,7 +883,8 @@ const EXAMS_DATA = [
         "date": "29/05/2021",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2021-2022-so-gd-dt-tp-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2021/05/de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2021-2022-so-gddt-tp-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2021/05/de-tham-khao-tuyen-sinh-lop-10-mon-toan-nam-2021-2022-so-gddt-tp-ho-chi-minh.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-nam-2020-2021-truong-dhsp-tp-hcm-chung",
@@ -652,7 +897,8 @@ const EXAMS_DATA = [
         "date": "21/07/2020",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-nam-2020-2021-truong-dhsp-tp-hcm-chung.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2020/07/de-tuyen-sinh-lop-10-mon-toan-nam-2020-2021-truong-dhsp-tp-hcm-chung.html"
+        "sourceUrl": "https://thcs.toanmath.com/2020/07/de-tuyen-sinh-lop-10-mon-toan-nam-2020-2021-truong-dhsp-tp-hcm-chung.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2020-2021-so-gddt-tp-hcm",
@@ -665,7 +911,8 @@ const EXAMS_DATA = [
         "date": "18/07/2020",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2020-2021-so-gd-dt-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2020/07/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2020-2021-so-gddt-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2020/07/de-tuyen-sinh-lop-10-mon-toan-chuyen-nam-2020-2021-so-gddt-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-nam-hoc-2020-2021-so-gddt-tp-hcm",
@@ -678,7 +925,8 @@ const EXAMS_DATA = [
         "date": "17/07/2020",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-nam-hoc-2020-2021-so-gd-dt-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2020/07/de-tuyen-sinh-lop-10-mon-toan-nam-hoc-2020-2021-so-gddt-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2020/07/de-tuyen-sinh-lop-10-mon-toan-nam-hoc-2020-2021-so-gddt-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-10-mon-toan-chuyen-nam-2020-2021-truong-ptnk-tp-hcm",
@@ -691,7 +939,8 @@ const EXAMS_DATA = [
         "date": "13/07/2020",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-10-mon-toan-chuyen-nam-2020-2021-truong-ptnk-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2020/07/de-tuyen-sinh-10-mon-toan-chuyen-nam-2020-2021-truong-ptnk-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2020/07/de-tuyen-sinh-10-mon-toan-chuyen-nam-2020-2021-truong-ptnk-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-10-mon-toan-khong-chuyen-nam-2020-2021-truong-ptnk-tp-hcm",
@@ -704,7 +953,8 @@ const EXAMS_DATA = [
         "date": "13/07/2020",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-10-mon-toan-khong-chuyen-nam-2020-2021-truong-ptnk-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2020/07/de-tuyen-sinh-10-mon-toan-khong-chuyen-nam-2020-2021-truong-ptnk-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2020/07/de-tuyen-sinh-10-mon-toan-khong-chuyen-nam-2020-2021-truong-ptnk-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-bo-de-tham-khao-tuyen-sinh-lop-10-nam-2020-2021-mon-toan-so-gddt-tp-hcm",
@@ -717,7 +967,8 @@ const EXAMS_DATA = [
         "date": "04/07/2020",
         "downloads": 0,
         "pdfUrl": "pdfs/bo-de-tham-khao-tuyen-sinh-lop-10-nam-2020-2021-mon-toan-so-gd-dt-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2020/07/bo-de-tham-khao-tuyen-sinh-lop-10-nam-2020-2021-mon-toan-so-gddt-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2020/07/bo-de-tham-khao-tuyen-sinh-lop-10-nam-2020-2021-mon-toan-so-gddt-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-toan-tuyen-sinh-lop-10-nam-2019-2020-so-gddt-thanh-pho-ho-chi-minh",
@@ -730,7 +981,8 @@ const EXAMS_DATA = [
         "date": "03/06/2019",
         "downloads": 0,
         "pdfUrl": "pdfs/de-toan-tuyen-sinh-lop-10-nam-2019-2020-so-gd-dt-thanh-pho-ho-chi-minh.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2019/06/de-toan-tuyen-sinh-lop-10-nam-2019-2020-so-gddt-thanh-pho-ho-chi-minh.html"
+        "sourceUrl": "https://thcs.toanmath.com/2019/06/de-toan-tuyen-sinh-lop-10-nam-2019-2020-so-gddt-thanh-pho-ho-chi-minh.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-toan-tuyen-sinh-lop-10-nam-2019-truong-ptnk-tp-hcm-vong-2",
@@ -743,7 +995,8 @@ const EXAMS_DATA = [
         "date": "28/05/2019",
         "downloads": 0,
         "pdfUrl": "pdfs/de-toan-tuyen-sinh-lop-10-nam-2019-truong-ptnk-tp-hcm-vong-2.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2019/05/de-toan-tuyen-sinh-lop-10-nam-2019-truong-ptnk-tp-hcm-vong-2.html"
+        "sourceUrl": "https://thcs.toanmath.com/2019/05/de-toan-tuyen-sinh-lop-10-nam-2019-truong-ptnk-tp-hcm-vong-2.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-toan-tuyen-sinh-lop-10-nam-2019-2020-truong-pho-thong-nang-khieu-tp-hcm",
@@ -756,7 +1009,8 @@ const EXAMS_DATA = [
         "date": "25/05/2019",
         "downloads": 0,
         "pdfUrl": "pdfs/de-toan-tuyen-sinh-lop-10-nam-2019-2020-truong-pho-thong-nang-khieu-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2019/05/de-toan-tuyen-sinh-lop-10-nam-2019-2020-truong-pho-thong-nang-khieu-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2019/05/de-toan-tuyen-sinh-lop-10-nam-2019-2020-truong-pho-thong-nang-khieu-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-vao-lop-10-thpt-mon-toan-nam-2018-2019-so-gd-va-dt-tp-hcm",
@@ -769,7 +1023,8 @@ const EXAMS_DATA = [
         "date": "03/06/2018",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-vao-lop-10-thpt-mon-toan-nam-2018-2019-so-gd-va-dt-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2018/06/de-tuyen-sinh-vao-lop-10-thpt-mon-toan-nam-2018-2019-so-gd-va-dt-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2018/06/de-tuyen-sinh-vao-lop-10-thpt-mon-toan-nam-2018-2019-so-gd-va-dt-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-tuyen-sinh-lop-10-mon-toan-2018-2019-truong-ptnk-tp-hcm-khong-chuyen",
@@ -782,7 +1037,8 @@ const EXAMS_DATA = [
         "date": "02/06/2018",
         "downloads": 0,
         "pdfUrl": "pdfs/de-tuyen-sinh-lop-10-mon-toan-2018-2019-truong-ptnk-tp-hcm-khong-chuyen.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2018/06/de-tuyen-sinh-lop-10-mon-toan-2018-2019-truong-ptnk-tp-hcm-khong-chuyen.html"
+        "sourceUrl": "https://thcs.toanmath.com/2018/06/de-tuyen-sinh-lop-10-mon-toan-2018-2019-truong-ptnk-tp-hcm-khong-chuyen.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-minh-hoa-ky-thi-tuyen-sinh-lop-10-thpt-nam-hoc-2018-2019-mon-toan-so-gd-va-dt",
@@ -795,7 +1051,8 @@ const EXAMS_DATA = [
         "date": "28/09/2017",
         "downloads": 0,
         "pdfUrl": "pdfs/de-minh-hoa-ky-thi-tuyen-sinh-lop-10-thpt-nam-hoc-2018-2019-mon-toan-so-gd-va-dt.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2017/09/de-minh-hoa-ky-thi-tuyen-sinh-lop-10-thpt-nam-hoc-2018-2019-mon-toan-so-gd-va-dt-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2017/09/de-minh-hoa-ky-thi-tuyen-sinh-lop-10-thpt-nam-hoc-2018-2019-mon-toan-so-gd-va-dt-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-thi-tuyen-sinh-lop-10-thpt-nam-hoc-2017-2018-mon-toan-so-gd-va-dt-tp-hcm",
@@ -808,7 +1065,8 @@ const EXAMS_DATA = [
         "date": "03/06/2017",
         "downloads": 0,
         "pdfUrl": "pdfs/de-thi-tuyen-sinh-lop-10-thpt-nam-hoc-2017-2018-mon-toan-so-gd-va-dt-tp-hcm.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2017/06/de-thi-tuyen-sinh-lop-10-thpt-nam-hoc-2017-2018-mon-toan-so-gd-va-dt-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2017/06/de-thi-tuyen-sinh-lop-10-thpt-nam-hoc-2017-2018-mon-toan-so-gd-va-dt-tp-hcm.html",
+        "resourceType": "pdf"
     },
     {
         "id": "math-de-thi-thu-tuyen-sinh-vao-lop-10-nam-2017-mon-toan-truong-thcs-luong-the-vinh-tp",
@@ -821,6 +1079,7 @@ const EXAMS_DATA = [
         "date": "03/05/2017",
         "downloads": 0,
         "pdfUrl": "pdfs/de-thi-thu-tuyen-sinh-vao-lop-10-nam-2017-mon-toan-truong-thcs-luong-the-vinh-tp.pdf",
-        "sourceUrl": "https://thcs.toanmath.com/2017/05/de-thi-thu-tuyen-sinh-vao-lop-10-nam-2017-mon-toan-truong-thcs-luong-the-vinh-tp-hcm.html"
+        "sourceUrl": "https://thcs.toanmath.com/2017/05/de-thi-thu-tuyen-sinh-vao-lop-10-nam-2017-mon-toan-truong-thcs-luong-the-vinh-tp-hcm.html",
+        "resourceType": "pdf"
     }
 ];

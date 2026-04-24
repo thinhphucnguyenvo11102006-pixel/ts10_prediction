@@ -122,16 +122,98 @@ DEFAULT_SUBJECT_QUERIES: dict[str, list[str]] = {
 
 # Curated single-article seeds — each is treated as one exam entry.
 # Only include URLs whose page titles clearly state TPHCM + lớp 10 entrance + subject.
-DEFAULT_ARTICLE_SEEDS: list[str] = [
-    # ── Tiếng Anh ────────────────────────────────────────────────────────────
-    # LangGo: chính thức Sở GD&ĐT TPHCM + đề tham khảo (PDF trực tiếp trong page)
-    "https://langgo.edu.vn/de-thi-tieng-anh-vao-10-tphcm-2025",
-    "https://langgo.edu.vn/de-tieng-anh-tuyen-sinh-vao-lop-10-tphcm-2024",
+DEFAULT_ARTICLE_SEEDS: dict[str, list[str]] = {
+    "eng": [
+        # LangGo: đề chính thức + đề tham khảo, PDF trực tiếp trong page
+        "https://langgo.edu.vn/de-tham-khao-tieng-anh-thi-vao-lop-10-tphcm-2026",
+        "https://langgo.edu.vn/de-thi-tieng-anh-vao-10-tphcm-2025",
+        "https://langgo.edu.vn/cau-truc-de-thi-tieng-anh-vao-10-tphcm",
+        "https://langgo.edu.vn/de-tieng-anh-tuyen-sinh-vao-lop-10-tphcm-2024",
+    ],
+    "lit": [
+        # Tài liệu Giảng Dạy: đề thi thử Văn TP HCM 2024-2025 (PDF Wasabi S3)
+        "https://tailieugiangday.vn/item/de-thi-thu-vao-10-mon-ngu-van-tp-ho-chi-minh-nam-hoc-2024-2025/42932",
+        # Một số nguồn báo chí/giáo dục có giá trị ôn tập dù không nhúng PDF trực tiếp
+        "https://tienphong.vn/de-tham-khao-mon-ngu-van-ky-thi-vao-lop-10-nam-2026-tai-tphcm-co-gi-dac-biet-post1789764.tpo",
+        "https://congluan.vn/de-ngu-van-vao-10-tp-hcm-co-tinh-goi-mo-phan-loai-thi-sinh-tot-10293517.html",
+        "https://thanhnien.vn/de-thi-chinh-thuc-mon-ngu-van-lop-10-tphcm-nam-2024-185240604230305645.htm",
+        "https://nghengu.vn/toan/de-thi-tuyen-sinh-lop-10-5156.html",
+        "https://nhipsonghomnay.vn/doi-song-xa-hoi/giao-duc/tphcm-cong-bo-de-thi-tham-khao-lop-10-cac-mon-toan-ngu-van-va-tieng-anh.html",
+    ],
+    "math": [],
+}
 
-    # ── Ngữ Văn ──────────────────────────────────────────────────────────────
-    # Tài liệu Giảng Dạy: đề thi thử Văn TP HCM 2024-2025 (PDF Wasabi S3)
-    "https://tailieugiangday.vn/item/de-thi-thu-vao-10-mon-ngu-van-tp-ho-chi-minh-nam-hoc-2024-2025/42932",
-]
+DEFAULT_DIRECT_CANDIDATES: dict[str, list[dict[str, str]]] = {
+    "eng": [
+        {
+            "title": "Đề thi chính thức Tiếng Anh (không chuyên) PTNK TP.HCM năm 2025",
+            "detail_url": "https://ptnk.edu.vn/de-thi-chinh-thuc-ky-thi-tuyen-sinh-lop-10-nam-2025/?paper=eng-khong-chuyen",
+            "pdf_url": "https://ptnk.edu.vn/de-thi-chinh-thuc-ky-thi-tuyen-sinh-lop-10-nam-2025/",
+            "date": "26/05/2025",
+            "source": "ptnk.edu.vn",
+            "subject": "eng",
+        },
+        {
+            "title": "Đề thi chính thức Tiếng Anh (chuyên) PTNK TP.HCM năm 2025",
+            "detail_url": "https://ptnk.edu.vn/de-thi-chinh-thuc-ky-thi-tuyen-sinh-lop-10-nam-2025/?paper=eng-chuyen",
+            "pdf_url": "https://ptnk.edu.vn/de-thi-chinh-thuc-ky-thi-tuyen-sinh-lop-10-nam-2025/",
+            "date": "26/05/2025",
+            "source": "ptnk.edu.vn",
+            "subject": "eng",
+        },
+        {
+            "title": "Đề thi chính thức Tiếng Anh (không chuyên) PTNK TP.HCM năm 2024",
+            "detail_url": "https://ptnk.edu.vn/cong-bo-de-thi-chinh-thuc-tuyen-sinh-lop-10-nam-hoc-2024-2025/?paper=eng-khong-chuyen",
+            "pdf_url": "https://ptnk.edu.vn/cong-bo-de-thi-chinh-thuc-tuyen-sinh-lop-10-nam-hoc-2024-2025/",
+            "date": "26/05/2024",
+            "source": "ptnk.edu.vn",
+            "subject": "eng",
+        },
+        {
+            "title": "Đề thi chính thức Tiếng Anh (chuyên) PTNK TP.HCM năm 2024",
+            "detail_url": "https://ptnk.edu.vn/cong-bo-de-thi-chinh-thuc-tuyen-sinh-lop-10-nam-hoc-2024-2025/?paper=eng-chuyen",
+            "pdf_url": "https://ptnk.edu.vn/cong-bo-de-thi-chinh-thuc-tuyen-sinh-lop-10-nam-hoc-2024-2025/",
+            "date": "26/05/2024",
+            "source": "ptnk.edu.vn",
+            "subject": "eng",
+        },
+        {
+            "title": "Đề thi Tiếng Anh (không chuyên) PTNK TP.HCM năm học 2023 - 2024",
+            "detail_url": "https://ptnk.edu.vn/wp-content/uploads/2023/06/De-thi-AnhKC-2023-2024.pdf",
+            "pdf_url": "https://ptnk.edu.vn/wp-content/uploads/2023/06/De-thi-AnhKC-2023-2024.pdf",
+            "date": "12/06/2023",
+            "source": "ptnk.edu.vn",
+            "subject": "eng",
+        },
+        {
+            "title": "Đề thi Tiếng Anh (chuyên) PTNK TP.HCM năm học 2023 - 2024",
+            "detail_url": "https://ptnk.edu.vn/wp-content/uploads/2023/06/De-thi-Tieng-Anh-chuyen-2023-2024.pdf",
+            "pdf_url": "https://ptnk.edu.vn/wp-content/uploads/2023/06/De-thi-Tieng-Anh-chuyen-2023-2024.pdf",
+            "date": "12/06/2023",
+            "source": "ptnk.edu.vn",
+            "subject": "eng",
+        },
+        {
+            "title": "Đề thi Tiếng Anh (không chuyên) PTNK TP.HCM năm học 2022 - 2023",
+            "detail_url": "https://ptnk.edu.vn/wp-content/uploads/2022/06/TIẾNG-ANH-Không-chuyên.pdf",
+            "pdf_url": "https://ptnk.edu.vn/wp-content/uploads/2022/06/TIẾNG-ANH-Không-chuyên.pdf",
+            "date": "06/06/2022",
+            "source": "ptnk.edu.vn",
+            "subject": "eng",
+        },
+        {
+            "title": "Đề thi Tiếng Anh (chuyên) PTNK TP.HCM năm học 2022 - 2023",
+            "detail_url": "https://ptnk.edu.vn/wp-content/uploads/2022/06/TIẾNG-ANH-Chuyên.pdf",
+            "pdf_url": "https://ptnk.edu.vn/wp-content/uploads/2022/06/TIẾNG-ANH-Chuyên.pdf",
+            "date": "06/06/2022",
+            "source": "ptnk.edu.vn",
+            "subject": "eng",
+        },
+    ],
+    "lit": [],
+    "math": [],
+}
+
 
 
 # ---------------------------------------------------------------------------
@@ -155,6 +237,8 @@ _LOP10_POS_PATTERNS = [
     r"\bon\s*thi\s*(?:vao\s*)?(?:lop\s*)?10\b",
     r"\bon\s*tap\s*tuyen\s*sinh\s*(?:lop\s*)?10\b",
     r"\bkhao\s*sat\s*(?:vao\s*)?(?:lop\s*)?10\b",
+    r"\bde\s*thi\s*(?:tham\s*khao|minh\s*hoa)\s*(?:mon\s*.+?\s*)?(?:vao\s*)?(?:lop\s*)?10\b",
+    r"\bde\s*thi\s*chinh\s*thuc\s*(?:mon\s*.+?\s*)?(?:vao\s*)?(?:lop\s*)?10\b",
 ]
 
 # Negative signals — within-semester / in-grade exams must be rejected
@@ -372,7 +456,8 @@ def search_sources(subjects: Iterable[str]) -> list[str]:
                 urls.extend(_paginate(base, MAX_PAGES_PER_SOURCE))
 
     # Curated single-article seeds + env seeds (no pagination)
-    urls.extend(DEFAULT_ARTICLE_SEEDS)
+    for subject in subjects:
+        urls.extend(DEFAULT_ARTICLE_SEEDS.get(subject, []))
     urls.extend(extra_seeds)
 
     # Dedupe while preserving order
@@ -578,9 +663,27 @@ def _load_existing_exams() -> dict[str, dict]:
 
 def _id_from_url(detail_url: str) -> str:
     """Stable, unique id derived from the article URL path."""
-    path = urlparse(detail_url).path.rstrip("/")
+    parsed = urlparse(detail_url)
+    path = parsed.path.rstrip("/")
     base = os.path.basename(path).removesuffix(".html").removesuffix(".htm")
-    return _slugify(base, 80) or _slugify(path, 80)
+    if parsed.query:
+        base = f"{base}-{parsed.query}"
+    return _slugify(base, 80) or _slugify(detail_url, 80)
+
+
+def get_direct_candidates(subjects: Iterable[str]) -> list[Candidate]:
+    out: list[Candidate] = []
+    for subject in subjects:
+        for item in DEFAULT_DIRECT_CANDIDATES.get(subject, []):
+            out.append(Candidate(
+                title=item["title"],
+                detail_url=item["detail_url"],
+                date=item.get("date"),
+                source=item.get("source", urlparse(item["detail_url"]).netloc),
+                pdf_url=item.get("pdf_url"),
+                subject=item.get("subject", subject),
+            ))
+    return out
 
 
 def build_exam_entry(cand: Candidate, existing: dict[str, dict]) -> dict:
@@ -602,6 +705,7 @@ def build_exam_entry(cand: Candidate, existing: dict[str, dict]) -> dict:
         exam_type = prev.get("type") or "Đề Tham Khảo"
 
     pdf_ref = cand.pdf_local or prev.get("pdfUrl") or cand.pdf_url or cand.detail_url
+    resource_type = "pdf" if re.search(r"\.pdf(?:[?#]|$)", pdf_ref, re.I) else "article"
 
     stable_id = f"{subject}-{_id_from_url(cand.detail_url)}"
 
@@ -617,6 +721,7 @@ def build_exam_entry(cand: Candidate, existing: dict[str, dict]) -> dict:
         "downloads": prev.get("downloads", 0),
         "pdfUrl": pdf_ref,
         "sourceUrl": cand.detail_url,
+        "resourceType": resource_type,
     }
 
 
@@ -682,7 +787,7 @@ def run_pipeline() -> None:
     hcm: list[Candidate] = []
     rej_district = rej_entrance = rej_subject = 0
     for c in raw:
-        if not is_tphcm(c.title):
+        if not is_tphcm(c.title, f"{c.detail_url}\n{c.source}"):
             rej_district += 1
             continue
         if not is_lop10_entrance(c.title):
@@ -694,6 +799,19 @@ def run_pipeline() -> None:
             continue
         c.subject = subj
         hcm.append(c)
+
+    direct_candidates = get_direct_candidates(subjects)
+    if direct_candidates:
+        existing_urls = {c.detail_url for c in hcm}
+        added = 0
+        for c in direct_candidates:
+            if c.detail_url in existing_urls:
+                continue
+            existing_urls.add(c.detail_url)
+            hcm.append(c)
+            added += 1
+        if added:
+            log(f"  Bổ sung seed thủ công: +{added} đề", "INFO")
     log(f"  Giữ lại: {len(hcm)} | Loại: {rej_district} (ngoài HCM) "
         f"+ {rej_entrance} (không phải tuyển sinh 10) "
         f"+ {rej_subject} (môn khác)", "INFO")
@@ -716,7 +834,7 @@ def run_pipeline() -> None:
         prefix = f"[{i}/{len(hcm)}]"
 
         if skip_pdf:
-            log(f"{prefix} SKIP_PDF=1 · giữ nguyên link: {c.title[:60]}", "SKIP")
+            log(f"{prefix} SKIP_PDF=1 · giữ nguyên nguồn: {c.title[:60]}", "SKIP")
             published.append(build_exam_entry(c, existing))
             continue
 
@@ -730,9 +848,10 @@ def run_pipeline() -> None:
                 published.append(build_exam_entry(c, existing))
                 continue
 
-        pdf_url = resolve_pdf_url(c.detail_url)
+        pdf_url = c.pdf_url or resolve_pdf_url(c.detail_url)
         if not pdf_url:
-            log(f"{prefix} Không tìm thấy PDF, bỏ qua: {c.title[:60]}", "SKIP")
+            log(f"{prefix} Không có PDF · giữ link nguồn: {c.title[:60]}", "WARN")
+            published.append(build_exam_entry(c, existing))
             continue
         c.pdf_url = pdf_url
 
@@ -744,7 +863,8 @@ def run_pipeline() -> None:
             log(f"{prefix} OK · {local_name} ({os.path.getsize(local_abs) // 1024} KB)", "OK")
             published.append(build_exam_entry(c, existing))
         else:
-            log(f"{prefix} Download thất bại, bỏ qua.", "WARN")
+            log(f"{prefix} Download thất bại · fallback sang link nguồn.", "WARN")
+            published.append(build_exam_entry(c, existing))
 
     # ------ STAGE 6 — PUBLISH
     log("STAGE 6 · PUBLISH — sinh js/exams_data.js", "STEP")
