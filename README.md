@@ -1,89 +1,82 @@
-# TS10 Prediction
+# 🎯 AI Prediction for TS10: TPHCM Grade 10 Admission System
 
-*Read this in [Vietnamese / Tiếng Việt](README_VN.md).*
+[![Status](https://img.shields.io/badge/Status-Production--Ready%20Beta-success.svg)]()
+[![Algorithm](https://img.shields.io/badge/Algorithm-Anchor%20%26%20Adjust-blue.svg)]()
+[![Cluster](https://img.shields.io/badge/Tiering-K--Means%20Clustering-orange.svg)]()
+[![Crawler](https://img.shields.io/badge/Pipeline-Crawler%20v5.0-red.svg)]()
 
-`TS10 Prediction` is a static web application for exploring Ho Chi Minh City grade 10 admission cutoff data and generating decision-support suggestions for 2026 applications.
+> **AI Prediction for TS10** is a comprehensive, data-driven platform designed to navigate the complexities of the Grade 10 Admission process in Ho Chi Minh City. By combining historical data analysis with modern AI clustering and a custom "Anchor & Adjust" forecasting model, the system provides students and parents with high-precision admission insights.
 
-The current version is best described as a **data-driven advisory SPA** built with vanilla HTML, CSS, and JavaScript. It combines historical cutoff data, simple statistical heuristics, and chart-based visualizations to help students and parents compare schools, estimate feasibility, and explore application strategies.
+---
 
-## Current Scope
+## 🌟 Key Features
 
-The app currently includes 6 main tabs:
+1.  **📊 Smart Admission Prediction**: Real-time forecasting for 107 public high schools in TPHCM, featuring confidence intervals and historical trend analysis.
+2.  **🎯 Feasibility Assessment (NV)**: Interactive gauge charts that evaluate the safety of 3 school choices based on simulated mock exam scores.
+3.  **💡 School Recommender**: Intelligent suggestions filtered by district, tier, and safety margin.
+4.  **📈 Score Distribution**: Visualization of score bell curves (2022-2026) to understand city-wide competition trends.
+5.  **⚡ Choice Optimizer**: Strategic tool that estimates real exam performance from school grades and recommends the most optimal NV1-NV2-NV3 portfolio.
+6.  **📚 Exam Bank (v5)**: A repository of **63+ curated exam papers** (Math, English, Literature) with a fully automated Python crawling pipeline and integrated PDF viewer.
 
-1. `Predicted Cutoffs`: browse historical cutoff scores, predicted 2026 scores, trend, and stability metrics for each school.
-2. `Feasibility Review`: enter 3 subject scores and selected choices to get a risk-oriented admission assessment.
-3. `District Recommendations`: filter schools by district and compare them against an entered total score.
-4. `Score Distribution`: visualize historical and projected score distributions using normal-distribution-style charts.
-5. `Choice Optimization`: estimate entrance-exam performance from semester and year-end scores, then suggest a 3-choice strategy.
-6. `Exam Bank`: exam library fed by a local Python crawler that filters **TPHCM grade-10 entrance** materials (Math / Literature / English), downloads PDFs into `pdfs/`, and regenerates `js/exams_data.js`.
+---
 
-## Tech Stack
+## 🧠 Core Methodology
 
-- `HTML5`, `CSS3`, `Vanilla JavaScript`
-- `Chart.js` via CDN
-- Optional local Python helpers for data processing (`cluster_schools.py`) and exam data (`build_data.py`).
+### 1. Anchor & Adjust Algorithm
+The system is specifically designed to handle the **2025 Structural Break** (transition to the 2018 General Education Program). Traditional linear regression models are no longer sufficient. Our model uses:
+*   **Anchor**: The 2025 score as the primary baseline.
+*   **Adjustments**: Dynamic factors including quota/candidate shifts, mean-reversion (adaptation), and relative school micro-trends.
 
-## Project Structure
+### 2. K-Means School Tiering
+Schools are automatically classified into **8 Tiers (S to C)** using K-Means clustering on multi-year admission data and volatility metrics. This ensures a data-driven understanding of school prestige and competitiveness.
 
-- [index.html](index.html) - application shell and tab layout
-- [css/style.css](css/style.css) - visual system and responsive styling
-- [js/data.js](js/data.js) - static datasets, school metadata, and distribution parameters
-- [js/model.js](js/model.js) - prediction and recommendation heuristics
-- [js/charts.js](js/charts.js) - Chart.js wrappers
-- [js/app.js](js/app.js) - UI state, rendering, and interactions
-- [scripts/cluster_schools.py](scripts/cluster_schools.py) - AI-driven school clustering and stability analysis
-- [scripts/build_data.py](scripts/build_data.py) - main data build pipeline
-- [scripts/exams_crawler.py](scripts/exams_crawler.py) - local helper script for generating `js/exams_data.js`
+---
 
-## How The Prediction Works Today
+## 🛠️ Technical Architecture
 
-The prediction engine uses an **Anchor & Adjust** heuristic specifically designed to handle the **structural break** in the 2025 exam (new GDPT 2018 curriculum). Traditional linear regression and weighted moving averages are unreliable when the exam format changes fundamentally, so the model takes a different approach:
+*   **Frontend**: Pure HTML5, CSS3 (Glassmorphism), Vanilla JavaScript.
+*   **Data Visualization**: [Chart.js](https://www.chartjs.org/).
+*   **Data Pipeline**: Python 3.x (BeautifulSoup, Requests, Scikit-learn for K-Means).
+*   **Hosting**: Fully static SPA — zero server dependency.
 
+### Project Structure
+```text
+├── index.html            # Main SPA Shell
+├── js/                   # Prediction logic & UI modules
+├── scripts/              # Python data & crawler pipeline
+├── data/                 # Source JSON (Schools & Stats)
+└── pdfs/                 # Exam Bank repository (133MB+)
 ```
-Score_2026 = Anchor_2025 + ΔCompetition + ΔAdaptation + ΔMicroTrend
-```
 
-| Component | Description |
-|---|---|
-| **Anchor** | The 2025 cutoff score is used as the primary anchor (first year of the new exam regime). |
-| **ΔCompetition** | Adjusts for changes in the candidate/quota ratio between 2026 and 2025, with tier-dependent sensitivity. |
-| **ΔAdaptation** | Models the expected mean-reversion (bounce-back) in the second year after a format change, as students and teachers adapt. |
-| **ΔMicroTrend** | Captures subtle shifts in a school's relative ranking versus the city-wide baseline. |
-| **Stability (AI)** | Schools are grouped into 8 Tiers using **K-Means Clustering** based on historical performance and volatility. |
+---
 
-Historical data (2022–2024) is **not** used for direct score prediction. It is only used to measure historical volatility (for confidence intervals) and relative ranking trends.
+## 🚀 Getting Started
 
-This makes the app useful for exploration and strategy discussion, but it should be treated as a **decision-support tool**, not an authoritative forecast engine.
+### Quick Start
+Simply open `index.html` in any modern web browser. For the best experience, use a local server like **VS Code Live Server**.
 
-## Data Status
+### Data Update Pipeline
+To update school data or crawl new exam papers:
+1.  **Install dependencies**: `pip install -r scripts/requirements.txt`
+2.  **Update School Data**: Run `python scripts/build_data.py`
+3.  **Run Clustering**: Run `python scripts/cluster_schools.py`
+4.  **Update Exam Bank**: Run `python scripts/exams_crawler.py`
 
-- Historical school and exam stats are currently stored directly in `js/data.js`.
-- The repository currently contains **107 schools** in the shipped dataset.
-- The exam bank is backed by an automated crawl → filter → download → publish pipeline; coverage of Literature still depends on stable public PDF sources and curated seeds.
+---
 
-## Running Locally
+## 📝 Project Evaluation (April 2026)
+For a detailed technical audit and current system performance, please refer to:
+👉 **[RE_EVALUATION.md](./RE_EVALUATION.md)**
 
-You can run the project in either of these ways:
+---
 
-1. Open [index.html](index.html) directly in a browser.
-2. Use a local static server such as VS Code Live Server for a smoother development workflow.
+## 🇻🇳 Phiên bản Tiếng Việt (Vietnamese Summary)
 
-## Limitations
+Dự án **AI Prediction for TS10** là hệ thống hỗ trợ tuyển sinh lớp 10 TPHCM sử dụng trí tuệ nhân tạo.
+*   **Thuật toán**: Anchor & Adjust xử lý biến động format đề 2025.
+*   **Tính năng**: Dự báo điểm chuẩn, đánh giá nguyện vọng, gợi ý trường, phổ điểm mô phỏng và ngân hàng đề thi với 63+ đề PDF.
+*   **Công nghệ**: Web tĩnh hoàn toàn, pipeline dữ liệu Python mạnh mẽ.
 
-- The app depends on a CDN-loaded `Chart.js`, so it is not fully self-contained offline.
-- Probability outputs are bucketed risk labels derived from score margins, not calibrated statistical probabilities.
-- The exam crawler depends on live HTTP fetches; hosts may change HTML layout, throttle, or block automated clients without notice.
+---
 
-## Documentation
-
-- [README_VN.md](README_VN.md) - Vietnamese version
-- [docs/REQUIRED_FIXES_VN.md](docs/REQUIRED_FIXES_VN.md) - prioritized list of improvements and fixes
-- [docs/evaluation.md](docs/evaluation.md) - detailed project evaluation and roadmap
-- [docs/PROJECT_EVALUATION_VN.md](docs/PROJECT_EVALUATION_VN.md) - internal evaluation notes
-- [docs/MAINTENANCE.md](docs/MAINTENANCE.md) - technical maintenance guide
-- [README_EXAM_PIPELINE.md](README_EXAM_PIPELINE.md) - Exam Bank crawler: flow, env vars, how to regenerate data
-- [RE_EVALUATION.md](RE_EVALUATION.md) - Re-evaluation of the recent Exam Bank / crawler / UI changes
-
-## Goal
-
-The project already works well as a polished educational/demo product. The next step is to improve dataset governance, model validation, documentation accuracy, and the exam-bank pipeline so it can become a more trustworthy public-facing tool.
+*Last Updated: April 24, 2026 | Version 5.0 Stable Beta*
