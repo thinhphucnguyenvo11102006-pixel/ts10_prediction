@@ -113,7 +113,7 @@
         <div class="card">
             <div class="card-title">
                 <span class="icon">📋</span>
-                Bảng Dự Đoán Điểm Chuẩn NV1 / NV2 / NV3 — <span id="schoolCount" style="color:var(--accent)">0</span> trường
+                Bảng Dự Đoán Điểm Chuẩn NV1 — <span id="schoolCount" style="color:var(--accent)">0</span> trường
             </div>
             <div style="font-size:0.8rem;color:var(--text-muted);margin-bottom:14px">
                 💡 Click vào trường bất kỳ để xem biểu đồ xu hướng chi tiết. Bấm tiêu đề cột để sắp xếp.
@@ -132,9 +132,7 @@
                             <th data-sort="2023">2023</th>
                             <th data-sort="2024">2024</th>
                             <th data-sort="2025">2025</th>
-                            <th data-sort="nv1" class="sorted-desc">🔮 NV1</th>
-                            <th data-sort="nv2">NV2</th>
-                            <th data-sort="nv3">NV3</th>
+                            <th data-sort="predicted" class="sorted-desc">🔮 2026</th>
                             <th>Khoảng DK</th>
                             <th data-sort="trend">Xu hướng</th>
                             <th data-sort="confidence">Tin cậy</th>
@@ -180,7 +178,6 @@
                                 <div class="stat-value" id="detailConfidence">—</div>
                             </div>
                         </div>
-                        <div class="stats-row" id="detailNvThresholds" style="grid-template-columns:1fr 1fr 1fr;margin-top:12px"></div>
                     </div>
                 </div>
             </div>
@@ -438,7 +435,7 @@
         <div class="card">
             <div class="card-title"><span class="icon">📚</span> Ngân Hàng Đề Thi Live Feed <span style="background:var(--success);color:#fff;font-size:0.65rem;padding:2px 8px;border-radius:50px;margin-left:8px;vertical-align:middle;text-transform:uppercase;letter-spacing:0.5px">Realtime</span></div>
             <p style="color:var(--text-secondary);font-size:0.88rem;margin-bottom:20px">
-                Hệ thống tự động cập nhật đề thi mới nhất từ các nguồn uy tín. Ưu tiên giữ cân bằng giữa Toán, Ngữ Văn và Tiếng Anh; tài nguyên sẽ được mở theo dạng PDF hoặc nguồn gốc phù hợp.
+                Hệ thống tự động cập nhật đề thi mới nhất từ các nguồn uy tín. Click để xem trực tiếp hoặc tải về máy.
             </p>
             
             <div class="subject-filters">
@@ -446,6 +443,8 @@
                 <button class="btn btn-secondary" data-subject="math" onclick="App.filterExams('math', this)">📐 Toán</button>
                 <button class="btn btn-secondary" data-subject="lit" onclick="App.filterExams('lit', this)">📝 Ngữ Văn</button>
                 <button class="btn btn-secondary" data-subject="eng" onclick="App.filterExams('eng', this)">🌐 Tiếng Anh</button>
+                <button class="btn btn-secondary" data-subject="phys" onclick="App.filterExams('phys', this)">⚡ Vật Lý</button>
+                <button class="btn btn-secondary" data-subject="chem" onclick="App.filterExams('chem', this)">🧪 Hóa Học</button>
             </div>
         </div>
 
@@ -459,12 +458,7 @@
                         <h3 id="viewerTitle">Đang Tải Đề...</h3>
                         <p id="viewerSubtitle" style="font-size:0.8rem;color:var(--text-secondary)"></p>
                     </div>
-                    <div class="exam-viewer-actions">
-                        <a id="viewerDownloadBtn" class="btn btn-primary btn-download-pdf" href="#" download target="_blank" rel="noopener">
-                            <span class="icon">⬇️</span> Tải PDF
-                        </a>
-                        <button class="btn-close-viewer" onclick="App.closeExamViewer()">✕ Đóng</button>
-                    </div>
+                    <button class="btn-close-viewer" onclick="App.closeExamViewer()">✕ Đóng</button>
                 </div>
                 <div class="exam-viewer-body">
                     <div class="exam-viewer-pdf">
