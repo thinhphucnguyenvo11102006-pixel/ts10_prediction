@@ -51,9 +51,23 @@ def build():
             school_lines.append(f"    // {'=' * 31}")
 
         scores_str = ", ".join(f"{y}: {s['scores'][y]:.2f}" for y in ["2022", "2023", "2024", "2025"])
+        priority_scores = s.get("priority_scores", {})
+        priority_years = [y for y in ["2022", "2023", "2024", "2025"] if y in priority_scores]
+        priority_scores_str = ", ".join(
+            (
+                f'{y}: {{ '
+                f'nv1: {priority_scores[y]["nv1"] if priority_scores[y].get("nv1") is not None else "null"}, '
+                f'nv2: {priority_scores[y]["nv2"] if priority_scores[y].get("nv2") is not None else "null"}, '
+                f'nv3: {priority_scores[y]["nv3"] if priority_scores[y].get("nv3") is not None else "null"} '
+                f"}}"
+            )
+            for y in priority_years
+        )
         school_lines.append(
             f'    {{ id: {s["id"]}, name: "{s["name"]}", district: "{s["district"]}", '
-            f'scores: {{ {scores_str} }}, tier: "{tier}", stability: "{stability}" }},'
+            f'scores: {{ {scores_str} }}, '
+            f'priorityScores: {{ {priority_scores_str} }}, '
+            f'tier: "{tier}", stability: "{stability}" }},'
         )
 
     # Build DISTRICTS
