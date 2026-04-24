@@ -96,7 +96,7 @@ Object.assign(App, {
                             <span>${(ex.downloads + 120).toLocaleString()} lượt xem</span>
                         </div>
                         <div class="btn-download-mini">
-                            <span class="icon">📄</span> Xem đề
+                            ${ex.resourceType === 'pdf' ? '<span class="icon">📄</span> Xem đề' : '<span class="icon">🔗</span> Bài viết'}
                         </div>
                     </div>
                 </div>
@@ -117,15 +117,34 @@ Object.assign(App, {
         const downloadBtn = document.getElementById('viewerDownloadBtn');
 
         if (modal && iframe) {
-            // Prevent iframe from caching history if needed
-            iframe.src = exam.pdfUrl + "#toolbar=0&navpanes=0&scrollbar=0";
             title.textContent = exam.title;
             subtitle.textContent = `${exam.school} - ${exam.year}`;
+
+            // Handle PDF vs Article differently
+            const isPdf = exam.resourceType === 'pdf';
             
-            // Set download link
+            if (isPdf) {
+                // Local PDF: embed in iframe, enable download
+                iframe.src = exam.pdfUrl + "#toolbar=0&navpanes=0&scrollbar=0";
+            } else {
+                // Article: embed the source URL
+                iframe.src = exam.sourceUrl;
+            }
+
+            // Configure download button
             if (downloadBtn) {
-                downloadBtn.href = exam.pdfUrl;
-                downloadBtn.download = exam.title + ".pdf";
+                if (isPdf) {
+                    downloadBtn.href = exam.pdfUrl;
+                    downloadBtn.download = exam.id + ".pdf";
+                    downloadBtn.removeAttribute('target');
+                    downloadBtn.innerHTML = '<span class="icon">⬇️</span> Tải PDF';
+                } else {
+                    // Article: open source in new tab instead of download
+                    downloadBtn.href = exam.sourceUrl;
+                    downloadBtn.removeAttribute('download');
+                    downloadBtn.setAttribute('target', '_blank');
+                    downloadBtn.innerHTML = '<span class="icon">🔗</span> Xem nguồn gốc';
+                }
             }
 
             modal.classList.add('active');
