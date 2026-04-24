@@ -1448,9 +1448,11 @@ body::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 24px;
-    background: rgba(0,0,0,0.2);
+    padding: 20px 24px;
+    background: rgba(0,0,0,0.3);
     border-bottom: 1px solid var(--border);
+    width: 100%;
+    flex-shrink: 0;
 }
 
 .exam-viewer-header h3 {
