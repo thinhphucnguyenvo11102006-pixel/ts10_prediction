@@ -168,11 +168,13 @@ const App = {
                 case '2023': va = a.scores[2023]; vb = b.scores[2023]; break;
                 case '2024': va = a.scores[2024]; vb = b.scores[2024]; break;
                 case '2025': va = a.scores[2025]; vb = b.scores[2025]; break;
-                case 'predicted': va = a.prediction.predicted; vb = b.prediction.predicted; break;
+                case 'nv1': va = a.prediction.priorities.nv1.predicted; vb = b.prediction.priorities.nv1.predicted; break;
+                case 'nv2': va = a.prediction.priorities.nv2.predicted; vb = b.prediction.priorities.nv2.predicted; break;
+                case 'nv3': va = a.prediction.priorities.nv3.predicted; vb = b.prediction.priorities.nv3.predicted; break;
                 case 'stability': va = a.stability; vb = b.stability; break;
                 case 'trend': va = a.prediction.trend; vb = b.prediction.trend; break;
                 case 'confidence': va = a.prediction.confidence; vb = b.prediction.confidence; break;
-                default: va = a.prediction.predicted; vb = b.prediction.predicted;
+                default: va = a.prediction.priorities.nv1.predicted; vb = b.prediction.priorities.nv1.predicted;
             }
             if (typeof va === 'string') {
                 return this.sortDirection === 'asc' ? va.localeCompare(vb) : vb.localeCompare(va);
@@ -199,8 +201,10 @@ const App = {
                     <td class="score-cell">${s.scores[2023]?.toFixed(2) || '-'}</td>
                     <td class="score-cell">${s.scores[2024]?.toFixed(2) || '-'}</td>
                     <td class="score-cell">${s.scores[2025]?.toFixed(2) || '-'}</td>
-                    <td class="score-cell score-predicted">${p.predicted.toFixed(2)}</td>
-                    <td class="score-cell" style="color:var(--text-muted);font-size:0.78rem">${p.low.toFixed(1)} - ${p.high.toFixed(1)}</td>
+                    <td class="score-cell score-predicted">${p.priorities.nv1.predicted.toFixed(2)}</td>
+                    <td class="score-cell">${p.priorities.nv2.predicted.toFixed(2)}</td>
+                    <td class="score-cell">${p.priorities.nv3.predicted.toFixed(2)}</td>
+                    <td class="score-cell" style="color:var(--text-muted);font-size:0.78rem">${p.priorities.nv1.low.toFixed(1)} - ${p.priorities.nv1.high.toFixed(1)}</td>
                     <td class="${trendClass}">${trendIcon} ${Math.abs(p.trend).toFixed(2)}</td>
                     <td>${p.confidence}%</td>
                 </tr>
