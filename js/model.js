@@ -57,31 +57,88 @@ const PredictionModel = {
         return this.NV_PRIORITY_PENALTIES[priority] ?? 0;
     },
 
-    buildPriorityThresholds(basePredicted, baseLow, baseHigh) {
-        const roundQuarter = (value) => Math.round(value * 4) / 4;
-        return {
-            nv1: {
-                priority: 1,
-                penalty: this.getNvPenalty(1),
-                predicted: roundQuarter(basePredicted + this.getNvPenalty(1)),
-                low: roundQuarter(baseLow + this.getNvPenalty(1)),
-                high: roundQuarter(baseHigh + this.getNvPenalty(1))
-            },
-            nv2: {
-                priority: 2,
-                penalty: this.getNvPenalty(2),
-                predicted: roundQuarter(basePredicted + this.getNvPenalty(2)),
-                low: roundQuarter(baseLow + this.getNvPenalty(2)),
-                high: roundQuarter(baseHigh + this.getNvPenalty(2))
-            },
-            nv3: {
-                priority: 3,
-                penalty: this.getNvPenalty(3),
-                predicted: roundQuarter(basePredicted + this.getNvPenalty(3)),
-                low: roundQuarter(baseLow + this.getNvPenalty(3)),
-                high: roundQuarter(baseHigh + this.getNvPenalty(3))
+    /**
+     * Tính median gap giữa scores và priorityScores trên toàn hệ thống.
+     * Dùng làm fallback khi trường không có dữ liệu priorityScores.
+     */
+    getSystemPriorityGaps() {
+        if (this._cachedSystemGaps) return this._cachedSystemGaps;
+        const schools = this.getSchoolsData();
+        const gaps = { nv1: [], nv2: [], nv3: [] };
+        for (const school of schools) {
+            const ps = school.priorityScores;
+            if (!ps) continue;
+            for (const year of this.YEARS) {
+                const score = school.scores[year];
+                const pv = ps[year];
+                if (score == null || !pv) continue;
+                if (pv.nv1 != null) gaps.nv1.push(pv.nv1 - score);
+                if (pv.nv2 != null) gaps.nv2.push(pv.nv2 - score);
+                if (pv.nv3 != null) gaps.nv3.push(pv.nv3 - score);
             }
+        }
+        this._cachedSystemGaps = {
+            nv1: this.median(gaps.nv1),
+            nv2: this.median(gaps.nv2),
+            nv3: this.median(gaps.nv3)
         };
+        return this._cachedSystemGaps;
+    },
+
+    /**
+     * Xây dựng ngưỡng NV1/NV2/NV3 bằng cách neo trực tiếp vào
+     * dữ liệu priorityScores lịch sử thay vì penalty cố định.
+     *
+     * Chiến lược:
+     *   1. Tìm năm gần nhất có priorityScores cho trường.
+     *   2. Tính shift = basePredicted - scores[anchorYear].
+     *   3. NVx_2026 = priorityScores[anchorYear].nvx + shift.
+     *   4. Fallback: dùng system-wide median gap nếu thiếu data.
+     */
+    buildPriorityThresholds(school, basePredicted, baseLow, baseHigh, baseAnchor) {
+        const roundQuarter = (value) => Math.round(value * 4) / 4;
+        const ps = school.priorityScores;
+
+        // Tìm năm anchor gần nhất có priority data
+        const anchorYear = [2025, 2024, 2023, 2022].find(y => ps?.[y]?.nv1 != null);
+
+        if (anchorYear && ps[anchorYear]) {
+            const anchorPs = ps[anchorYear];
+            const anchorBaseScore = school.scores[anchorYear] ?? baseAnchor;
+            // Shift = mức thay đổi dự báo so với năm anchor
+            const shift = this.clamp(basePredicted - anchorBaseScore, -3.0, 3.0);
+            const ciLow = basePredicted - baseLow;
+            const ciHigh = baseHigh - basePredicted;
+
+            const makePriority = (key, priority) => {
+                const anchorVal = anchorPs[key];
+                if (anchorVal == null) {
+                    const fallbackGaps = this.getSystemPriorityGaps();
+                    const gap = fallbackGaps[key] ?? this.getNvPenalty(priority);
+                    const pred = roundQuarter(this.clamp(basePredicted + gap, 0, 30));
+                    return { priority, penalty: gap, predicted: pred, low: roundQuarter(pred - ciLow), high: roundQuarter(pred + ciHigh) };
+                }
+                const predicted = roundQuarter(this.clamp(anchorVal + shift, 0, 30));
+                return {
+                    priority,
+                    penalty: roundQuarter(anchorVal - anchorBaseScore),
+                    predicted,
+                    low: roundQuarter(this.clamp(predicted - ciLow, 0, 30)),
+                    high: roundQuarter(this.clamp(predicted + ciHigh, 0, 30))
+                };
+            };
+
+            return { nv1: makePriority('nv1', 1), nv2: makePriority('nv2', 2), nv3: makePriority('nv3', 3) };
+        }
+
+        // Fallback: dùng system-wide median gaps
+        const sysGaps = this.getSystemPriorityGaps();
+        const makeFallback = (key, priority) => {
+            const gap = sysGaps[key] ?? this.getNvPenalty(priority);
+            const pred = roundQuarter(this.clamp(basePredicted + gap, 0, 30));
+            return { priority, penalty: gap, predicted: pred, low: roundQuarter(this.clamp(baseLow + gap, 0, 30)), high: roundQuarter(this.clamp(baseHigh + gap, 0, 30)) };
+        };
+        return { nv1: makeFallback('nv1', 1), nv2: makeFallback('nv2', 2), nv3: makeFallback('nv3', 3) };
     },
 
     getSchoolsData() {
@@ -452,7 +509,7 @@ const PredictionModel = {
             linear:    null,
             anchor:    Math.round(schoolAnchor * 100) / 100,
             baseline:  Math.round(systemForecast.predicted * 100) / 100,
-            priorities: this.buildPriorityThresholds(roundedPredicted, roundedLow, roundedHigh)
+            priorities: this.buildPriorityThresholds(school, roundedPredicted, roundedLow, roundedHigh, schoolAnchor)
         };
     },
 

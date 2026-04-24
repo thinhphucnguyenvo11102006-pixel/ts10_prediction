@@ -101,6 +101,32 @@ const Backtest = {
         return this.roundQuarter(this.clamp(schoolAnchor + compAdj + microTrend, 0, 30));
     },
 
+    /**
+     * Predict a specific NV priority score using direct anchoring.
+     * Strategy: anchor on the school's own priorityScores from the latest train year,
+     * then apply the same base shift from the scores-level prediction.
+     * Falls back to predictedBase + fixedPenalty when no priority data exists.
+     */
+    predictPriorityScore(school, trainYears, targetYear, priorityKey, predictedBase, fixedPenalty) {
+        const ps = school.priorityScores;
+
+        // Find the latest train year with priority data for this NV key
+        for (let i = trainYears.length - 1; i >= 0; i--) {
+            const yr = trainYears[i];
+            if (ps?.[yr]?.[priorityKey] != null) {
+                const anchorPriorityVal = ps[yr][priorityKey];
+                const anchorBaseScore = school.scores[yr];
+                if (anchorBaseScore == null) continue;
+
+                const shift = this.clamp(predictedBase - anchorBaseScore, -3.0, 3.0);
+                return this.roundQuarter(this.clamp(anchorPriorityVal + shift, 0, 30));
+            }
+        }
+
+        // Fallback: no priority history → use base + fixed penalty
+        return this.roundQuarter(predictedBase + fixedPenalty);
+    },
+
     createMetricBucket() {
         return {
             count: 0,
@@ -177,7 +203,10 @@ const Backtest = {
                 const actual = actualPriorities[priorityKey];
                 if (actual == null) continue;
 
-                const predicted = this.roundQuarter(predictedBase + penalty);
+                // Direct priority anchoring: use the school's own priority history
+                const predicted = this.predictPriorityScore(
+                    school, trainYears, targetYear, priorityKey, predictedBase, penalty
+                );
                 const metric = this.pushMetric(buckets[priorityKey], predicted, actual);
                 this.pushMetric(buckets.overall, predicted, actual);
                 row.priorities[priorityKey] = metric;
