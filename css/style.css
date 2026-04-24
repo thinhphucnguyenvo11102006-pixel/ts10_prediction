@@ -1253,7 +1253,7 @@ body::after {
     text-transform: uppercase;
     padding: 4px 8px;
     border-radius: 4px;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     color: var(--text-secondary);
 }
 
@@ -1274,7 +1274,7 @@ body::after {
     gap: 4px;
     margin-top: auto;
     padding-top: 12px;
-    border-top: 1px dashed rgba(255,255,255,0.1);
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
 }
 
 .exam-meta-item {
@@ -1373,6 +1373,28 @@ body::after {
     gap: 4px;
 }
 
+.exam-card-actions {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.btn-download-pdf-mini {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: #fff !important;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.btn-download-pdf-mini:hover {
+    background: linear-gradient(135deg, #4f46e5, #4338ca);
+    transform: translateY(-1px);
+}
+
 .btn-download-mini {
     background: var(--primary-light);
     color: var(--primary);
@@ -1397,6 +1419,7 @@ body::after {
         opacity: 0;
         transform: translateY(15px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -1435,7 +1458,7 @@ body::after {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
     transform: translateY(20px);
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -1448,11 +1471,9 @@ body::after {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 24px;
-    background: rgba(0,0,0,0.3);
+    padding: 16px 24px;
+    background: rgba(0, 0, 0, 0.2);
     border-bottom: 1px solid var(--border);
-    width: 100%;
-    flex-shrink: 0;
 }
 
 .exam-viewer-header h3 {
@@ -1486,7 +1507,7 @@ body::after {
 }
 
 .btn-close-viewer {
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     color: var(--text-primary);
     border: none;
     padding: 6px 12px;
@@ -1545,9 +1566,11 @@ body::after {
     .exam-viewer-body {
         flex-direction: column;
     }
+
     .exam-viewer-pdf {
         flex: 6;
     }
+
     .exam-viewer-ai {
         flex: 4;
         border-left: none;

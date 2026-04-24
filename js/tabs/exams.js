@@ -18,7 +18,7 @@ Object.assign(App, {
         if (subject !== 'all') {
             exams = EXAMS_DATA.filter(e => e.subject === subject);
         }
-        
+
         // Sort by date (newest first)
         exams.sort((a, b) => {
             const dateA = a.date.split('/').reverse().join('');
@@ -45,8 +45,8 @@ Object.assign(App, {
         let html = '';
         exams.forEach(ex => {
             const iconObj = {
-                math: '📐', 
-                lit: '📝', 
+                math: '📐',
+                lit: '📝',
                 eng: '🌐',
                 phys: '⚡',
                 chem: '🧪',
@@ -56,7 +56,7 @@ Object.assign(App, {
                 civic: '⚖️'
             };
             const icon = iconObj[ex.subject] || '📄';
-            
+
             // Badge color based on type
             let typeLabel = ex.type;
             let typeClass = 'type-other';
@@ -96,7 +96,7 @@ Object.assign(App, {
                             <span>${(ex.downloads + 120).toLocaleString()} lượt xem</span>
                         </div>
                         <div class="btn-download-mini">
-                            ${ex.resourceType === 'pdf' ? '<span class="icon">📄</span> Xem đề' : '<span class="icon">🔗</span> Bài viết'}
+                            <span class="icon">📄</span> Xem đề
                         </div>
                     </div>
                 </div>
@@ -114,39 +114,12 @@ Object.assign(App, {
         const iframe = document.getElementById('pdfIframe');
         const title = document.getElementById('viewerTitle');
         const subtitle = document.getElementById('viewerSubtitle');
-        const downloadBtn = document.getElementById('viewerDownloadBtn');
 
         if (modal && iframe) {
+            // Prevent iframe from caching history if needed
+            iframe.src = exam.pdfUrl + "#toolbar=0&navpanes=0&scrollbar=0";
             title.textContent = exam.title;
             subtitle.textContent = `${exam.school} - ${exam.year}`;
-
-            // Handle PDF vs Article differently
-            const isPdf = exam.resourceType === 'pdf';
-            
-            if (isPdf) {
-                // Local PDF: embed in iframe, enable download
-                iframe.src = exam.pdfUrl + "#toolbar=0&navpanes=0&scrollbar=0";
-            } else {
-                // Article: embed the source URL
-                iframe.src = exam.sourceUrl;
-            }
-
-            // Configure download button
-            if (downloadBtn) {
-                if (isPdf) {
-                    downloadBtn.href = exam.pdfUrl;
-                    downloadBtn.download = exam.id + ".pdf";
-                    downloadBtn.removeAttribute('target');
-                    downloadBtn.innerHTML = '<span class="icon">⬇️</span> Tải PDF';
-                } else {
-                    // Article: open source in new tab instead of download
-                    downloadBtn.href = exam.sourceUrl;
-                    downloadBtn.removeAttribute('download');
-                    downloadBtn.setAttribute('target', '_blank');
-                    downloadBtn.innerHTML = '<span class="icon">🔗</span> Xem nguồn gốc';
-                }
-            }
-
             modal.classList.add('active');
 
             // Lock body scroll

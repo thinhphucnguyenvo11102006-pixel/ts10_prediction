@@ -4,7 +4,7 @@
  *
  * Nguồn: So GDDT TPHCM - cong bo 26/06/2025
  * Phiên bản dữ liệu: 2026-04-20
- * Tổng: 107 trường THPT công lập
+ * Tổng: 106 trường THPT công lập
  */
 
 const EXAM_STATS = {
@@ -47,8 +47,8 @@ const SCHOOLS_DATA = [
     // ===============================
     // QUẬN 5
     // ===============================
-    { id: 14, name: "TH Thực hành Sư phạm", district: "Quận 5", scores: { 2022: 22.00, 2023: 22.50, 2024: 23.00, 2025: 23.00 }, priorityScores: { 2022: { nv1: 19.75, nv2: 20.25, nv3: 20.5 }, 2023: { nv1: 22.5, nv2: 23.0, nv3: 24.0 }, 2024: { nv1: 23.0, nv2: 23.25, nv3: 24.0 }, 2025: { nv1: 23.0, nv2: 23.5, nv3: 24.0 } }, tier: "S", stability: "Rất ổn định" },
-    { id: 15, name: "TH Thực hành Sài Gòn", district: "Quận 5", scores: { 2022: 21.25, 2023: 21.75, 2024: 21.50, 2025: 21.50 }, priorityScores: { 2022: { nv1: 20.75, nv2: 21.25, nv3: 21.75 }, 2023: { nv1: 21.75, nv2: 22.0, nv3: 22.75 }, 2025: { nv1: 21.5, nv2: 22.25, nv3: 22.5 } }, tier: "A", stability: "Rất ổn định" },
+    { id: 14, name: "TH Thực hành Sư phạm", district: "Quận 5", scores: { 2022: 22.50, 2023: 22.50, 2024: 23.00, 2025: 23.00 }, priorityScores: { 2022: { nv1: 22.5, nv2: 23.0, nv3: 24.0 }, 2023: { nv1: 22.5, nv2: 23.0, nv3: 24.0 }, 2024: { nv1: 23.0, nv2: 23.25, nv3: 24.0 }, 2025: { nv1: 23.0, nv2: 23.5, nv3: 24.0 } }, tier: "S", stability: "Rất ổn định" },
+    { id: 15, name: "TH Thực hành Sài Gòn", district: "Quận 5", scores: { 2022: 21.25, 2023: 21.75, 2024: 21.00, 2025: 21.50 }, priorityScores: { 2022: { nv1: 20.75, nv2: 21.25, nv3: 21.75 }, 2023: { nv1: 21.75, nv2: 22.0, nv3: 22.75 }, 2024: { nv1: 21.0, nv2: 21.5, nv3: 22.0 }, 2025: { nv1: 21.5, nv2: 22.25, nv3: 22.5 } }, tier: "A", stability: "Rất ổn định" },
     { id: 16, name: "Trần Khai Nguyên", district: "Quận 5", scores: { 2022: 20.50, 2023: 21.25, 2024: 21.00, 2025: 21.00 }, priorityScores: { 2022: { nv1: 20.25, nv2: 21.25, nv3: 22.0 }, 2023: { nv1: 21.25, nv2: 21.5, nv3: 22.0 }, 2024: { nv1: 21.25, nv2: 21.5, nv3: 22.0 }, 2025: { nv1: 21.0, nv2: 21.25, nv3: 22.0 } }, tier: "A", stability: "Rất ổn định" },
     { id: 17, name: "Hùng Vương", district: "Quận 5", scores: { 2022: 18.50, 2023: 19.25, 2024: 18.50, 2025: 17.75 }, priorityScores: { 2022: { nv1: 18.25, nv2: 18.5, nv3: 18.75 }, 2023: { nv1: 19.25, nv2: 19.75, nv3: 20.5 }, 2024: { nv1: 19.25, nv2: 19.75, nv3: 20.5 } }, tier: "A-", stability: "Rất ổn định" },
     { id: 18, name: "Trần Hữu Trang", district: "Quận 5", scores: { 2022: 12.75, 2023: 13.50, 2024: 13.00, 2025: 12.50 }, priorityScores: { 2022: { nv1: 14.0, nv2: 14.5, nv3: 15.0 }, 2023: { nv1: 14.25, nv2: 14.5, nv3: 15.5 }, 2024: { nv1: 13.75, nv2: 14.0, nv3: 14.75 } }, tier: "B-", stability: "Rất ổn định" },
@@ -74,9 +74,8 @@ const SCHOOLS_DATA = [
     // ===============================
     { id: 27, name: "Võ Văn Kiệt", district: "Quận 8", scores: { 2022: 15.75, 2023: 16.25, 2024: 16.50, 2025: 16.00 }, priorityScores: { 2022: { nv1: 16.0, nv2: 16.5, nv3: 16.75 }, 2023: { nv1: 16.25, nv2: 16.75, nv3: 17.5 }, 2024: { nv1: 16.25, nv2: 16.75, nv3: 17.5 } }, tier: "A-", stability: "Rất ổn định" },
     { id: 28, name: "Tạ Quang Bửu", district: "Quận 8", scores: { 2022: 15.75, 2023: 16.50, 2024: 16.00, 2025: 15.50 }, priorityScores: { 2022: { nv1: 15.0, nv2: 15.5, nv3: 15.75 }, 2023: { nv1: 14.25, nv2: 15.0, nv3: 15.5 }, 2024: { nv1: 15.25, nv2: 16.0, nv3: 17.0 } }, tier: "B+", stability: "Rất ổn định" },
-    { id: 29, name: "Ngô Gia Tự", district: "Quận 8", scores: { 2022: 14.50, 2023: 15.25, 2024: 15.00, 2025: 14.75 }, priorityScores: { 2022: { nv1: 12.5, nv2: 12.75, nv3: 13.5 }, 2023: { nv1: 12.0, nv2: 12.5, nv3: 13.5 }, 2024: { nv1: 14.0, nv2: 14.0, nv3: 14.25 }, 2025: { nv1: 10.5, nv2: 10.5, nv3: 10.5 } }, tier: "B+", stability: "Rất ổn định" },
-    { id: 30, name: "Nguyễn Văn Linh (Q8)", district: "Quận 8", scores: { 2022: 13.75, 2023: 14.50, 2024: 14.25, 2025: 13.50 }, priorityScores: { 2022: { nv1: 10.5, nv2: 10.75, nv3: 11.0 }, 2023: { nv1: 11.25, nv2: 11.75, nv3: 12.75 }, 2024: { nv1: 11.25, nv2: 12.25, nv3: 13.25 }, 2025: { nv1: 10.5, nv2: 10.5, nv3: 11.0 } }, tier: "B+", stability: "Rất ổn định" },
-    { id: 31, name: "Nguyễn Tất Thành (Q8)", district: "Quận 8", scores: { 2022: 14.75, 2023: 15.50, 2024: 15.00, 2025: 14.50 }, priorityScores: { 2022: { nv1: 16.75, nv2: 17.0, nv3: 17.25 }, 2023: { nv1: 17.75, nv2: 18.0, nv3: 18.25 }, 2024: { nv1: 17.75, nv2: 18.0, nv3: 18.25 }, 2025: { nv1: 16.75, nv2: 17.25, nv3: 17.75 } }, tier: "B+", stability: "Rất ổn định" },
+    { id: 29, name: "Ngô Gia Tự", district: "Quận 8", scores: { 2022: 12.50, 2023: 12.00, 2024: 14.00, 2025: 10.50 }, priorityScores: { 2022: { nv1: 12.5, nv2: 12.75, nv3: 13.5 }, 2023: { nv1: 12.0, nv2: 12.5, nv3: 13.5 }, 2024: { nv1: 14.0, nv2: 14.0, nv3: 14.25 }, 2025: { nv1: 10.5, nv2: 10.5, nv3: 10.5 } }, tier: "B+", stability: "Rất ổn định" },
+    { id: 30, name: "Nguyễn Văn Linh (Q8)", district: "Quận 8", scores: { 2022: 10.50, 2023: 11.25, 2024: 11.25, 2025: 10.50 }, priorityScores: { 2022: { nv1: 11.25, nv2: 11.75, nv3: 12.75 }, 2023: { nv1: 10.5, nv2: 10.75, nv3: 11.0 }, 2024: { nv1: 11.25, nv2: 12.25, nv3: 13.25 }, 2025: { nv1: 10.5, nv2: 10.5, nv3: 11.0 } }, tier: "B+", stability: "Rất ổn định" },
     { id: 32, name: "Lương Văn Can", district: "Quận 8", scores: { 2022: 12.50, 2023: 13.25, 2024: 12.75, 2025: 12.25 }, priorityScores: { 2022: { nv1: 12.0, nv2: 12.25, nv3: 12.5 }, 2023: { nv1: 13.5, nv2: 14.25, nv3: 14.5 }, 2024: { nv1: 13.5, nv2: 14.0, nv3: 14.75 } }, tier: "B-", stability: "Rất ổn định" },
 
     // ===============================
@@ -106,7 +105,7 @@ const SCHOOLS_DATA = [
     // BÌNH THẠNH
     // ===============================
     { id: 44, name: "Gia Định", district: "Bình Thạnh", scores: { 2022: 23.00, 2023: 24.50, 2024: 23.00, 2025: 18.75 }, priorityScores: { 2022: { nv1: 23.0, nv2: 23.5, nv3: 23.75 }, 2023: { nv1: 24.5, nv2: 24.75, nv3: 25.0 }, 2024: { nv1: 23.0, nv2: 23.5, nv3: 23.75 }, 2025: { nv1: 18.75, nv2: 19.5, nv3: 20.0 } }, tier: "A+", stability: "Rất biến động" },
-    { id: 45, name: "Võ Thị Sáu", district: "Bình Thạnh", scores: { 2022: 18.00, 2023: 18.75, 2024: 18.25, 2025: 17.75 }, priorityScores: { 2022: { nv1: 19.75, nv2: 20.0, nv3: 21.0 }, 2023: { nv1: 21.0, nv2: 22.0, nv3: 23.0 }, 2024: { nv1: 19.5, nv2: 19.5, nv3: 19.75 }, 2025: { nv1: 17.75, nv2: 18.25, nv3: 18.75 } }, tier: "A-", stability: "Rất ổn định" },
+    { id: 45, name: "Võ Thị Sáu", district: "Bình Thạnh", scores: { 2022: 19.75, 2023: 21.00, 2024: 19.50, 2025: 17.75 }, priorityScores: { 2022: { nv1: 19.75, nv2: 20.0, nv3: 21.0 }, 2023: { nv1: 21.0, nv2: 22.0, nv3: 23.0 }, 2024: { nv1: 19.5, nv2: 19.5, nv3: 19.75 }, 2025: { nv1: 17.75, nv2: 18.25, nv3: 18.75 } }, tier: "A-", stability: "Rất ổn định" },
     { id: 46, name: "Hoàng Hoa Thám", district: "Bình Thạnh", scores: { 2022: 17.00, 2023: 17.75, 2024: 17.25, 2025: 16.75 }, priorityScores: { 2022: { nv1: 18.5, nv2: 18.75, nv3: 19.0 }, 2023: { nv1: 19.25, nv2: 20.25, nv3: 20.5 }, 2024: { nv1: 19.25, nv2: 20.25, nv3: 20.5 } }, tier: "A-", stability: "Rất ổn định" },
     { id: 47, name: "Trần Văn Giàu", district: "Bình Thạnh", scores: { 2022: 15.00, 2023: 15.75, 2024: 15.25, 2025: 14.75 }, priorityScores: { 2022: { nv1: 15.75, nv2: 16.5, nv3: 17.0 }, 2023: { nv1: 17.25, nv2: 17.75, nv3: 18.0 }, 2024: { nv1: 17.25, nv2: 17.75, nv3: 18.0 } }, tier: "B+", stability: "Rất ổn định" },
     { id: 48, name: "Thanh Đa", district: "Bình Thạnh", scores: { 2022: 14.00, 2023: 14.75, 2024: 14.25, 2025: 13.75 }, priorityScores: { 2022: { nv1: 14.75, nv2: 15.5, nv3: 16.5 }, 2023: { nv1: 14.75, nv2: 15.5, nv3: 16.5 }, 2024: { nv1: 15.0, nv2: 15.5, nv3: 15.75 } }, tier: "B+", stability: "Rất ổn định" },
