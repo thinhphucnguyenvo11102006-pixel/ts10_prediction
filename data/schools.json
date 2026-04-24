@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "2026-04-20",
+    "version": "2026-04-24",
     "total": 106,
     "years": [
       2022,
@@ -9,11 +9,11 @@
       2025
     ],
     "sources": {
-      "2025": "So GDDT TPHCM - cong bo 26/06/2025",
-      "2022-2024": "VnExpress, Tuoi Tre, Thanh Nien, Dan Tri (tong hop)",
-      "priority_scores_2022_2025": "ts10.hcm.edu.vn school detail pages, collected 2026-04-24"
+      "2025": "So GD&DT TP.HCM cong bo (ts10.hcm.edu.vn), 26/06/2025",
+      "2022-2024": "Doi chieu thapdien.com (2024), doctailieu.com / bao chi (2022-2023) voi du lieu ts10.hcm.edu.vn",
+      "priority_scores_2022_2025": "ts10.hcm.edu.vn (truong hop da bo sung/sua theo bang chinh thuc tong hop)"
     },
-    "notes": "Diem chuan NV1 trong truong `scores`. Diem chuan NV1/NV2/NV3 thuc te duoc luu them trong `priority_scores` khi co du lieu."
+    "notes": "Truong `scores` = diem chuan NV1. `priority_scores` = NV1/NV2/NV3; nam 2024 nhieu truong truoc day bi copy nham tu 2023 da duoc sua theo bang SGD cap nhat. `volatility` tinh lai tu `scores`."
   },
   "schools": [
     {
@@ -70,6 +70,11 @@
           "nv1": 22.25,
           "nv2": 22.5,
           "nv3": 22.75
+        },
+        "2025": {
+          "nv1": 22.25,
+          "nv2": 22.5,
+          "nv3": 23.0
         }
       }
     },
@@ -78,13 +83,13 @@
       "name": "Lương Thế Vinh",
       "district": "Quận 1",
       "scores": {
-        "2022": 20.75,
-        "2023": 21.5,
-        "2024": 21.0,
+        "2022": 21.0,
+        "2023": 20.25,
+        "2024": 20.5,
         "2025": 20.75
       },
       "tier": "A",
-      "volatility": 0.31,
+      "volatility": 0.26,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -98,9 +103,9 @@
           "nv3": 22.25
         },
         "2024": {
-          "nv1": 20.25,
-          "nv2": 20.75,
-          "nv3": 21.0
+          "nv1": 20.5,
+          "nv2": 21.0,
+          "nv3": 21.25
         },
         "2025": {
           "nv1": 20.75,
@@ -114,13 +119,13 @@
       "name": "Trưng Vương",
       "district": "Quận 1",
       "scores": {
-        "2022": 20.0,
+        "2022": 21.0,
         "2023": 21.5,
-        "2024": 20.75,
+        "2024": 21.0,
         "2025": 20.25
       },
       "tier": "S",
-      "volatility": 0.57,
+      "volatility": 0.49,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -134,9 +139,14 @@
           "nv3": 22.0
         },
         "2024": {
-          "nv1": 21.5,
-          "nv2": 21.75,
-          "nv3": 22.0
+          "nv1": 21.0,
+          "nv2": 21.25,
+          "nv3": 21.5
+        },
+        "2025": {
+          "nv1": 20.25,
+          "nv2": 21.0,
+          "nv3": 21.5
         }
       }
     },
@@ -181,14 +191,14 @@
       "name": "Năng khiếu TDTT",
       "district": "Quận 1",
       "scores": {
-        "2022": 11.5,
-        "2023": 12.0,
-        "2024": 12.0,
+        "2022": 12.0,
+        "2023": 13.5,
+        "2024": 13.0,
         "2025": 11.75
       },
       "tier": "C",
-      "volatility": 0.21,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.66,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 13.5,
@@ -204,6 +214,11 @@
           "nv1": 13.0,
           "nv2": 13.5,
           "nv3": 14.5
+        },
+        "2025": {
+          "nv1": 11.75,
+          "nv2": 12.5,
+          "nv3": 13.0
         }
       }
     },
@@ -214,11 +229,11 @@
       "scores": {
         "2022": 23.25,
         "2023": 24.25,
-        "2024": 23.5,
+        "2024": 23.25,
         "2025": 23.75
       },
       "tier": "S",
-      "volatility": 0.37,
+      "volatility": 0.44,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -232,9 +247,9 @@
           "nv3": 23.75
         },
         "2024": {
-          "nv1": 24.25,
-          "nv2": 24.5,
-          "nv3": 24.75
+          "nv1": 23.25,
+          "nv2": 23.5,
+          "nv3": 24.0
         },
         "2025": {
           "nv1": 23.75,
@@ -284,13 +299,13 @@
       "name": "Marie Curie",
       "district": "Quận 3",
       "scores": {
-        "2022": 19.75,
+        "2022": 19.5,
         "2023": 20.0,
         "2024": 19.75,
         "2025": 19.5
       },
       "tier": "A",
-      "volatility": 0.18,
+      "volatility": 0.22,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -304,9 +319,14 @@
           "nv3": 20.5
         },
         "2024": {
-          "nv1": 20.0,
-          "nv2": 21.25,
-          "nv3": 21.5
+          "nv1": 19.75,
+          "nv2": 20.75,
+          "nv3": 21.25
+        },
+        "2025": {
+          "nv1": 19.5,
+          "nv2": 20.5,
+          "nv3": 21.0
         }
       }
     },
@@ -315,14 +335,14 @@
       "name": "Lê Thị Hồng Gấm",
       "district": "Quận 3",
       "scores": {
-        "2022": 12.5,
-        "2023": 13.0,
-        "2024": 12.5,
+        "2022": 13.5,
+        "2023": 14.25,
+        "2024": 14.75,
         "2025": 12.0
       },
       "tier": "B-",
-      "volatility": 0.35,
-      "stability_rating": "Rất ổn định",
+      "volatility": 1.1,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 14.25,
@@ -351,13 +371,13 @@
       "name": "Nguyễn Thị Diệu",
       "district": "Quận 3",
       "scores": {
-        "2022": 15.5,
-        "2023": 16.0,
+        "2022": 16.0,
+        "2023": 15.5,
         "2024": 15.25,
         "2025": 10.5
       },
       "tier": "B",
-      "volatility": 2.22,
+      "volatility": 2.21,
       "stability_rating": "Rất biến động",
       "priority_scores": {
         "2023": {
@@ -371,9 +391,14 @@
           "nv3": 16.75
         },
         "2024": {
-          "nv1": 15.5,
-          "nv2": 16.25,
-          "nv3": 16.5
+          "nv1": 15.25,
+          "nv2": 16.0,
+          "nv3": 16.0
+        },
+        "2025": {
+          "nv1": 10.5,
+          "nv2": 10.5,
+          "nv3": 10.5
         }
       }
     },
@@ -382,14 +407,14 @@
       "name": "Nguyễn Hữu Thọ",
       "district": "Quận 4",
       "scores": {
-        "2022": 14.5,
-        "2023": 15.25,
-        "2024": 14.75,
+        "2022": 15.0,
+        "2023": 16.25,
+        "2024": 16.0,
         "2025": 14.0
       },
       "tier": "B+",
-      "volatility": 0.45,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.85,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 16.25,
@@ -402,9 +427,14 @@
           "nv3": 15.75
         },
         "2024": {
-          "nv1": 16.25,
-          "nv2": 17.25,
-          "nv3": 17.5
+          "nv1": 16.0,
+          "nv2": 16.5,
+          "nv3": 16.75
+        },
+        "2025": {
+          "nv1": 14.0,
+          "nv2": 14.5,
+          "nv3": 15.0
         }
       }
     },
@@ -413,14 +443,14 @@
       "name": "Nguyễn Trãi",
       "district": "Quận 4",
       "scores": {
-        "2022": 12.0,
-        "2023": 12.75,
-        "2024": 12.0,
+        "2022": 13.0,
+        "2023": 13.25,
+        "2024": 13.75,
         "2025": 11.25
       },
       "tier": "B-",
-      "volatility": 0.53,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.99,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 13.25,
@@ -433,9 +463,9 @@
           "nv3": 14.0
         },
         "2024": {
-          "nv1": 13.25,
-          "nv2": 13.75,
-          "nv3": 14.5
+          "nv1": 13.75,
+          "nv2": 14.0,
+          "nv3": 14.25
         },
         "2025": {
           "nv1": 11.25,
@@ -485,13 +515,13 @@
       "name": "TH Thực hành Sài Gòn",
       "district": "Quận 5",
       "scores": {
-        "2022": 21.25,
+        "2022": 20.75,
         "2023": 21.75,
         "2024": 21.0,
         "2025": 21.5
       },
       "tier": "A",
-      "volatility": 0.18,
+      "volatility": 0.41,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2022": {
@@ -521,14 +551,14 @@
       "name": "Trần Khai Nguyên",
       "district": "Quận 5",
       "scores": {
-        "2022": 20.5,
+        "2022": 20.25,
         "2023": 21.25,
-        "2024": 21.0,
+        "2024": 19.75,
         "2025": 21.0
       },
       "tier": "A",
-      "volatility": 0.27,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.56,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 21.25,
@@ -541,9 +571,9 @@
           "nv3": 22.0
         },
         "2024": {
-          "nv1": 21.25,
-          "nv2": 21.5,
-          "nv3": 22.0
+          "nv1": 19.75,
+          "nv2": 20.0,
+          "nv3": 20.25
         },
         "2025": {
           "nv1": 21.0,
@@ -557,14 +587,14 @@
       "name": "Hùng Vương",
       "district": "Quận 5",
       "scores": {
-        "2022": 18.5,
+        "2022": 18.25,
         "2023": 19.25,
-        "2024": 18.5,
+        "2024": 18.25,
         "2025": 17.75
       },
       "tier": "A-",
-      "volatility": 0.53,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.57,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 19.25,
@@ -577,9 +607,14 @@
           "nv3": 18.75
         },
         "2024": {
-          "nv1": 19.25,
-          "nv2": 19.75,
-          "nv3": 20.5
+          "nv1": 18.25,
+          "nv2": 18.75,
+          "nv3": 19.75
+        },
+        "2025": {
+          "nv1": 17.75,
+          "nv2": 18.5,
+          "nv3": 19.0
         }
       }
     },
@@ -588,14 +623,14 @@
       "name": "Trần Hữu Trang",
       "district": "Quận 5",
       "scores": {
-        "2022": 12.75,
-        "2023": 13.5,
-        "2024": 13.0,
+        "2022": 14.0,
+        "2023": 14.25,
+        "2024": 13.75,
         "2025": 12.5
       },
       "tier": "B-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.64,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 14.25,
@@ -611,6 +646,11 @@
           "nv1": 13.75,
           "nv2": 14.0,
           "nv3": 14.75
+        },
+        "2025": {
+          "nv1": 12.5,
+          "nv2": 13.0,
+          "nv3": 13.5
         }
       }
     },
@@ -645,8 +685,8 @@
         },
         "2025": {
           "nv1": 22.25,
-          "nv2": 22.5,
-          "nv3": 22.75
+          "nv2": 23.0,
+          "nv3": 23.5
         }
       }
     },
@@ -655,14 +695,14 @@
       "name": "Bình Phú",
       "district": "Quận 6",
       "scores": {
-        "2022": 20.5,
+        "2022": 19.5,
         "2023": 21.0,
-        "2024": 20.5,
+        "2024": 19.5,
         "2025": 20.25
       },
       "tier": "A",
-      "volatility": 0.27,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.6,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 21.0,
@@ -675,9 +715,9 @@
           "nv3": 20.0
         },
         "2024": {
-          "nv1": 21.0,
-          "nv2": 21.5,
-          "nv3": 21.75
+          "nv1": 19.5,
+          "nv2": 19.75,
+          "nv3": 20.25
         },
         "2025": {
           "nv1": 20.25,
@@ -691,13 +731,13 @@
       "name": "Nguyễn Tất Thành",
       "district": "Quận 6",
       "scores": {
-        "2022": 17.0,
+        "2022": 16.75,
         "2023": 17.75,
-        "2024": 17.25,
+        "2024": 17.0,
         "2025": 16.75
       },
       "tier": "A-",
-      "volatility": 0.37,
+      "volatility": 0.44,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -711,9 +751,9 @@
           "nv3": 17.25
         },
         "2024": {
-          "nv1": 17.75,
-          "nv2": 18.0,
-          "nv3": 18.25
+          "nv1": 17.0,
+          "nv2": 17.25,
+          "nv3": 18.0
         },
         "2025": {
           "nv1": 16.75,
@@ -727,13 +767,13 @@
       "name": "Phạm Phú Thứ",
       "district": "Quận 6",
       "scores": {
-        "2022": 14.5,
-        "2023": 15.25,
+        "2022": 15.0,
+        "2023": 15.5,
         "2024": 14.75,
         "2025": 14.25
       },
       "tier": "B+",
-      "volatility": 0.37,
+      "volatility": 0.44,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -747,9 +787,9 @@
           "nv3": 15.5
         },
         "2024": {
-          "nv1": 15.5,
-          "nv2": 16.0,
-          "nv3": 16.75
+          "nv1": 14.75,
+          "nv2": 15.25,
+          "nv3": 16.0
         },
         "2025": {
           "nv1": 14.75,
@@ -763,14 +803,14 @@
       "name": "Nam Sài Gòn",
       "district": "Quận 7",
       "scores": {
-        "2022": 20.5,
-        "2023": 21.0,
-        "2024": 20.5,
+        "2022": 18.75,
+        "2023": 20.25,
+        "2024": 20.25,
         "2025": 20.25
       },
       "tier": "A",
-      "volatility": 0.27,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.62,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 20.25,
@@ -786,6 +826,11 @@
           "nv1": 20.25,
           "nv2": 20.75,
           "nv3": 21.0
+        },
+        "2025": {
+          "nv1": 20.25,
+          "nv2": 20.75,
+          "nv3": 21.0
         }
       }
     },
@@ -794,14 +839,14 @@
       "name": "Ngô Quyền",
       "district": "Quận 7",
       "scores": {
-        "2022": 20.25,
-        "2023": 20.75,
-        "2024": 20.25,
+        "2022": 19.75,
+        "2023": 20.25,
+        "2024": 18.75,
         "2025": 20.0
       },
       "tier": "A",
-      "volatility": 0.27,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.55,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 20.25,
@@ -814,9 +859,14 @@
           "nv3": 21.25
         },
         "2024": {
-          "nv1": 20.25,
-          "nv2": 20.5,
-          "nv3": 20.75
+          "nv1": 18.75,
+          "nv2": 19.25,
+          "nv3": 19.5
+        },
+        "2025": {
+          "nv1": 20.0,
+          "nv2": 20.25,
+          "nv3": 20.5
         }
       }
     },
@@ -825,14 +875,14 @@
       "name": "Lê Thánh Tôn",
       "district": "Quận 7",
       "scores": {
-        "2022": 17.5,
+        "2022": 17.0,
         "2023": 18.5,
-        "2024": 17.75,
+        "2024": 17.25,
         "2025": 17.25
       },
       "tier": "A-",
-      "volatility": 0.47,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.66,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 18.5,
@@ -845,9 +895,9 @@
           "nv3": 18.25
         },
         "2024": {
-          "nv1": 18.5,
-          "nv2": 18.75,
-          "nv3": 19.25
+          "nv1": 17.25,
+          "nv2": 17.75,
+          "nv3": 18.0
         },
         "2025": {
           "nv1": 17.25,
@@ -861,13 +911,13 @@
       "name": "Tân Phong",
       "district": "Quận 7",
       "scores": {
-        "2022": 14.0,
-        "2023": 14.75,
-        "2024": 14.25,
+        "2022": 13.5,
+        "2023": 13.75,
+        "2024": 14.0,
         "2025": 13.75
       },
       "tier": "B+",
-      "volatility": 0.37,
+      "volatility": 0.22,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -897,13 +947,13 @@
       "name": "Võ Văn Kiệt",
       "district": "Quận 8",
       "scores": {
-        "2022": 15.75,
+        "2022": 16.0,
         "2023": 16.25,
-        "2024": 16.5,
+        "2024": 16.25,
         "2025": 16.0
       },
       "tier": "A-",
-      "volatility": 0.28,
+      "volatility": 0.13,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -928,14 +978,14 @@
       "name": "Tạ Quang Bửu",
       "district": "Quận 8",
       "scores": {
-        "2022": 15.75,
-        "2023": 16.5,
-        "2024": 16.0,
+        "2022": 15.0,
+        "2023": 14.25,
+        "2024": 15.25,
         "2025": 15.5
       },
       "tier": "B+",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.48,
+      "stability_rating": "Ổn định",
       "priority_scores": {
         "2023": {
           "nv1": 14.25,
@@ -995,13 +1045,13 @@
       "name": "Nguyễn Văn Linh (Q8)",
       "district": "Quận 8",
       "scores": {
-        "2022": 10.5,
-        "2023": 11.25,
+        "2022": 11.25,
+        "2023": 10.5,
         "2024": 11.25,
         "2025": 10.5
       },
       "tier": "B+",
-      "volatility": 0.4,
+      "volatility": 0.38,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -1031,14 +1081,14 @@
       "name": "Lương Văn Can",
       "district": "Quận 8",
       "scores": {
-        "2022": 12.5,
-        "2023": 13.25,
-        "2024": 12.75,
+        "2022": 12.0,
+        "2023": 13.5,
+        "2024": 13.5,
         "2025": 12.25
       },
       "tier": "B-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.76,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 13.5,
@@ -1062,14 +1112,14 @@
       "name": "Nguyễn Du",
       "district": "Quận 10",
       "scores": {
-        "2022": 19.0,
-        "2023": 19.75,
-        "2024": 19.25,
+        "2022": 20.5,
+        "2023": 21.25,
+        "2024": 19.5,
         "2025": 18.75
       },
       "tier": "A-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.96,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 21.25,
@@ -1082,9 +1132,9 @@
           "nv3": 21.25
         },
         "2024": {
-          "nv1": 21.25,
-          "nv2": 22.0,
-          "nv3": 22.25
+          "nv1": 19.5,
+          "nv2": 20.0,
+          "nv3": 20.5
         },
         "2025": {
           "nv1": 18.75,
@@ -1098,14 +1148,14 @@
       "name": "Nguyễn Khuyến",
       "district": "Quận 10",
       "scores": {
-        "2022": 19.0,
+        "2022": 17.5,
         "2023": 19.5,
-        "2024": 19.0,
+        "2024": 18.25,
         "2025": 18.75
       },
       "tier": "A-",
-      "volatility": 0.27,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.76,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 19.5,
@@ -1118,9 +1168,9 @@
           "nv3": 18.5
         },
         "2024": {
-          "nv1": 19.5,
-          "nv2": 20.25,
-          "nv3": 20.5
+          "nv1": 18.25,
+          "nv2": 18.75,
+          "nv3": 18.75
         },
         "2025": {
           "nv1": 18.75,
@@ -1134,14 +1184,14 @@
       "name": "Nguyễn An Ninh",
       "district": "Quận 10",
       "scores": {
-        "2022": 14.0,
-        "2023": 14.75,
-        "2024": 14.25,
+        "2022": 14.75,
+        "2023": 15.0,
+        "2024": 15.25,
         "2025": 13.75
       },
       "tier": "B+",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.66,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 15.0,
@@ -1170,14 +1220,14 @@
       "name": "Diên Hồng",
       "district": "Quận 10",
       "scores": {
-        "2022": 12.0,
-        "2023": 12.5,
-        "2024": 12.0,
+        "2022": 14.0,
+        "2023": 15.25,
+        "2024": 15.0,
         "2025": 11.75
       },
       "tier": "C",
-      "volatility": 0.27,
-      "stability_rating": "Rất ổn định",
+      "volatility": 1.5,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 15.25,
@@ -1190,9 +1240,9 @@
           "nv3": 15.5
         },
         "2024": {
-          "nv1": 15.25,
-          "nv2": 16.0,
-          "nv3": 16.75
+          "nv1": 15.0,
+          "nv2": 15.25,
+          "nv3": 16.0
         },
         "2025": {
           "nv1": 11.75,
@@ -1206,14 +1256,14 @@
       "name": "Sương Nguyệt Anh",
       "district": "Quận 10",
       "scores": {
-        "2022": 11.5,
-        "2023": 12.0,
-        "2024": 11.5,
+        "2022": 13.75,
+        "2023": 13.5,
+        "2024": 14.25,
         "2025": 11.25
       },
       "tier": "C",
-      "volatility": 0.27,
-      "stability_rating": "Rất ổn định",
+      "volatility": 1.12,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 13.5,
@@ -1226,9 +1276,9 @@
           "nv3": 15.5
         },
         "2024": {
-          "nv1": 13.5,
-          "nv2": 14.25,
-          "nv3": 15.0
+          "nv1": 14.25,
+          "nv2": 15.0,
+          "nv3": 16.0
         }
       }
     },
@@ -1237,14 +1287,14 @@
       "name": "Nguyễn Hiền",
       "district": "Quận 11",
       "scores": {
-        "2022": 16.5,
-        "2023": 17.25,
-        "2024": 16.75,
+        "2022": 18.5,
+        "2023": 19.0,
+        "2024": 19.75,
         "2025": 16.25
       },
       "tier": "A-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 1.37,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 19.0,
@@ -1273,13 +1323,13 @@
       "name": "Trần Quang Khải",
       "district": "Quận 11",
       "scores": {
-        "2022": 16.25,
+        "2022": 16.0,
         "2023": 17.0,
-        "2024": 16.5,
+        "2024": 16.75,
         "2025": 16.0
       },
       "tier": "A-",
-      "volatility": 0.37,
+      "volatility": 0.47,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -1293,9 +1343,9 @@
           "nv3": 17.25
         },
         "2024": {
-          "nv1": 17.0,
-          "nv2": 17.5,
-          "nv3": 18.0
+          "nv1": 16.75,
+          "nv2": 17.0,
+          "nv3": 17.25
         }
       }
     },
@@ -1304,14 +1354,14 @@
       "name": "Nam Kỳ Khởi Nghĩa",
       "district": "Quận 11",
       "scores": {
-        "2022": 14.0,
-        "2023": 14.75,
-        "2024": 14.25,
+        "2022": 15.75,
+        "2023": 15.5,
+        "2024": 15.5,
         "2025": 13.75
       },
       "tier": "B+",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.76,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 15.5,
@@ -1325,8 +1375,8 @@
         },
         "2024": {
           "nv1": 15.5,
-          "nv2": 16.5,
-          "nv3": 17.25
+          "nv2": 16.0,
+          "nv3": 16.75
         },
         "2025": {
           "nv1": 13.75,
@@ -1340,13 +1390,13 @@
       "name": "Võ Trường Toản",
       "district": "Quận 12",
       "scores": {
-        "2022": 21.5,
-        "2023": 22.0,
-        "2024": 21.75,
+        "2022": 20.75,
+        "2023": 21.25,
+        "2024": 20.75,
         "2025": 21.5
       },
       "tier": "A",
-      "volatility": 0.21,
+      "volatility": 0.35,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -1376,13 +1426,13 @@
       "name": "Trường Chinh",
       "district": "Quận 12",
       "scores": {
-        "2022": 17.5,
-        "2023": 18.0,
-        "2024": 17.5,
+        "2022": 17.75,
+        "2023": 18.25,
+        "2024": 18.0,
         "2025": 17.25
       },
       "tier": "A-",
-      "volatility": 0.27,
+      "volatility": 0.35,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -1407,13 +1457,13 @@
       "name": "Thạnh Lộc",
       "district": "Quận 12",
       "scores": {
-        "2022": 15.75,
+        "2022": 16.0,
         "2023": 16.5,
-        "2024": 16.0,
+        "2024": 16.25,
         "2025": 15.5
       },
       "tier": "B+",
-      "volatility": 0.37,
+      "volatility": 0.39,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -1427,9 +1477,9 @@
           "nv3": 16.75
         },
         "2024": {
-          "nv1": 16.5,
-          "nv2": 17.25,
-          "nv3": 18.25
+          "nv1": 16.25,
+          "nv2": 17.0,
+          "nv3": 17.0
         }
       }
     },
@@ -1510,14 +1560,14 @@
       "name": "Hoàng Hoa Thám",
       "district": "Bình Thạnh",
       "scores": {
-        "2022": 17.0,
-        "2023": 17.75,
-        "2024": 17.25,
+        "2022": 18.5,
+        "2023": 19.25,
+        "2024": 18.25,
         "2025": 16.75
       },
       "tier": "A-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.99,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 19.25,
@@ -1530,9 +1580,9 @@
           "nv3": 19.0
         },
         "2024": {
-          "nv1": 19.25,
-          "nv2": 20.25,
-          "nv3": 20.5
+          "nv1": 18.25,
+          "nv2": 18.5,
+          "nv3": 19.0
         }
       }
     },
@@ -1541,14 +1591,14 @@
       "name": "Trần Văn Giàu",
       "district": "Bình Thạnh",
       "scores": {
-        "2022": 15.0,
-        "2023": 15.75,
-        "2024": 15.25,
+        "2022": 15.75,
+        "2023": 17.25,
+        "2024": 17.25,
         "2025": 14.75
       },
       "tier": "B+",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 1.06,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 17.25,
@@ -1563,7 +1613,7 @@
         "2024": {
           "nv1": 17.25,
           "nv2": 17.75,
-          "nv3": 18.0
+          "nv3": 18.25
         }
       }
     },
@@ -1572,14 +1622,14 @@
       "name": "Thanh Đa",
       "district": "Bình Thạnh",
       "scores": {
-        "2022": 14.0,
+        "2022": 14.75,
         "2023": 14.75,
-        "2024": 14.25,
+        "2024": 15.0,
         "2025": 13.75
       },
       "tier": "B+",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.48,
+      "stability_rating": "Ổn định",
       "priority_scores": {
         "2023": {
           "nv1": 14.75,
@@ -1603,14 +1653,14 @@
       "name": "Phan Đăng Lưu",
       "district": "Bình Thạnh",
       "scores": {
-        "2022": 14.25,
-        "2023": 14.5,
-        "2024": 14.0,
+        "2022": 14.5,
+        "2023": 15.75,
+        "2024": 16.0,
         "2025": 13.5
       },
       "tier": "B+",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.97,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 15.75,
@@ -1639,13 +1689,13 @@
       "name": "Trần Hưng Đạo",
       "district": "Gò Vấp",
       "scores": {
-        "2022": 20.5,
-        "2023": 21.0,
-        "2024": 20.5,
+        "2022": 19.5,
+        "2023": 20.5,
+        "2024": 19.75,
         "2025": 20.25
       },
       "tier": "A",
-      "volatility": 0.27,
+      "volatility": 0.35,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2024": {
@@ -1675,13 +1725,13 @@
       "name": "Nguyễn Công Trứ",
       "district": "Gò Vấp",
       "scores": {
-        "2022": 20.25,
-        "2023": 20.75,
+        "2022": 20.0,
+        "2023": 21.25,
         "2024": 20.25,
         "2025": 20.0
       },
       "tier": "A",
-      "volatility": 0.27,
+      "volatility": 0.52,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -1711,14 +1761,14 @@
       "name": "Nguyễn Trung Trực",
       "district": "Gò Vấp",
       "scores": {
-        "2022": 17.5,
+        "2022": 17.0,
         "2023": 18.25,
-        "2024": 17.75,
+        "2024": 17.25,
         "2025": 17.25
       },
       "tier": "A-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.48,
+      "stability_rating": "Ổn định",
       "priority_scores": {
         "2023": {
           "nv1": 18.25,
@@ -1731,9 +1781,9 @@
           "nv3": 18.0
         },
         "2024": {
-          "nv1": 18.25,
-          "nv2": 18.75,
-          "nv3": 19.5
+          "nv1": 17.25,
+          "nv2": 17.75,
+          "nv3": 18.25
         }
       }
     },
@@ -1742,14 +1792,14 @@
       "name": "Gò Vấp",
       "district": "Gò Vấp",
       "scores": {
-        "2022": 16.0,
-        "2023": 16.75,
-        "2024": 16.25,
+        "2022": 16.5,
+        "2023": 17.25,
+        "2024": 16.5,
         "2025": 15.75
       },
       "tier": "A-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.63,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 17.25,
@@ -1762,9 +1812,9 @@
           "nv3": 18.0
         },
         "2024": {
-          "nv1": 17.25,
-          "nv2": 17.75,
-          "nv3": 18.25
+          "nv1": 16.5,
+          "nv2": 16.75,
+          "nv3": 17.0
         }
       }
     },
@@ -1775,7 +1825,7 @@
       "scores": {
         "2022": 22.5,
         "2023": 23.5,
-        "2024": 23.0,
+        "2024": 22.5,
         "2025": 22.5
       },
       "tier": "S",
@@ -1809,14 +1859,14 @@
       "name": "Hàn Thuyên",
       "district": "Phú Nhuận",
       "scores": {
-        "2022": 13.75,
-        "2023": 14.5,
-        "2024": 14.0,
+        "2022": 15.25,
+        "2023": 15.25,
+        "2024": 15.25,
         "2025": 13.5
       },
       "tier": "B+",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.76,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 15.25,
@@ -1865,9 +1915,14 @@
           "nv3": 24.75
         },
         "2024": {
-          "nv1": 25.5,
-          "nv2": 25.75,
+          "nv1": 24.25,
+          "nv2": 25.25,
           "nv3": 26.0
+        },
+        "2025": {
+          "nv1": 23.5,
+          "nv2": 24.0,
+          "nv3": 24.25
         }
       }
     },
@@ -1912,14 +1967,14 @@
       "name": "Tân Bình",
       "district": "Tân Bình",
       "scores": {
-        "2022": 19.5,
+        "2022": 19.0,
         "2023": 20.25,
-        "2024": 20.0,
+        "2024": 20.25,
         "2025": 19.75
       },
       "tier": "A",
-      "volatility": 0.28,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.48,
+      "stability_rating": "Ổn định",
       "priority_scores": {
         "2023": {
           "nv1": 20.25,
@@ -1948,14 +2003,14 @@
       "name": "Nguyễn Chí Thanh",
       "district": "Tân Bình",
       "scores": {
-        "2022": 18.25,
-        "2023": 19.0,
-        "2024": 18.5,
+        "2022": 20.0,
+        "2023": 20.25,
+        "2024": 18.25,
         "2025": 18.0
       },
       "tier": "A-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.99,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 20.25,
@@ -1984,14 +2039,14 @@
       "name": "Nguyễn Thái Bình",
       "district": "Tân Bình",
       "scores": {
-        "2022": 16.5,
-        "2023": 17.0,
-        "2024": 16.75,
+        "2022": 17.75,
+        "2023": 17.25,
+        "2024": 17.0,
         "2025": 16.25
       },
       "tier": "A-",
-      "volatility": 0.28,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.63,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 17.25,
@@ -2020,13 +2075,13 @@
       "name": "Tây Thạnh",
       "district": "Tân Phú",
       "scores": {
-        "2022": 21.5,
-        "2023": 22.25,
-        "2024": 22.0,
-        "2025": 21.75
+        "2022": 21.0,
+        "2023": 21.75,
+        "2024": 21.0,
+        "2025": 21.5
       },
       "tier": "A",
-      "volatility": 0.28,
+      "volatility": 0.35,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -2056,14 +2111,14 @@
       "name": "Lê Trọng Tấn",
       "district": "Tân Phú",
       "scores": {
-        "2022": 18.75,
-        "2023": 19.25,
-        "2024": 19.0,
+        "2022": 19.0,
+        "2023": 20.25,
+        "2024": 19.5,
         "2025": 18.5
       },
       "tier": "A-",
-      "volatility": 0.28,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.63,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 20.25,
@@ -2076,9 +2131,9 @@
           "nv3": 19.5
         },
         "2024": {
-          "nv1": 20.25,
+          "nv1": 19.5,
           "nv2": 20.5,
-          "nv3": 20.75
+          "nv3": 21.0
         }
       }
     },
@@ -2087,14 +2142,14 @@
       "name": "Vĩnh Lộc (Tân Phú)",
       "district": "Tân Phú",
       "scores": {
-        "2022": 17.0,
-        "2023": 17.5,
-        "2024": 17.0,
+        "2022": 16.25,
+        "2023": 17.0,
+        "2024": 16.5,
         "2025": 16.75
       },
       "tier": "A-",
-      "volatility": 0.27,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.48,
+      "stability_rating": "Ổn định",
       "priority_scores": {
         "2023": {
           "nv1": 17.0,
@@ -2120,11 +2175,11 @@
       "scores": {
         "2022": 23.25,
         "2023": 23.75,
-        "2024": 23.5,
+        "2024": 23.25,
         "2025": 23.5
       },
       "tier": "A",
-      "volatility": 0.18,
+      "volatility": 0.22,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -2138,7 +2193,12 @@
           "nv3": 23.75
         },
         "2024": {
-          "nv1": 23.75,
+          "nv1": 23.25,
+          "nv2": 23.75,
+          "nv3": 24.25
+        },
+        "2025": {
+          "nv1": 23.5,
           "nv2": 24.0,
           "nv3": 24.25
         }
@@ -2149,14 +2209,14 @@
       "name": "Thủ Đức",
       "district": "TP Thủ Đức",
       "scores": {
-        "2022": 21.25,
-        "2023": 21.75,
-        "2024": 21.25,
+        "2022": 20.25,
+        "2023": 21.5,
+        "2024": 20.5,
         "2025": 21.0
       },
       "tier": "A",
-      "volatility": 0.27,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.48,
+      "stability_rating": "Ổn định",
       "priority_scores": {
         "2023": {
           "nv1": 21.5,
@@ -2169,9 +2229,9 @@
           "nv3": 20.75
         },
         "2024": {
-          "nv1": 21.5,
-          "nv2": 22.75,
-          "nv3": 23.0
+          "nv1": 20.5,
+          "nv2": 21.0,
+          "nv3": 21.25
         },
         "2025": {
           "nv1": 20.25,
@@ -2185,14 +2245,14 @@
       "name": "Tam Phú",
       "district": "TP Thủ Đức",
       "scores": {
-        "2022": 18.0,
-        "2023": 18.5,
-        "2024": 18.0,
+        "2022": 17.25,
+        "2023": 19.0,
+        "2024": 19.0,
         "2025": 17.75
       },
       "tier": "A-",
-      "volatility": 0.27,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.76,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 19.0,
@@ -2221,14 +2281,14 @@
       "name": "Giồng Ông Tố",
       "district": "TP Thủ Đức",
       "scores": {
-        "2022": 17.75,
-        "2023": 18.25,
-        "2024": 17.75,
+        "2022": 17.5,
+        "2023": 18.5,
+        "2024": 16.75,
         "2025": 17.5
       },
       "tier": "A-",
-      "volatility": 0.27,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.66,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 18.5,
@@ -2257,14 +2317,14 @@
       "name": "Dương Văn Thì",
       "district": "TP Thủ Đức",
       "scores": {
-        "2022": 13.75,
-        "2023": 14.5,
-        "2024": 14.0,
+        "2022": 14.0,
+        "2023": 16.25,
+        "2024": 14.75,
         "2025": 13.5
       },
       "tier": "B+",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 1.06,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 16.25,
@@ -2277,9 +2337,9 @@
           "nv3": 15.0
         },
         "2024": {
-          "nv1": 16.25,
-          "nv2": 16.5,
-          "nv3": 16.75
+          "nv1": 14.75,
+          "nv2": 15.0,
+          "nv3": 15.0
         }
       }
     },
@@ -2288,14 +2348,14 @@
       "name": "Hiệp Bình",
       "district": "TP Thủ Đức",
       "scores": {
-        "2022": 13.75,
-        "2023": 14.25,
-        "2024": 13.75,
+        "2022": 14.5,
+        "2023": 15.0,
+        "2024": 14.0,
         "2025": 13.5
       },
       "tier": "B+",
-      "volatility": 0.27,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.58,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 15.0,
@@ -2324,14 +2384,14 @@
       "name": "Thủ Thiêm",
       "district": "TP Thủ Đức",
       "scores": {
-        "2022": 12.75,
-        "2023": 13.5,
-        "2024": 13.0,
+        "2022": 13.75,
+        "2023": 14.5,
+        "2024": 14.5,
         "2025": 12.5
       },
       "tier": "B-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.76,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 14.5,
@@ -2362,12 +2422,12 @@
       "scores": {
         "2022": 12.5,
         "2023": 13.25,
-        "2024": 12.75,
+        "2024": 14.0,
         "2025": 12.25
       },
       "tier": "B-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.66,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 13.25,
@@ -2396,14 +2456,14 @@
       "name": "Linh Trung",
       "district": "TP Thủ Đức",
       "scores": {
-        "2022": 12.75,
-        "2023": 13.5,
-        "2024": 13.0,
+        "2022": 14.5,
+        "2023": 15.5,
+        "2024": 15.0,
         "2025": 12.5
       },
       "tier": "B-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 1.2,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 15.5,
@@ -2434,12 +2494,12 @@
       "scores": {
         "2022": 12.0,
         "2023": 12.75,
-        "2024": 12.25,
+        "2024": 13.5,
         "2025": 11.75
       },
       "tier": "B-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.66,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 12.75,
@@ -2452,8 +2512,8 @@
           "nv3": 13.0
         },
         "2024": {
-          "nv1": 12.75,
-          "nv2": 13.0,
+          "nv1": 13.5,
+          "nv2": 13.75,
           "nv3": 14.25
         },
         "2025": {
@@ -2469,13 +2529,13 @@
       "district": "TP Thủ Đức",
       "scores": {
         "2022": 11.0,
-        "2023": 11.5,
-        "2024": 11.0,
+        "2023": 12.25,
+        "2024": 12.0,
         "2025": 10.5
       },
       "tier": "C",
-      "volatility": 0.35,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.76,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 12.25,
@@ -2488,9 +2548,9 @@
           "nv3": 12.25
         },
         "2024": {
-          "nv1": 12.25,
-          "nv2": 13.0,
-          "nv3": 13.75
+          "nv1": 12.0,
+          "nv2": 12.25,
+          "nv3": 12.5
         },
         "2025": {
           "nv1": 10.5,
@@ -2504,14 +2564,14 @@
       "name": "Nguyễn Văn Tăng",
       "district": "TP Thủ Đức",
       "scores": {
-        "2022": 11.0,
-        "2023": 11.5,
+        "2022": 10.75,
+        "2023": 11.75,
         "2024": 11.0,
         "2025": 10.5
       },
       "tier": "C",
-      "volatility": 0.35,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.48,
+      "stability_rating": "Ổn định",
       "priority_scores": {
         "2023": {
           "nv1": 11.75,
@@ -2524,9 +2584,9 @@
           "nv3": 11.5
         },
         "2024": {
-          "nv1": 11.75,
+          "nv1": 11.0,
           "nv2": 12.0,
-          "nv3": 12.25
+          "nv3": 13.0
         },
         "2025": {
           "nv1": 10.5,
@@ -2540,14 +2600,14 @@
       "name": "Nguyễn Hữu Cảnh",
       "district": "Bình Tân",
       "scores": {
-        "2022": 18.5,
-        "2023": 19.25,
-        "2024": 18.75,
+        "2022": 17.5,
+        "2023": 19.0,
+        "2024": 18.0,
         "2025": 18.25
       },
       "tier": "A-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.58,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 19.0,
@@ -2576,14 +2636,14 @@
       "name": "Bình Hưng Hòa",
       "district": "Bình Tân",
       "scores": {
-        "2022": 18.0,
-        "2023": 18.75,
+        "2022": 17.25,
+        "2023": 18.25,
         "2024": 18.25,
         "2025": 17.75
       },
       "tier": "A-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.48,
+      "stability_rating": "Ổn định",
       "priority_scores": {
         "2023": {
           "nv1": 18.25,
@@ -2645,11 +2705,11 @@
       "scores": {
         "2022": 14.5,
         "2023": 15.25,
-        "2024": 14.75,
+        "2024": 15.0,
         "2025": 14.25
       },
       "tier": "B+",
-      "volatility": 0.37,
+      "volatility": 0.39,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -2663,9 +2723,9 @@
           "nv3": 15.75
         },
         "2024": {
-          "nv1": 15.25,
-          "nv2": 15.75,
-          "nv3": 16.5
+          "nv1": 15.0,
+          "nv2": 15.25,
+          "nv3": 15.25
         }
       }
     },
@@ -2688,14 +2748,14 @@
       "name": "Vĩnh Lộc B",
       "district": "Bình Chánh",
       "scores": {
-        "2022": 14.0,
-        "2023": 14.75,
-        "2024": 14.25,
+        "2022": 13.5,
+        "2023": 14.25,
+        "2024": 15.75,
         "2025": 13.75
       },
       "tier": "B+",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.9,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 14.25,
@@ -2724,14 +2784,14 @@
       "name": "Lê Minh Xuân",
       "district": "Bình Chánh",
       "scores": {
-        "2022": 13.0,
-        "2023": 13.75,
-        "2024": 13.25,
+        "2022": 14.0,
+        "2023": 13.25,
+        "2024": 15.0,
         "2025": 12.75
       },
       "tier": "B-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.9,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 13.25,
@@ -2744,9 +2804,9 @@
           "nv3": 14.75
         },
         "2024": {
-          "nv1": 13.25,
-          "nv2": 14.0,
-          "nv3": 14.25
+          "nv1": 15.0,
+          "nv2": 15.25,
+          "nv3": 15.5
         }
       }
     },
@@ -2755,14 +2815,14 @@
       "name": "Năng khiếu TDTT BC",
       "district": "Bình Chánh",
       "scores": {
-        "2022": 12.25,
-        "2023": 13.0,
-        "2024": 12.5,
+        "2022": 11.0,
+        "2023": 11.5,
+        "2024": 14.0,
         "2025": 12.0
       },
       "tier": "B-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 1.2,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 11.5,
@@ -2787,13 +2847,13 @@
       "district": "Bình Chánh",
       "scores": {
         "2022": 11.0,
-        "2023": 11.75,
-        "2024": 11.25,
+        "2023": 12.0,
+        "2024": 13.5,
         "2025": 10.75
       },
       "tier": "C",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.99,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 12.0,
@@ -2817,14 +2877,14 @@
       "name": "Phong Phú",
       "district": "Bình Chánh",
       "scores": {
-        "2022": 10.75,
-        "2023": 11.5,
-        "2024": 11.0,
+        "2022": 10.5,
+        "2023": 11.0,
+        "2024": 12.5,
         "2025": 10.5
       },
       "tier": "C",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.76,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 11.0,
@@ -2837,9 +2897,9 @@
           "nv3": 11.0
         },
         "2024": {
-          "nv1": 11.0,
-          "nv2": 11.0,
-          "nv3": 11.0
+          "nv1": 12.5,
+          "nv2": 13.0,
+          "nv3": 13.25
         },
         "2025": {
           "nv1": 10.5,
@@ -2853,13 +2913,13 @@
       "name": "Đa Phước",
       "district": "Bình Chánh",
       "scores": {
-        "2022": 10.75,
-        "2023": 11.5,
-        "2024": 11.0,
+        "2022": 10.5,
+        "2023": 10.5,
+        "2024": 11.5,
         "2025": 10.5
       },
       "tier": "C",
-      "volatility": 0.37,
+      "volatility": 0.43,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -2873,9 +2933,9 @@
           "nv3": 11.0
         },
         "2024": {
-          "nv1": 10.5,
-          "nv2": 10.5,
-          "nv3": 10.5
+          "nv1": 11.5,
+          "nv2": 11.75,
+          "nv3": 12.25
         }
       }
     },
@@ -2884,14 +2944,14 @@
       "name": "Tân Túc",
       "district": "Bình Chánh",
       "scores": {
-        "2022": 10.75,
-        "2023": 11.5,
-        "2024": 11.0,
+        "2022": 12.0,
+        "2023": 12.75,
+        "2024": 14.0,
         "2025": 10.5
       },
       "tier": "C",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 1.37,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 12.75,
@@ -2922,7 +2982,7 @@
       "scores": {
         "2022": 22.0,
         "2023": 23.0,
-        "2024": 22.75,
+        "2024": 22.5,
         "2025": 23.0
       },
       "tier": "S",
@@ -2956,13 +3016,13 @@
       "name": "Lý Thường Kiệt",
       "district": "Hóc Môn",
       "scores": {
-        "2022": 20.5,
-        "2023": 21.0,
-        "2024": 20.5,
+        "2022": 19.75,
+        "2023": 19.75,
+        "2024": 19.75,
         "2025": 20.25
       },
       "tier": "A",
-      "volatility": 0.27,
+      "volatility": 0.22,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2024": {
@@ -2987,13 +3047,13 @@
       "name": "Bà Điểm",
       "district": "Hóc Môn",
       "scores": {
-        "2022": 19.25,
-        "2023": 19.75,
-        "2024": 19.25,
+        "2022": 17.75,
+        "2023": 18.75,
+        "2024": 18.5,
         "2025": 19.0
       },
       "tier": "A",
-      "volatility": 0.27,
+      "volatility": 0.52,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -3007,8 +3067,8 @@
           "nv3": 18.5
         },
         "2024": {
-          "nv1": 18.75,
-          "nv2": 19.25,
+          "nv1": 18.5,
+          "nv2": 18.75,
           "nv3": 19.5
         },
         "2025": {
@@ -3023,13 +3083,13 @@
       "name": "Nguyễn Hữu Tiến",
       "district": "Hóc Môn",
       "scores": {
-        "2022": 17.75,
-        "2023": 18.25,
-        "2024": 17.75,
+        "2022": 17.0,
+        "2023": 18.0,
+        "2024": 18.0,
         "2025": 17.5
       },
       "tier": "A-",
-      "volatility": 0.27,
+      "volatility": 0.43,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -3059,14 +3119,14 @@
       "name": "Hồ Thị Bi",
       "district": "Hóc Môn",
       "scores": {
-        "2022": 17.25,
-        "2023": 17.75,
-        "2024": 17.25,
+        "2022": 15.0,
+        "2023": 16.5,
+        "2024": 17.5,
         "2025": 17.0
       },
       "tier": "A-",
-      "volatility": 0.27,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.99,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 16.5,
@@ -3095,14 +3155,14 @@
       "name": "Phạm Văn Sáng",
       "district": "Hóc Môn",
       "scores": {
-        "2022": 16.5,
-        "2023": 17.0,
-        "2024": 16.5,
+        "2022": 15.5,
+        "2023": 16.25,
+        "2024": 16.75,
         "2025": 16.25
       },
       "tier": "A-",
-      "volatility": 0.27,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.48,
+      "stability_rating": "Ổn định",
       "priority_scores": {
         "2023": {
           "nv1": 16.25,
@@ -3115,9 +3175,9 @@
           "nv3": 16.75
         },
         "2024": {
-          "nv1": 16.25,
-          "nv2": 17.5,
-          "nv3": 17.75
+          "nv1": 16.75,
+          "nv2": 17.25,
+          "nv3": 17.5
         },
         "2025": {
           "nv1": 16.25,
@@ -3131,14 +3191,14 @@
       "name": "Nguyễn Văn Cừ",
       "district": "Hóc Môn",
       "scores": {
-        "2022": 15.0,
-        "2023": 15.75,
-        "2024": 15.25,
+        "2022": 14.5,
+        "2023": 15.0,
+        "2024": 16.5,
         "2025": 14.75
       },
       "tier": "B+",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.76,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 15.0,
@@ -3167,14 +3227,14 @@
       "name": "Trung Phú",
       "district": "Củ Chi",
       "scores": {
-        "2022": 14.5,
-        "2023": 15.25,
+        "2022": 12.75,
+        "2023": 14.75,
         "2024": 14.75,
         "2025": 14.25
       },
       "tier": "B+",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.76,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 14.75,
@@ -3198,14 +3258,14 @@
       "name": "Tân Thông Hội",
       "district": "Củ Chi",
       "scores": {
-        "2022": 14.25,
-        "2023": 15.0,
-        "2024": 14.5,
+        "2022": 13.0,
+        "2023": 14.0,
+        "2024": 14.75,
         "2025": 14.0
       },
       "tier": "B+",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.66,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 14.0,
@@ -3218,9 +3278,9 @@
           "nv3": 14.0
         },
         "2024": {
-          "nv1": 14.0,
-          "nv2": 14.75,
-          "nv3": 15.0
+          "nv1": 14.75,
+          "nv2": 15.75,
+          "nv3": 16.75
         },
         "2025": {
           "nv1": 14.0,
@@ -3234,14 +3294,14 @@
       "name": "Củ Chi",
       "district": "Củ Chi",
       "scores": {
-        "2022": 12.5,
-        "2023": 13.25,
-        "2024": 12.75,
+        "2022": 15.0,
+        "2023": 14.75,
+        "2024": 16.25,
         "2025": 12.25
       },
       "tier": "B-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 1.37,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 14.75,
@@ -3254,9 +3314,9 @@
           "nv3": 15.75
         },
         "2024": {
-          "nv1": 14.75,
-          "nv2": 15.25,
-          "nv3": 15.75
+          "nv1": 16.25,
+          "nv2": 16.5,
+          "nv3": 16.75
         },
         "2025": {
           "nv1": 12.25,
@@ -3271,13 +3331,13 @@
       "district": "Củ Chi",
       "scores": {
         "2022": 12.0,
-        "2023": 12.75,
-        "2024": 12.25,
+        "2023": 12.0,
+        "2024": 13.5,
         "2025": 11.75
       },
       "tier": "B-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.66,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 12.0,
@@ -3290,9 +3350,9 @@
           "nv3": 12.5
         },
         "2024": {
-          "nv1": 12.0,
-          "nv2": 13.5,
-          "nv3": 13.5
+          "nv1": 13.5,
+          "nv2": 14.25,
+          "nv3": 15.0
         }
       }
     },
@@ -3301,14 +3361,14 @@
       "name": "Quang Trung (Củ Chi)",
       "district": "Củ Chi",
       "scores": {
-        "2022": 11.75,
-        "2023": 12.5,
-        "2024": 12.0,
+        "2022": 12.0,
+        "2023": 11.25,
+        "2024": 13.0,
         "2025": 11.5
       },
       "tier": "B-",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.66,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 11.25,
@@ -3321,9 +3381,9 @@
           "nv3": 12.5
         },
         "2024": {
-          "nv1": 11.25,
-          "nv2": 11.5,
-          "nv3": 11.5
+          "nv1": 13.0,
+          "nv2": 13.5,
+          "nv3": 14.0
         },
         "2025": {
           "nv1": 11.5,
@@ -3337,13 +3397,13 @@
       "name": "An Nhơn Tây",
       "district": "Củ Chi",
       "scores": {
-        "2022": 10.75,
-        "2023": 11.5,
-        "2024": 11.0,
+        "2022": 10.5,
+        "2023": 10.5,
+        "2024": 11.5,
         "2025": 10.5
       },
       "tier": "C",
-      "volatility": 0.37,
+      "volatility": 0.43,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -3357,9 +3417,9 @@
           "nv3": 11.0
         },
         "2024": {
-          "nv1": 10.5,
-          "nv2": 10.75,
-          "nv3": 11.0
+          "nv1": 11.5,
+          "nv2": 12.0,
+          "nv3": 13.0
         },
         "2025": {
           "nv1": 10.5,
@@ -3373,14 +3433,14 @@
       "name": "Trung Lập",
       "district": "Củ Chi",
       "scores": {
-        "2022": 10.75,
-        "2023": 11.5,
-        "2024": 11.0,
+        "2022": 10.5,
+        "2023": 10.5,
+        "2024": 11.75,
         "2025": 10.5
       },
       "tier": "C",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.48,
+      "stability_rating": "Ổn định",
       "priority_scores": {
         "2023": {
           "nv1": 10.5,
@@ -3393,9 +3453,9 @@
           "nv3": 11.0
         },
         "2024": {
-          "nv1": 10.5,
-          "nv2": 10.5,
-          "nv3": 10.5
+          "nv1": 11.75,
+          "nv2": 12.25,
+          "nv3": 13.0
         }
       }
     },
@@ -3404,13 +3464,13 @@
       "name": "Long Thới",
       "district": "Nhà Bè",
       "scores": {
-        "2022": 12.25,
-        "2023": 13.0,
-        "2024": 12.5,
+        "2022": 12.75,
+        "2023": 12.75,
+        "2024": 12.25,
         "2025": 12.0
       },
       "tier": "B-",
-      "volatility": 0.37,
+      "volatility": 0.27,
       "stability_rating": "Rất ổn định",
       "priority_scores": {
         "2023": {
@@ -3424,9 +3484,9 @@
           "nv3": 13.25
         },
         "2024": {
-          "nv1": 12.75,
-          "nv2": 13.0,
-          "nv3": 13.25
+          "nv1": 12.25,
+          "nv2": 12.25,
+          "nv3": 12.25
         }
       }
     },
@@ -3435,14 +3495,14 @@
       "name": "Phước Kiển",
       "district": "Nhà Bè",
       "scores": {
-        "2022": 11.0,
-        "2023": 11.75,
-        "2024": 11.25,
+        "2022": 12.0,
+        "2023": 11.25,
+        "2024": 12.75,
         "2025": 10.75
       },
       "tier": "C",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 0.76,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 11.25,
@@ -3455,9 +3515,9 @@
           "nv3": 12.75
         },
         "2024": {
-          "nv1": 11.25,
-          "nv2": 11.5,
-          "nv3": 12.25
+          "nv1": 12.75,
+          "nv2": 13.0,
+          "nv3": 13.0
         }
       }
     },
@@ -3466,14 +3526,14 @@
       "name": "Dương Văn Dương",
       "district": "Nhà Bè",
       "scores": {
-        "2022": 10.75,
-        "2023": 11.5,
-        "2024": 11.0,
+        "2022": 13.0,
+        "2023": 13.0,
+        "2024": 13.0,
         "2025": 10.5
       },
       "tier": "C",
-      "volatility": 0.37,
-      "stability_rating": "Rất ổn định",
+      "volatility": 1.06,
+      "stability_rating": "Biến động",
       "priority_scores": {
         "2023": {
           "nv1": 13.0,
@@ -3487,8 +3547,8 @@
         },
         "2024": {
           "nv1": 13.0,
-          "nv2": 13.25,
-          "nv3": 13.5
+          "nv2": 13.5,
+          "nv3": 13.75
         }
       }
     },
@@ -3551,11 +3611,6 @@
           "nv1": 10.5,
           "nv2": 10.5,
           "nv3": 10.5
-        },
-        "2025": {
-          "nv1": null,
-          "nv2": null,
-          "nv3": null
         }
       }
     },
