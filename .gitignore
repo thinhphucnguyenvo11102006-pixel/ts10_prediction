@@ -5,3 +5,10 @@ __pycache__/
 debug.html
 node_modules/
 .DS_Store
+
+# PDF exam files are stored in GitHub Releases (tag: exam-bank-pdfs)
+# See: scripts/migrate_pdfs_to_release.py
+pdfs/*.pdf
+
+# Migration & scratch scripts
+scratch/

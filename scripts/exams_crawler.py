@@ -1,7 +1,7 @@
 """
-exams_crawler.py — Ngân hàng đề TPHCM · Full Automation Pipeline (v4)
+exams_crawler.py — Ngân hàng đề TPHCM · Full Automation Pipeline (v5 — GitHub Releases)
 
-    SEARCH → CRAWL → FILTER (TPHCM + lớp 10 + 3 môn) → RESOLVE PDF → DOWNLOAD → PUBLISH
+    SEARCH → CRAWL → FILTER (TPHCM + lớp 10 + 3 môn) → RESOLVE PDF → DOWNLOAD → UPLOAD RELEASE → PUBLISH
 
 Phạm vi dữ liệu:
     - Chỉ lấy đề TUYỂN SINH vào LỚP 10 (loại bỏ đề học kì / cuối kì / kiểm tra).
@@ -35,6 +35,7 @@ import json
 import os
 import re
 import sys
+import subprocess
 import time
 import unicodedata
 from dataclasses import dataclass, field
@@ -60,8 +61,11 @@ if hasattr(sys.stdout, "reconfigure"):
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT_DIR = os.path.normpath(os.path.join(SCRIPT_DIR, ".."))
 OUTPUT_JS = os.path.join(ROOT_DIR, "js", "exams_data.js")
-PDF_DIR = os.path.join(ROOT_DIR, "pdfs")
-PDF_WEB_PREFIX = "pdfs"  # relative path used by web front-end (iframe src)
+PDF_DIR = os.path.join(ROOT_DIR, "pdfs")  # local cache only — NOT committed to git
+
+# GitHub Releases storage
+RELEASE_TAG = "exam-bank-pdfs"
+_REPO_SLUG: str = ""  # populated at runtime: "owner/repo"
 
 HEADERS = {
     "User-Agent": (
@@ -305,7 +309,8 @@ class Candidate:
     source: str = ""
     # Enriched after resolve/download
     pdf_url: Optional[str] = None         # absolute remote URL
-    pdf_local: Optional[str] = None       # relative path for web (pdfs/xxx.pdf)
+    pdf_local: Optional[str] = None       # local cache path (pdfs/xxx.pdf)
+    release_url: Optional[str] = None     # GitHub Release download URL
     subject: str = "math"
     district: str = "TPHCM"
 
@@ -600,9 +605,82 @@ def resolve_pdf_url(detail_url: str) -> Optional[str]:
 
 
 # ---------------------------------------------------------------------------
-# STAGE 5 — DOWNLOAD
+# STAGE 5 — DOWNLOAD + UPLOAD TO GITHUB RELEASE
 # ---------------------------------------------------------------------------
+def _run_gh(*args: str, check: bool = True) -> subprocess.CompletedProcess:
+    """Run a gh CLI command."""
+    cmd = ["gh"] + list(args)
+    result = subprocess.run(
+        cmd, capture_output=True, text=True, encoding="utf-8", cwd=ROOT_DIR,
+    )
+    if check and result.returncode != 0:
+        log(f"gh failed: {result.stderr.strip()}", "WARN")
+    return result
+
+
+def _detect_repo_slug() -> str:
+    """Detect 'owner/repo' from gh CLI or git remote."""
+    global _REPO_SLUG
+    if _REPO_SLUG:
+        return _REPO_SLUG
+    r = _run_gh("repo", "view", "--json", "owner,name", check=False)
+    if r.returncode == 0:
+        data = json.loads(r.stdout)
+        _REPO_SLUG = f"{data['owner']['login']}/{data['name']}"
+        return _REPO_SLUG
+    # Fallback: parse git remote
+    r2 = subprocess.run(
+        ["git", "remote", "get-url", "origin"],
+        capture_output=True, text=True, cwd=ROOT_DIR,
+    )
+    m = re.search(r"github\.com[/:]([^/]+/[^/.]+)", r2.stdout.strip())
+    _REPO_SLUG = m.group(1) if m else ""
+    return _REPO_SLUG
+
+
+def _ensure_release_exists() -> None:
+    """Create the GitHub Release if it doesn't exist yet."""
+    r = _run_gh("release", "view", RELEASE_TAG, check=False)
+    if r.returncode == 0:
+        return  # already exists
+    log(f"Tạo release '{RELEASE_TAG}'...", "INFO")
+    _run_gh(
+        "release", "create", RELEASE_TAG,
+        "--title", "📚 Ngân hàng đề thi PDF - Exam Bank Assets",
+        "--notes", "Lưu trữ PDF cho Ngân hàng đề thi TS10 TPHCM. Quản lý tự động bởi crawler.",
+        "--latest=false",
+    )
+
+
+def _get_release_asset_names() -> set[str]:
+    """Return set of filenames already in the release."""
+    r = _run_gh("release", "view", RELEASE_TAG, "--json", "assets", check=False)
+    if r.returncode != 0:
+        return set()
+    data = json.loads(r.stdout)
+    return {a["name"] for a in data.get("assets", [])}
+
+
+def _release_download_url(filename: str) -> str:
+    """Build the GitHub Release download URL for a file."""
+    slug = _detect_repo_slug()
+    return f"https://github.com/{slug}/releases/download/{RELEASE_TAG}/{filename}"
+
+
+def upload_to_release(local_path: str) -> Optional[str]:
+    """Upload a local PDF to the GitHub Release. Returns the download URL or None."""
+    filename = os.path.basename(local_path)
+    r = _run_gh(
+        "release", "upload", RELEASE_TAG, local_path, "--clobber",
+        check=False,
+    )
+    if r.returncode == 0:
+        return _release_download_url(filename)
+    return None
+
+
 def download_pdf(pdf_url: str, dest_path: str) -> bool:
+    """Download a PDF to local cache. Returns True on success."""
     if os.path.exists(dest_path) and os.path.getsize(dest_path) > 1024:
         return True  # cached
 
@@ -704,7 +782,8 @@ def build_exam_entry(cand: Candidate, existing: dict[str, dict]) -> dict:
     else:
         exam_type = prev.get("type") or "Đề Tham Khảo"
 
-    pdf_ref = cand.pdf_local or prev.get("pdfUrl") or cand.pdf_url or cand.detail_url
+    # pdfUrl: prefer release URL > previous URL > source URL
+    pdf_ref = cand.release_url or cand.pdf_local or prev.get("pdfUrl") or cand.pdf_url or cand.detail_url
     resource_type = "pdf" if re.search(r"\.pdf(?:[?#]|$)", pdf_ref, re.I) else "article"
 
     stable_id = f"{subject}-{_id_from_url(cand.detail_url)}"
@@ -733,7 +812,8 @@ def publish(exams: list[dict]) -> None:
         "// CẢNH BÁO: File này được sinh tự động bởi Bot Crawler Pipeline.\n"
         "// KHÔNG chỉnh sửa thủ công tại đây.\n"
         f"// Cập nhật lần cuối: {stamp}\n"
-        f"// Tổng số đề TPHCM: {len(exams)}\n\n"
+        f"// Tổng số đề TPHCM: {len(exams)}\n"
+        f"// PDF Storage: GitHub Releases ({RELEASE_TAG})\n\n"
         f"const EXAMS_DATA = {body};\n"
     )
     with open(OUTPUT_JS, "w", encoding="utf-8") as f:
@@ -746,7 +826,8 @@ def publish(exams: list[dict]) -> None:
 # ---------------------------------------------------------------------------
 def run_pipeline() -> None:
     print("=" * 56)
-    print("   HỆ THỐNG CRAWLER NGÂN HÀNG ĐỀ TPHCM  v5.0")
+    print("   HỆ THỐNG CRAWLER NGÂN HÀNG ĐỀ TPHCM  v6.0")
+    print("   PDF Storage: GitHub Releases")
     print("=" * 56)
 
     max_per_source = int(os.environ.get("EXAMS_CRAWLER_MAX", "30"))
@@ -826,9 +907,19 @@ def run_pipeline() -> None:
 
     hcm = hcm[:total_max]
 
-    # ------ STAGE 4+5 — RESOLVE & DOWNLOAD
-    log(f"STAGE 4+5 · RESOLVE + DOWNLOAD PDF ({len(hcm)} đề)", "STEP")
+    # ------ STAGE 4+5 — RESOLVE + DOWNLOAD + UPLOAD TO RELEASE
+    log(f"STAGE 4+5 · RESOLVE + DOWNLOAD + UPLOAD ({len(hcm)} đề)", "STEP")
     os.makedirs(PDF_DIR, exist_ok=True)
+
+    # Prepare GitHub Release
+    slug = _detect_repo_slug()
+    release_ready = bool(slug) and not skip_pdf
+    release_assets: set[str] = set()
+    if release_ready:
+        _ensure_release_exists()
+        release_assets = _get_release_asset_names()
+        log(f"  Release '{RELEASE_TAG}' có {len(release_assets)} assets sẵn", "INFO")
+
     published: list[dict] = []
     for i, c in enumerate(hcm, 1):
         prefix = f"[{i}/{len(hcm)}]"
@@ -838,15 +929,18 @@ def run_pipeline() -> None:
             published.append(build_exam_entry(c, existing))
             continue
 
-        # Cache hit? If local PDF already exists for this detail URL
+        # Cache hit? If release URL already exists for this detail URL
         prev = existing.get(c.detail_url)
-        if prev and prev.get("pdfUrl", "").startswith(f"{PDF_WEB_PREFIX}/"):
-            local_abs = os.path.join(ROOT_DIR, prev["pdfUrl"])
-            if os.path.exists(local_abs) and os.path.getsize(local_abs) > 1024:
-                c.pdf_local = prev["pdfUrl"]
-                log(f"{prefix} Cache hit · {os.path.basename(local_abs)}", "OK")
-                published.append(build_exam_entry(c, existing))
-                continue
+        if prev:
+            prev_url = prev.get("pdfUrl", "")
+            # Already a release URL — verify asset still exists
+            if "releases/download/" in prev_url:
+                asset_name = prev_url.rsplit("/", 1)[-1]
+                if asset_name in release_assets:
+                    c.release_url = prev_url
+                    log(f"{prefix} Release cache · {asset_name}", "OK")
+                    published.append(build_exam_entry(c, existing))
+                    continue
 
         pdf_url = c.pdf_url or resolve_pdf_url(c.detail_url)
         if not pdf_url:
@@ -855,12 +949,32 @@ def run_pipeline() -> None:
             continue
         c.pdf_url = pdf_url
 
-        slug = _slugify(c.title)
-        local_name = f"{slug}.pdf"
+        pdf_slug = _slugify(c.title)
+        local_name = f"{pdf_slug}.pdf"
         local_abs = os.path.join(PDF_DIR, local_name)
+
+        # Check if already in release (even if not in prev data)
+        if local_name in release_assets:
+            c.release_url = _release_download_url(local_name)
+            log(f"{prefix} Đã có trên Release · {local_name}", "OK")
+            published.append(build_exam_entry(c, existing))
+            continue
+
+        # Download to local cache
         if download_pdf(pdf_url, local_abs):
-            c.pdf_local = f"{PDF_WEB_PREFIX}/{local_name}"
-            log(f"{prefix} OK · {local_name} ({os.path.getsize(local_abs) // 1024} KB)", "OK")
+            size_kb = os.path.getsize(local_abs) // 1024
+            # Upload to GitHub Release
+            if release_ready:
+                release_url = upload_to_release(local_abs)
+                if release_url:
+                    c.release_url = release_url
+                    log(f"{prefix} OK → Release · {local_name} ({size_kb} KB)", "OK")
+                else:
+                    c.pdf_local = pdf_url  # fallback to source URL
+                    log(f"{prefix} Upload failed · fallback sang source URL", "WARN")
+            else:
+                c.pdf_local = pdf_url
+                log(f"{prefix} OK (local) · {local_name} ({size_kb} KB)", "OK")
             published.append(build_exam_entry(c, existing))
         else:
             log(f"{prefix} Download thất bại · fallback sang link nguồn.", "WARN")
