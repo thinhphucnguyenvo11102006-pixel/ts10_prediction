@@ -488,7 +488,12 @@
                             <h3 id="viewerTitle">Đang Tải Đề...</h3>
                             <p id="viewerSubtitle" style="font-size:0.8rem;color:var(--text-secondary)"></p>
                         </div>
-                        <button class="btn-close-viewer" onclick="App.closeExamViewer()">✕ Đóng</button>
+                        <div class="exam-viewer-actions">
+                            <a id="viewerDownloadBtn" class="btn-download-pdf" href="#" target="_blank" rel="noopener noreferrer" style="background:linear-gradient(135deg,#6366f1,#4f46e5);color:#fff;display:none">
+                                ⬇️ Tải về máy
+                            </a>
+                            <button class="btn-close-viewer" onclick="App.closeExamViewer()">✕ Đóng</button>
+                        </div>
                     </div>
                     <div class="exam-viewer-body">
                         <div class="exam-viewer-pdf">

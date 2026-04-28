@@ -106,6 +106,25 @@ Object.assign(App, {
         container.innerHTML = html;
     },
 
+    /**
+     * Build an embeddable URL for the PDF viewer iframe.
+     * - GitHub Release URLs need Google Docs Viewer as proxy (CORS / Content-Disposition issues)
+     * - Local files (pdfs/...) and direct PDF links work natively
+     * - Article links (non-PDF) open directly
+     */
+    _buildViewerUrl(pdfUrl) {
+        // GitHub Release download URL → Google Docs Viewer proxy
+        if (pdfUrl.includes('github.com') && pdfUrl.includes('/releases/download/')) {
+            return `https://docs.google.com/gview?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
+        }
+        // Direct PDF link from other CDNs (e.g. ptnk.edu.vn, wasabi S3)
+        if (pdfUrl.match(/\.pdf(\?|#|$)/i) && pdfUrl.startsWith('http')) {
+            return `https://docs.google.com/gview?url=${encodeURIComponent(pdfUrl)}&embedded=true`;
+        }
+        // Local files or article pages → use directly
+        return pdfUrl + "#toolbar=0&navpanes=0&scrollbar=0";
+    },
+
     openExamViewer(id) {
         const exam = EXAMS_DATA.find(e => e.id === id);
         if (!exam) return;
@@ -114,13 +133,19 @@ Object.assign(App, {
         const iframe = document.getElementById('pdfIframe');
         const title = document.getElementById('viewerTitle');
         const subtitle = document.getElementById('viewerSubtitle');
+        const dlBtn = document.getElementById('viewerDownloadBtn');
 
         if (modal && iframe) {
-            // Prevent iframe from caching history if needed
-            iframe.src = exam.pdfUrl + "#toolbar=0&navpanes=0&scrollbar=0";
+            iframe.src = this._buildViewerUrl(exam.pdfUrl);
             title.textContent = exam.title;
             subtitle.textContent = `${exam.school} - ${exam.year}`;
             modal.classList.add('active');
+
+            // Setup direct download button
+            if (dlBtn) {
+                dlBtn.href = exam.pdfUrl;
+                dlBtn.style.display = exam.pdfUrl.match(/\.pdf(\?|#|$)/i) ? 'inline-flex' : 'none';
+            }
 
             // Lock body scroll
             document.body.style.overflow = 'hidden';
