@@ -33,7 +33,13 @@ const Backtest = {
         return Math.round(value * 4) / 4;
     },
 
-    getSchoolTier(score) {
+    getSchoolTier(school, score) {
+        if (school && school.tier) {
+            if (school.tier === "Nhóm 1") return "top";
+            if (school.tier === "Nhóm 2") return "high";
+            if (school.tier === "Nhóm 3") return "mid";
+            if (school.tier === "Nhóm 4") return "low";
+        }
         if (score == null) return "mid";
         if (score >= 22) return "top";
         if (score >= 18) return "high";
@@ -68,7 +74,7 @@ const Backtest = {
         const schoolAnchor = scores[anchorYear] ?? scores[previousYear] ?? scores[trainYears[0]];
         if (schoolAnchor == null) return null;
 
-        const tier = this.getSchoolTier(schoolAnchor);
+        const tier = this.getSchoolTier(school, schoolAnchor);
         const examStats = globalThis.EXAM_STATS ?? EXAM_STATS;
         const ratioAnchor = examStats[anchorYear].candidates / examStats[anchorYear].quota;
         const ratioTarget = examStats[targetYear].candidates / examStats[targetYear].quota;

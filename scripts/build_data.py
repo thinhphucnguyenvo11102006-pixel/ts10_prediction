@@ -8,7 +8,7 @@ import os
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(SCRIPT_DIR, "..")
-SCHOOLS_JSON = os.path.join(ROOT, "data", "schools.json")
+SCHOOLS_JSON = os.path.join(ROOT, "data", "schools_tiered.json")
 STATS_JSON = os.path.join(ROOT, "data", "exam_stats.json")
 OUTPUT_JS = os.path.join(ROOT, "js", "data.js")
 
@@ -107,14 +107,11 @@ const SCHOOLS_DATA = [
 
 // 8-Tier system — ngưỡng được dùng bởi build script để tự phân loại
 const TIER_INFO = {{
-    "S":  {{ label: "Xuất sắc",       color: "#f59e0b", min: 24 }},
-    "A+": {{ label: "Rất cao",        color: "#eab308", min: 22 }},
-    "A":  {{ label: "Cao",            color: "#3b82f6", min: 20 }},
-    "A-": {{ label: "Khá cao",        color: "#06b6d4", min: 18 }},
-    "B+": {{ label: "Khá",            color: "#8b5cf6", min: 16 }},
-    "B":  {{ label: "Trung bình khá", color: "#a78bfa", min: 14 }},
-    "B-": {{ label: "Trung bình",     color: "#6b7280", min: 12 }},
-    "C":  {{ label: "Thấp",           color: "#71717a", min: 10 }}
+    "Nhóm 1": {{ label: "Nhóm 1 (Cao nhất)",  color: "#f59e0b" }},
+    "Nhóm 2": {{ label: "Nhóm 2 (Khá cao)",   color: "#3b82f6" }},
+    "Nhóm 3": {{ label: "Nhóm 3 (Trung bình)", color: "#a78bfa" }},
+    "Nhóm 4": {{ label: "Nhóm 4 (Thấp)",      color: "#6b7280" }},
+    "Chưa đủ dữ liệu": {{ label: "Chưa đủ dữ liệu", color: "#d1d5db" }}
 }};
 
 // Phổ điểm mô phỏng

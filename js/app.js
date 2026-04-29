@@ -242,7 +242,8 @@ const App = {
         detail.classList.add('active');
         document.getElementById('detailSchoolName').textContent = school.name;
         document.getElementById('detailDistrict').textContent = school.district;
-        document.getElementById('detailTier').textContent = `Tier ${school.tier} - ${TIER_INFO[school.tier].label}`;
+        const tierLabel = TIER_INFO[school.tier] ? TIER_INFO[school.tier].label : 'Không xác định';
+        document.getElementById('detailTier').textContent = `Tier ${school.tier} - ${tierLabel}`;
 
         // Add stability to detail header if exists
         const tierEl = document.getElementById('detailTier');

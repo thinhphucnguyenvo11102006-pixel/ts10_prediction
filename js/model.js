@@ -102,7 +102,13 @@ const PredictionModel = {
      *
      * Returns: "top" | "high" | "mid" | "low"
      */
-    getSchoolTier(score) {
+    getSchoolTier(school, score) {
+        if (school && school.tier) {
+            if (school.tier === "Nhóm 1") return "top";
+            if (school.tier === "Nhóm 2") return "high";
+            if (school.tier === "Nhóm 3") return "mid";
+            if (school.tier === "Nhóm 4") return "low";
+        }
         if (score == null) return "mid"; // fallback
         if (score >= 22) return "top";   // Truong dau vao rat cao
         if (score >= 18) return "high";  // Truong kha - cao
@@ -391,7 +397,7 @@ const PredictionModel = {
         }
 
         // ── 3. TIER ──
-        const tier = this.getSchoolTier(schoolAnchor);
+        const tier = this.getSchoolTier(school, schoolAnchor);
 
         // ── 4. COMPETITION ──
         const competitionAdj = this.getCompetitionAdjustment(schoolAnchor, tier);
